@@ -101,6 +101,7 @@
         "email_signup_qzeCiA": {
           "type": "email-signup",
           "name": "t:names.email_signup",
+          "disabled": true,
           "settings": {
             "width": "fill",
             "custom_width": 20,
