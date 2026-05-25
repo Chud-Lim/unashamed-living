@@ -11,6 +11,46 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "ul_newsletter_REj8rz": {
+      "type": "ul-newsletter",
+      "blocks": {
+        "eyebrow_rJbTYc": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "Stay unashamed"
+          }
+        },
+        "heading_rizqL4": {
+          "type": "heading",
+          "settings": {
+            "text": "Join the movement"
+          }
+        },
+        "subheading_yDVJpr": {
+          "type": "subheading",
+          "settings": {
+            "text": "Scripture-rooted drops, giving updates, and early access. No noise — just the mission."
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow_rJbTYc",
+        "heading_rizqL4",
+        "subheading_yDVJpr"
+      ],
+      "settings": {
+        "color_mode": "white",
+        "image": "shopify://shop_images/freepik__img1-change-setting-to-a-dimly-lit-city-plaza-at-n__50641.png",
+        "image_alt": "",
+        "overlay_opacity": 40,
+        "button_label": "Subscribe",
+        "placeholder_text": "Enter your email",
+        "success_text": "Welcome to the movement. Check your inbox.",
+        "fineprint": "By subscribing you agree to receive emails. Unsubscribe anytime.",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
     "footer": {
       "type": "Footer",
       "blocks": {
@@ -213,6 +253,7 @@
     }
   },
   "order": [
+    "ul_newsletter_REj8rz",
     "footer",
     "utilities"
   ]
