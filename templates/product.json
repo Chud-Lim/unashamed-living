@@ -25,7 +25,7 @@
         "image_size_mobile": 28,
         "image_radius": 100,
         "image_border_thickness": 0,
-        "text": "<p><strong>Davie</strong> ✓, <strong>Mark</strong> ✓ and <strong>1,500+</strong> others wear their faith boldly</p>",
+        "text": "<p><strong>Davie</strong> ✓, <strong>Mark</strong> ✓ and <strong>1500+</strong> others love our products!</p>",
         "text_custom": false,
         "text_font": "josefin_sans_n4",
         "text_size": 13,
@@ -94,7 +94,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "details_position": "flex-start",
-            "gap": 20,
+            "gap": 40,
             "sticky_details_desktop": true,
             "inherit_color_scheme": true,
             "color_scheme": "",
@@ -435,13 +435,13 @@
         "eyebrow_1": {
           "type": "eyebrow",
           "settings": {
-            "text": "Styled together"
+            "text": "Perfect gift"
           }
         },
         "heading_1": {
           "type": "heading",
           "settings": {
-            "text": "Complete the look"
+            "text": "For the youth"
           }
         }
       },
@@ -450,7 +450,7 @@
         "heading_1"
       ],
       "settings": {
-        "collection": "frontpage",
+        "collection": "toddler",
         "product_limit": 10,
         "exclude_current": true,
         "image_ratio": "portrait",
