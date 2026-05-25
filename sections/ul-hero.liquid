@@ -257,6 +257,30 @@
     outline-offset: 3px;
   }
 
+  @media (max-width: 749px) {
+    .ul-hero { min-height: 78svh; }
+    .ul-hero__img { object-position: center 26%; }
+    /* Strong, smooth bottom-up gradient so all text sits in a readable dark zone (no flat seam) */
+    .ul-hero__scrim {
+      background:
+        linear-gradient(
+          to top,
+          rgb(var(--ul-espresso-rgb) / 0.96) 0%,
+          rgb(var(--ul-espresso-rgb) / 0.9) 26%,
+          rgb(var(--ul-espresso-rgb) / 0.62) 50%,
+          rgb(var(--ul-espresso-rgb) / 0.2) 76%,
+          rgb(var(--ul-espresso-rgb) / 0) 100%
+        );
+    }
+    .ul-hero__inner { padding-block: 26px 38px; }
+    .ul-hero__content { gap: 12px; max-width: 100%; }
+    .ul-hero__eyebrow { font-size: 0.7rem; letter-spacing: 0.16em; }
+    .ul-hero__heading { font-size: clamp(2.4rem, 12vw, 3.4rem); line-height: 1.03; }
+    .ul-hero__sub { font-size: 1rem; line-height: 1.5; max-width: 38ch; opacity: 0.92; }
+    .ul-hero__actions { width: 100%; gap: 10px; margin-top: 8px; }
+    .ul-hero__actions .ul-btn { flex: 1 1 0; padding-inline: 14px; min-height: 50px; }
+  }
+
   @media (min-width: 750px) {
     .ul-hero { min-height: var(--ul-hero-min, 92svh); }
   }
