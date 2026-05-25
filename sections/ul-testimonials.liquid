@@ -3,15 +3,23 @@
   faith-brand appropriate. Separate eyebrow / heading blocks; repeatable quote
   blocks with optional avatar, star rating, author + detail.
   All CSS scoped under .ul-testimonials. Per-instance values via inline CSS vars.
+  Mobile carousel-vs-stack class is rendered server-side (no JS) to avoid a flash
+  of the 3-column grid before script runs.
 {%- endcomment -%}
 {% render 'ul-tokens' %}
 
 {%- liquid
   assign s = section.settings
+  assign color_mode = s.color_mode | default: 'white'
+  if s.mobile_carousel
+    assign mobile_class = 'ul-testimonials--mobile-carousel'
+  else
+    assign mobile_class = 'ul-testimonials--mobile-stack'
+  endif
 -%}
 
 <div
-  class="ul-testimonials ul-testimonials-{{ section.id }} ul-testimonials--{{ s.color_mode }} ul-testimonials--align-{{ s.header_alignment }}"
+  class="ul-testimonials ul-testimonials-{{ section.id }} ul-testimonials--{{ color_mode }} ul-testimonials--align-{{ s.header_alignment }} {{ mobile_class }}"
   style="
     --ul-tm-cols: {{ s.columns_desktop }};
     --ul-tm-pt: {{ s.padding_top }}px;
@@ -110,6 +118,12 @@
   .ul-testimonials {
     padding-block: var(--ul-tm-pt, 96px) var(--ul-tm-pb, 96px);
     background: var(--ul-bone);
+    color: var(--ul-espresso);
+  }
+
+  /* Plain white background option */
+  .ul-testimonials--white {
+    background: #ffffff;
     color: var(--ul-espresso);
   }
 
@@ -402,12 +416,13 @@
     {
       "type": "select",
       "id": "color_mode",
-      "label": "Color mode",
+      "label": "Section background",
       "options": [
+        { "value": "white", "label": "White" },
         { "value": "bone", "label": "Bone (light)" },
-        { "value": "dark", "label": "Dark" }
+        { "value": "dark", "label": "Dark (espresso)" }
       ],
-      "default": "bone"
+      "default": "white"
     },
     {
       "type": "checkbox",
@@ -444,7 +459,6 @@
     {
       "type": "eyebrow",
       "name": "Eyebrow",
-      "limit": 1,
       "settings": [
         {
           "type": "text",
@@ -456,7 +470,6 @@
     {
       "type": "heading",
       "name": "Heading",
-      "limit": 1,
       "settings": [
         {
           "type": "text",
@@ -511,7 +524,7 @@
     {
       "name": "UL Testimonials",
       "settings": {
-        "color_mode": "bone",
+        "color_mode": "white",
         "columns_desktop": 3,
         "header_alignment": "center",
         "show_ratings": true,
