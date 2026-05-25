@@ -443,7 +443,7 @@
       "settings": {
         "text_position": "left",
         "card_ratio": "square",
-        "color_mode": "white",
+        "color_mode": "bone",
         "padding_top": 104,
         "padding_bottom": 104
       }
