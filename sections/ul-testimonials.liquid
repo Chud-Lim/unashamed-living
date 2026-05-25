@@ -356,6 +356,9 @@
       padding-block: max(40px, calc(var(--ul-tm-pt, 96px) * 0.55)) max(40px, calc(var(--ul-tm-pb, 96px) * 0.55));
     }
   }
+
+  /* Plain white background option */
+  .ul-testimonials--white { background: #ffffff; color: var(--ul-espresso); }
 {% endstylesheet %}
 
 <script>
@@ -401,8 +404,14 @@
       "id": "header_alignment",
       "label": "Header alignment",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" }
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
       ],
       "default": "center"
     },
@@ -415,10 +424,20 @@
       "id": "color_mode",
       "label": "Color mode",
       "options": [
-        { "value": "bone", "label": "Bone (light)" },
-        { "value": "dark", "label": "Dark" }
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "bone",
+          "label": "Bone (light)"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
       ],
-      "default": "bone"
+      "default": "white"
     },
     {
       "type": "checkbox",
@@ -522,7 +541,7 @@
     {
       "name": "UL Testimonials",
       "settings": {
-        "color_mode": "bone",
+        "color_mode": "white",
         "columns_desktop": 3,
         "header_alignment": "center",
         "show_ratings": true,

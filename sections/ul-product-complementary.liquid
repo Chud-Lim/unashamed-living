@@ -365,6 +365,9 @@
       padding-block: max(40px, calc(var(--ul-pc-pt, 80px) * 0.55)) max(40px, calc(var(--ul-pc-pb, 80px) * 0.55));
     }
   }
+
+  /* Plain white background option */
+  .ul-product-complementary--white { background: #ffffff; color: var(--ul-espresso); }
 {% endstylesheet %}
 
 {% schema %}
@@ -407,8 +410,14 @@
       "id": "image_ratio",
       "label": "Image ratio",
       "options": [
-        { "value": "portrait", "label": "Portrait (3:4)" },
-        { "value": "square", "label": "Square (1:1)" }
+        {
+          "value": "portrait",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        }
       ],
       "default": "portrait"
     },
@@ -421,18 +430,34 @@
       "id": "color_mode",
       "label": "Color mode",
       "options": [
-        { "value": "bone", "label": "Bone (light)" },
-        { "value": "dark", "label": "Dark (espresso)" }
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "bone",
+          "label": "Bone (light)"
+        },
+        {
+          "value": "dark",
+          "label": "Dark (espresso)"
+        }
       ],
-      "default": "bone"
+      "default": "white"
     },
     {
       "type": "select",
       "id": "header_alignment",
       "label": "Header alignment",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" }
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
       ],
       "default": "left"
     },
@@ -492,14 +517,24 @@
         "product_limit": 10,
         "image_ratio": "portrait",
         "exclude_current": true,
-        "color_mode": "bone",
+        "color_mode": "white",
         "header_alignment": "left",
         "padding_top": 80,
         "padding_bottom": 80
       },
       "blocks": [
-        { "type": "eyebrow", "settings": { "text": "Styled together" } },
-        { "type": "heading", "settings": { "text": "Complete the look" } }
+        {
+          "type": "eyebrow",
+          "settings": {
+            "text": "Styled together"
+          }
+        },
+        {
+          "type": "heading",
+          "settings": {
+            "text": "Complete the look"
+          }
+        }
       ]
     }
   ]

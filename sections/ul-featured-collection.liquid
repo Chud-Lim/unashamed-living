@@ -486,6 +486,9 @@
       padding-block: max(40px, calc(var(--ul-fc-pad-top, 96px) * 0.55)) max(40px, calc(var(--ul-fc-pad-bottom, 96px) * 0.55));
     }
   }
+
+  /* Plain white background option */
+  .ul-fc--white { background: #ffffff; color: var(--ul-espresso); }
 {% endstylesheet %}
 
 {% schema %}
@@ -495,52 +498,169 @@
   "class": "ul-featured-collection-section",
   "max_blocks": 3,
   "settings": [
-    { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to show all products." },
-    { "type": "range", "id": "product_limit", "label": "Products to show", "min": 4, "max": 12, "step": 1, "default": 8 },
-    { "type": "range", "id": "columns_desktop", "label": "Columns on desktop", "min": 3, "max": 5, "step": 1, "default": 4 },
     {
-      "type": "select", "id": "image_ratio", "label": "Image shape",
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Leave empty to show all products."
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Products to show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image shape",
       "options": [
-        { "value": "square", "label": "Square" },
-        { "value": "portrait", "label": "Portrait" }
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        }
       ],
       "default": "portrait"
     },
-    { "type": "checkbox", "id": "mobile_carousel", "label": "Swipeable carousel on mobile", "default": true },
-    { "type": "checkbox", "id": "show_vendor", "label": "Show product vendor", "default": false },
     {
-      "type": "select", "id": "color_mode", "label": "Color theme",
-      "options": [
-        { "value": "bone", "label": "Bone (light)" },
-        { "value": "dark", "label": "Dark" }
-      ],
-      "default": "bone"
+      "type": "checkbox",
+      "id": "mobile_carousel",
+      "label": "Swipeable carousel on mobile",
+      "default": true
     },
     {
-      "type": "select", "id": "header_alignment", "label": "Header alignment",
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show product vendor",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "color_mode",
+      "label": "Color theme",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" }
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "bone",
+          "label": "Bone (light)"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
       ],
       "default": "left"
     },
-    { "type": "header", "content": "Spacing" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 }
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    }
   ],
   "blocks": [
-    { "type": "eyebrow", "name": "Eyebrow", "settings": [ { "type": "text", "id": "text", "label": "Eyebrow" } ] },
-    { "type": "heading", "name": "Heading", "settings": [ { "type": "text", "id": "text", "label": "Heading" } ] },
     {
-      "type": "button", "name": "Button",
+      "type": "eyebrow",
+      "name": "Eyebrow",
       "settings": [
-        { "type": "text", "id": "label", "label": "Button label" },
-        { "type": "url", "id": "url", "label": "Button link" },
         {
-          "type": "select", "id": "style", "label": "Style",
+          "type": "text",
+          "id": "text",
+          "label": "Eyebrow"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
           "options": [
-            { "value": "primary", "label": "Primary (brass)" },
-            { "value": "secondary", "label": "Secondary (outline)" }
+            {
+              "value": "primary",
+              "label": "Primary (brass)"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary (outline)"
+            }
           ],
           "default": "secondary"
         }
@@ -551,9 +671,26 @@
     {
       "name": "UL Featured",
       "blocks": [
-        { "type": "eyebrow", "settings": { "text": "Wear it boldly" } },
-        { "type": "heading", "settings": { "text": "Best sellers" } },
-        { "type": "button", "settings": { "label": "Shop all", "url": "shopify://collections/all", "style": "secondary" } }
+        {
+          "type": "eyebrow",
+          "settings": {
+            "text": "Wear it boldly"
+          }
+        },
+        {
+          "type": "heading",
+          "settings": {
+            "text": "Best sellers"
+          }
+        },
+        {
+          "type": "button",
+          "settings": {
+            "label": "Shop all",
+            "url": "shopify://collections/all",
+            "style": "secondary"
+          }
+        }
       ],
       "settings": {
         "product_limit": 8,
@@ -561,7 +698,7 @@
         "image_ratio": "portrait",
         "mobile_carousel": true,
         "show_vendor": false,
-        "color_mode": "bone",
+        "color_mode": "white",
         "header_alignment": "left"
       }
     }

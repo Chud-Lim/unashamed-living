@@ -399,6 +399,9 @@
       padding-block: max(40px, calc(var(--ul-jf-pad-top, 104px) * 0.55)) max(40px, calc(var(--ul-jf-pad-bottom, 104px) * 0.55));
     }
   }
+
+  /* Plain white background option */
+  .ul-jewelry-feature--white { background: #ffffff; color: var(--ul-espresso); }
 {% endstylesheet %}
 
 {% schema %}
@@ -408,46 +411,166 @@
   "class": "ul-jewelry-feature-section",
   "max_blocks": 8,
   "settings": [
-    { "type": "header", "content": "Layout" },
     {
-      "type": "select", "id": "text_position", "label": "Copy column position",
-      "options": [ { "value": "left", "label": "Left" }, { "value": "right", "label": "Right" } ],
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Copy column position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
       "default": "left"
     },
     {
-      "type": "select", "id": "card_ratio", "label": "Product image shape",
-      "options": [ { "value": "square", "label": "Square" }, { "value": "portrait", "label": "Portrait" } ],
+      "type": "select",
+      "id": "card_ratio",
+      "label": "Product image shape",
+      "options": [
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        }
+      ],
       "default": "square"
     },
-    { "type": "header", "content": "Appearance" },
     {
-      "type": "select", "id": "color_mode", "label": "Color mode",
-      "options": [ { "value": "bone", "label": "Bone (light)" }, { "value": "dark", "label": "Dark" } ],
-      "default": "bone"
+      "type": "header",
+      "content": "Appearance"
     },
-    { "type": "header", "content": "Spacing" },
-    { "type": "range", "id": "padding_top", "label": "Top spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 }
+    {
+      "type": "select",
+      "id": "color_mode",
+      "label": "Color mode",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "bone",
+          "label": "Bone (light)"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 104
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 104
+    }
   ],
   "blocks": [
-    { "type": "eyebrow", "name": "Eyebrow", "settings": [ { "type": "text", "id": "text", "label": "Eyebrow" } ] },
-    { "type": "heading", "name": "Heading", "settings": [ { "type": "text", "id": "text", "label": "Heading" } ] },
-    { "type": "body", "name": "Body text", "settings": [ { "type": "textarea", "id": "text", "label": "Body text" } ] },
     {
-      "type": "button", "name": "Button",
+      "type": "eyebrow",
+      "name": "Eyebrow",
       "settings": [
-        { "type": "text", "id": "label", "label": "Button label" },
-        { "type": "url", "id": "link", "label": "Button link" },
         {
-          "type": "select", "id": "style", "label": "Style",
-          "options": [ { "value": "primary", "label": "Primary (brass)" }, { "value": "secondary", "label": "Secondary (outline)" } ]
+          "type": "text",
+          "id": "text",
+          "label": "Eyebrow"
         }
       ]
     },
     {
-      "type": "product", "name": "Featured piece",
+      "type": "heading",
+      "name": "Heading",
       "settings": [
-        { "type": "product", "id": "product", "label": "Jewelry piece", "info": "Empty pieces are skipped. Hover swaps to the product's second image when one exists." }
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "body",
+      "name": "Body text",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Body text"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary (brass)"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary (outline)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Featured piece",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Jewelry piece",
+          "info": "Empty pieces are skipped. Hover swaps to the product's second image when one exists."
+        }
       ]
     }
   ],
@@ -455,17 +578,45 @@
     {
       "name": "UL Jewelry",
       "blocks": [
-        { "type": "eyebrow", "settings": { "text": "Carry it close" } },
-        { "type": "heading", "settings": { "text": "Faith you can wear" } },
-        { "type": "body", "settings": { "text": "Quiet pieces with a loud purpose — crafted to start conversations and carry the cross with you everywhere." } },
-        { "type": "button", "settings": { "label": "Shop jewelry", "link": "shopify://collections/accessories", "style": "secondary" } },
-        { "type": "product" },
-        { "type": "product" },
-        { "type": "product" }
+        {
+          "type": "eyebrow",
+          "settings": {
+            "text": "Carry it close"
+          }
+        },
+        {
+          "type": "heading",
+          "settings": {
+            "text": "Faith you can wear"
+          }
+        },
+        {
+          "type": "body",
+          "settings": {
+            "text": "Quiet pieces with a loud purpose — crafted to start conversations and carry the cross with you everywhere."
+          }
+        },
+        {
+          "type": "button",
+          "settings": {
+            "label": "Shop jewelry",
+            "link": "shopify://collections/accessories",
+            "style": "secondary"
+          }
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
       ],
       "settings": {
         "text_position": "left",
-        "color_mode": "bone",
+        "color_mode": "white",
         "card_ratio": "square",
         "padding_top": 104,
         "padding_bottom": 104
