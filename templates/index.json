@@ -34,7 +34,7 @@
           "type": "button",
           "settings": {
             "label": "Shop All",
-            "link": "shopify://collections/all",
+            "link": "shopify://collections/all-products",
             "style": "primary",
             "open_in_new_tab": false
           }

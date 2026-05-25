@@ -37,7 +37,7 @@
         "icon_color": "#ff9429",
         "image_border_color": "#121212",
         "background_style": "solid",
-        "background_color": "#F3F3F3",
+        "background_color": "#f3f3f3",
         "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
         "border_color": "#121212",
         "margin_top": 0,
@@ -460,6 +460,23 @@
         "padding_bottom": 80
       }
     },
+    "ul_prayer": {
+      "type": "ul-prayer",
+      "settings": {
+        "image": "shopify://shop_images/freepik__candid-i-with-natural-textures-and-highly-realisti__83749.png",
+        "image_alt": "Believers kneeling in prayer before a cross",
+        "media_position": "left",
+        "eyebrow": "Allow us to pray over you. 🙏🏼",
+        "heading": "We all need prayer",
+        "body": "<p>Prayer is a <strong>vital act of faith</strong> where we seek God's intervention, and being prayed over is deeply important because it signifies the power of the communal body of Christ acting on our behalf (James 5:16). When others pray over us, they are invoking the promises of God, particularly for healing, strength, and guidance, as Jesus commanded his disciples to pray for one another (Matthew 18:19-20). The laying on of hands often accompanies this, symbolizing the transfer of the Holy Spirit's power and blessing, reinforcing that our battles are not fought alone but with the support of the church and the direct power of God.</p><p></p>",
+        "button_label": "Submit your prayer request",
+        "button_link": "shopify://pages/need-prayer",
+        "color_mode": "bone",
+        "min_height": 70,
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
     "ul_mission_pdp": {
       "type": "ul-mission-impact",
       "blocks": {
@@ -506,7 +523,7 @@
           "type": "button",
           "settings": {
             "label": "Join the mission",
-            "link": "shopify://collections/all",
+            "link": "shopify://collections/all-products",
             "style": "primary",
             "open_in_new_tab": false
           }
@@ -573,23 +590,6 @@
         "gradient_direction": "to top",
         "padding-block-start": 0,
         "padding-block-end": 0
-      }
-    },
-    "ul_prayer": {
-      "type": "ul-prayer",
-      "settings": {
-        "image": "shopify://shop_images/freepik__candid-i-with-natural-textures-and-highly-realisti__83749.png",
-        "image_alt": "Believers kneeling in prayer before a cross",
-        "media_position": "left",
-        "eyebrow": "Allow us to pray over you. 🙏🏼",
-        "heading": "We all need prayer",
-        "body": "<p>Prayer is a <strong>vital act of faith</strong> where we seek God's intervention, and being prayed over is deeply important because it signifies the power of the communal body of Christ acting on our behalf (James 5:16). When others pray over us, they are invoking the promises of God, particularly for healing, strength, and guidance, as Jesus commanded his disciples to pray for one another (Matthew 18:19-20). The laying on of hands often accompanies this, symbolizing the transfer of the Holy Spirit's power and blessing, reinforcing that our battles are not fought alone but with the support of the church and the direct power of God.</p><p></p>",
-        "button_label": "Submit your prayer request",
-        "button_link": "shopify://pages/need-prayer",
-        "color_mode": "bone",
-        "min_height": 70,
-        "padding_top": 56,
-        "padding_bottom": 56
       }
     }
   },
