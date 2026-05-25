@@ -17,11 +17,11 @@
   assign ul_font_display_bold = ul_font_display | font_modify: 'weight', 'bolder'
   assign ul_font_body_semibold = ul_font_body | font_modify: 'weight', 600
 -%}
-{%- if ul_font_display != blank -%}{{ ul_font_display | font_face: font_display: 'swap' }}{%- endif -%}
-{%- if ul_font_display_bold != blank -%}{{ ul_font_display_bold | font_face: font_display: 'swap' }}{%- endif -%}
-{%- if ul_font_body != blank -%}{{ ul_font_body | font_face: font_display: 'swap' }}{%- endif -%}
-{%- if ul_font_body_semibold != blank -%}{{ ul_font_body_semibold | font_face: font_display: 'swap' }}{%- endif -%}
 <style>
+  {%- if ul_font_display != blank -%}{{ ul_font_display | font_face: font_display: 'swap' }}{%- endif -%}
+  {%- if ul_font_display_bold != blank -%}{{ ul_font_display_bold | font_face: font_display: 'swap' }}{%- endif -%}
+  {%- if ul_font_body != blank -%}{{ ul_font_body | font_face: font_display: 'swap' }}{%- endif -%}
+  {%- if ul_font_body_semibold != blank -%}{{ ul_font_body_semibold | font_face: font_display: 'swap' }}{%- endif -%}
   :root {
     --ul-bone: {{ ul_bone }};
     --ul-bone-rgb: {{ ul_bone | color_extract: 'red' }}, {{ ul_bone | color_extract: 'green' }}, {{ ul_bone | color_extract: 'blue' }};
