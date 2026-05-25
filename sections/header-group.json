@@ -42,7 +42,7 @@
         "code_hover": true,
         "position_mode": "sticky",
         "static_on_mobile": true,
-        "show_close": false,
+        "show_close": true,
         "close_color": "#ffffff",
         "close_size": 14,
         "top_offset": 0,
