@@ -226,6 +226,7 @@
        which made cards different widths -> different heights. vw is always
        determinate, so every card is identical. */
     flex: 0 0 clamp(240px, 74vw, 320px);
+    min-width: 0; /* override flex min-width:auto so content can't push a card past its basis */
     scroll-snap-align: start;
   }
 
