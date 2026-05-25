@@ -45,9 +45,9 @@
               sizes: sizes,
               width: img_d.width,
               height: img_d.height,
-              alt: img_d.alt | default: section.settings.image_alt,
               class: 'ul-editorial-story__img ul-reveal',
-              loading: 'lazy'
+              loading: 'lazy',
+              alt: img_d.alt | default: section.settings.image_alt
           }}
         </picture>
       {%- else -%}

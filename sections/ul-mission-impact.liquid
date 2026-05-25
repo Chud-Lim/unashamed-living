@@ -51,9 +51,9 @@
                 sizes: media_sizes,
                 width: img_d.width,
                 height: img_d.height,
-                alt: img_d.alt | default: s.image_alt,
                 class: 'ul-mission-impact__img',
-                loading: 'lazy'
+                loading: 'lazy',
+                alt: img_d.alt | default: s.image_alt
             }}
           </picture>
         {%- else -%}

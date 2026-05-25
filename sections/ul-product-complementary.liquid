@@ -102,8 +102,8 @@
                       loading: 'lazy',
                       width: main_img.width,
                       height: main_img.height,
-                      alt: main_img.alt | default: product.title,
-                      class: 'ul-product-complementary__img ul-product-complementary__img--main'
+                      class: 'ul-product-complementary__img ul-product-complementary__img--main',
+                      alt: main_img.alt | default: product.title
                   }}
                   {%- if hover_img != blank -%}
                     {{
@@ -115,9 +115,9 @@
                         loading: 'lazy',
                         width: hover_img.width,
                         height: hover_img.height,
-                        alt: hover_img.alt | default: product.title,
                         class: 'ul-product-complementary__img ul-product-complementary__img--hover',
-                        aria-hidden: 'true'
+                        aria-hidden: 'true',
+                        alt: hover_img.alt | default: product.title
                     }}
                   {%- endif -%}
                 {%- else -%}

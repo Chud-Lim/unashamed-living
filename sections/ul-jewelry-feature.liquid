@@ -88,9 +88,9 @@
                         sizes: card_sizes,
                         width: primary.width,
                         height: primary.height,
-                        alt: primary.alt | default: product.title,
                         class: 'ul-jewelry-feature__img ul-jewelry-feature__img--primary',
-                        loading: 'lazy'
+                        loading: 'lazy',
+                        alt: primary.alt | default: product.title
                     }}
                   {%- else -%}
                     {{ 'product-1' | placeholder_svg_tag: 'ul-jewelry-feature__img ul-jewelry-feature__img--primary ul-jewelry-feature__img--placeholder' }}
@@ -390,6 +390,13 @@
         animation-range: entry 2% cover 20%;
       }
       .ul-jewelry-feature .ul-reveal--soft { transform: translateY(14px); }
+    }
+  }
+
+  /* ul-mobile-pad: scale section padding down on mobile for balanced spacing */
+  @media (max-width: 749px) {
+    .ul-jewelry-feature {
+      padding-block: max(40px, calc(var(--ul-jf-pad-top, 104px) * 0.55)) max(40px, calc(var(--ul-jf-pad-bottom, 104px) * 0.55));
     }
   }
 {% endstylesheet %}
