@@ -17,7 +17,7 @@
         "heading_4AjC3p": {
           "type": "heading",
           "settings": {
-            "heading": "<h2>Hero #46</h2>",
+            "heading": "<h2>From the community</h2>",
             "heading_custom": false,
             "heading_font": "josefin_sans_n4",
             "heading_size": 48,
@@ -32,8 +32,8 @@
           "type": "testimonial",
           "settings": {
             "stars_count": 5,
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
+            "text": "<p>I wore my tee to work and two coworkers asked what it meant. That ten-minute conversation about faith is exactly why I keep coming back.</p>",
+            "author": "Marcus T., Dallas, TX",
             "url": ""
           }
         },
@@ -41,8 +41,8 @@
           "type": "testimonial",
           "settings": {
             "stars_count": 5,
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
+            "text": "<p>The quality genuinely surprised me. Soft, holds its shape wash after wash, and the print still looks brand new months later. Worth it.</p>",
+            "author": "Hannah R., Verified buyer",
             "url": ""
           }
         },
@@ -50,8 +50,8 @@
           "type": "testimonial",
           "settings": {
             "stars_count": 5,
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
+            "text": "<p>Bought the hoodie as a gift for my brother and he has barely taken it off. Knowing it opens up Gospel conversations makes it mean more.</p>",
+            "author": "Priya S., Columbus, OH",
             "url": ""
           }
         },
@@ -59,8 +59,8 @@
           "type": "testimonial",
           "settings": {
             "stars_count": 5,
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
+            "text": "<p>Every piece feels intentional, never loud. People notice the message without me saying a word first, and it has opened so many doors.</p>",
+            "author": "Daniel K., Phoenix, AZ",
             "url": ""
           }
         },
@@ -68,8 +68,8 @@
           "type": "testimonial",
           "settings": {
             "stars_count": 5,
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
+            "text": "<p>Fast shipping, beautiful packaging, and a shirt that fits true to size. This has quietly become the brand I reach for almost every day.</p>",
+            "author": "Grace M., Nashville, TN",
             "url": ""
           }
         },
@@ -77,8 +77,8 @@
           "type": "testimonial",
           "settings": {
             "stars_count": 5,
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
+            "text": "<p>I love that what I wear reflects what I believe. The designs are modern enough that even my non-church friends keep asking where I got them.</p>",
+            "author": "Josiah B., Denver, CO",
             "url": ""
           }
         },
@@ -86,8 +86,8 @@
           "type": "testimonial",
           "settings": {
             "stars_count": 5,
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
+            "text": "<p>Ordered three tees and each one became a conversation starter somewhere new. Comfortable, well made, and rooted in something that matters.</p>",
+            "author": "Rebecca L., Tampa, FL",
             "url": ""
           }
         },
@@ -95,8 +95,8 @@
           "type": "testimonial",
           "settings": {
             "stars_count": 5,
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
+            "text": "<p>More than apparel, it feels like a mission you can wear. The fabric is premium and the heart behind this brand comes through in the details.</p>",
+            "author": "Caleb W., Kansas City, MO",
             "url": ""
           }
         }

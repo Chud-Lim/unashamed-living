@@ -15,6 +15,15 @@
   assign header_align = s.header_alignment | default: 'left'
   assign pad_top = s.padding_top | default: 96
   assign pad_bot = s.padding_bottom | default: 96
+  assign cw = s.content_width | default: 'page'
+  case cw
+    when 'full'
+      assign width_class = 'ul-category-tiles__grid--full'
+    when 'custom'
+      assign width_class = 'ul-category-tiles__grid--custom'
+    else
+      assign width_class = 'ul-category-tiles__grid--page'
+  endcase
   assign mobile_widths_arr = '440, 640, 840' | split: ', '
   assign tile_sizes = '(min-width: 750px) calc((100vw - 2 * var(--ul-pad-inline)) / ' | append: cols | append: '), 78vw'
 -%}
@@ -25,6 +34,7 @@
     --ul-ct-cols: {{ cols }};
     --ul-ct-pad-top: {{ pad_top }}px;
     --ul-ct-pad-bot: {{ pad_bot }}px;
+    --ul-ct-maxw: {{ s.content_max_width | default: 1200 }}px;
   "
 >
   {%- comment -%} Section header (eyebrow + heading blocks) {%- endcomment -%}
@@ -44,7 +54,7 @@
   {%- endif -%}
 
   {%- comment -%} Tile grid {%- endcomment -%}
-  <div class="ul-category-tiles__grid ul-container" role="list">
+  <div class="ul-category-tiles__grid {{ width_class }}" role="list">
     {%- for block in section.blocks -%}
       {%- if block.type != 'tile' -%}{%- continue -%}{%- endif -%}
       {%- liquid
@@ -173,6 +183,15 @@
     display: grid;
     grid-template-columns: repeat(var(--ul-ct-cols, 3), 1fr);
     gap: var(--ul-gap);
+    margin-inline: auto;
+    padding-inline: var(--ul-pad-inline);
+  }
+  /* Content width (desktop only): the section stays full-bleed; this sizes the tiles row.
+     Mobile keeps the base padding + scroll, so the mobile layout is unchanged. */
+  @media (min-width: 750px) {
+    .ul-category-tiles__grid--full { max-width: 100%; padding-inline: clamp(10px, 1.4vw, 24px); }
+    .ul-category-tiles__grid--page { max-width: var(--ul-maxw, 1320px); }
+    .ul-category-tiles__grid--custom { max-width: var(--ul-ct-maxw, 1200px); }
   }
 
   /* Tile */
@@ -387,6 +406,29 @@
       "label": "Mobile horizontal scroll",
       "info": "Tiles scroll horizontally at ~78vw on mobile. Uncheck to stack.",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width (desktop)",
+      "info": "Section is always full width; this sizes the tiles row. Full = edge to edge so cards get larger.",
+      "options": [
+        { "value": "full", "label": "Full width" },
+        { "value": "page", "label": "Page width" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "page"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Custom width",
+      "info": "Used only when Content width is set to Custom.",
+      "min": 600,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1200
     },
     {
       "type": "header",

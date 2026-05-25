@@ -112,6 +112,53 @@
   [data-essential-cart-element="essential-sticky-cart-container"] {
     display: none !important;
   }
+
+  /* --- Sticky ATC layout fix: my buy-box .price size (1.3rem) was bleeding into the
+     compact sticky bar and overlapping the variant. Reset it to a small, contained size
+     (fixes desktop + mobile). --- */
+  .sticky-add-to-cart__price,
+  .sticky-add-to-cart__price .price,
+  .sticky-add-to-cart__price .price-item {
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+  .sticky-add-to-cart__price {
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .sticky-add-to-cart__info { min-width: 0; }
+  @media screen and (max-width: 749px) {
+    .sticky-add-to-cart__price,
+    .sticky-add-to-cart__price .price,
+    .sticky-add-to-cart__price .price-item {
+      font-size: 0.82rem !important;
+    }
+  }
+
+  /* --- Editorial (media-with-content) section: brand it. Theme's blue scheme button -> brass,
+     headings to the brand serif. Scoped to the PDP because this stylesheet only loads here. --- */
+  .media-with-content h1,
+  .media-with-content h2,
+  .media-with-content h3 {
+    font-family: var(--ul-font-display);
+    letter-spacing: -0.01em;
+  }
+  .media-with-content .button {
+    background: var(--ul-brass) !important;
+    color: #fff !important;
+    border: 1.5px solid var(--ul-brass) !important;
+    border-radius: var(--ul-radius);
+    font-family: var(--ul-font-body);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: background-color 0.35s var(--ul-ease, ease), transform 0.35s var(--ul-ease, ease);
+  }
+  .media-with-content .button:hover {
+    background: color-mix(in srgb, var(--ul-brass) 84%, black) !important;
+    transform: translateY(-1px);
+  }
 </style>
 {% schema %}
 {
