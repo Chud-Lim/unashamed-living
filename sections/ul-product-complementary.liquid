@@ -221,7 +221,11 @@
 
   /* ── Product card ────────────────────────────────────────────────────── */
   .ul-product-complementary__item {
-    flex: 0 0 calc((100% - clamp(42px, 6vw, 72px)) / 1.4);
+    /* Viewport-based fixed width: a calc(100%/N) basis resolves inconsistently
+       inside an overflow-x:auto flex track (indeterminate container width),
+       which made cards different widths -> different heights. vw is always
+       determinate, so every card is identical. */
+    flex: 0 0 clamp(240px, 74vw, 320px);
     scroll-snap-align: start;
   }
 
@@ -241,6 +245,7 @@
   /* ── Card media ──────────────────────────────────────────────────────── */
   .ul-product-complementary__media {
     position: relative;
+    width: 100%;
     overflow: hidden;
     border-radius: var(--ul-radius);
     /* Always enforce portrait 3:4; the CSS custom property is an override path
@@ -350,13 +355,13 @@
   /* ── Desktop: ~4 visible cards ───────────────────────────────────────── */
   @media (min-width: 750px) {
     .ul-product-complementary__item {
-      flex: 0 0 calc((100% - clamp(42px, 6vw, 72px) * 3) / 4);
+      flex: 0 0 clamp(210px, 30vw, 280px);
     }
   }
 
   @media (min-width: 1100px) {
     .ul-product-complementary__item {
-      flex: 0 0 calc((100% - clamp(42px, 6vw, 72px) * 3) / 4.2);
+      flex: 0 0 clamp(230px, 22vw, 290px);
     }
   }
 
