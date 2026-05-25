@@ -447,6 +447,90 @@
         "padding_top": 104,
         "padding_bottom": 104
       }
+    },
+    "ul_recent_purchase_RrXbUp": {
+      "type": "ul-recent-purchase",
+      "blocks": {
+        "purchase_Xpebz6": {
+          "type": "purchase",
+          "settings": {
+            "name": "Hannah from Nashville, TN",
+            "item": "the Faith Over Fear Hoodie",
+            "time": "just now"
+          }
+        },
+        "purchase_JmYJXk": {
+          "type": "purchase",
+          "settings": {
+            "name": "Marcus from Dallas, TX",
+            "item": "the Proverbs 31 Kingdom Motherhood Tee",
+            "time": "4 minutes ago"
+          }
+        },
+        "purchase_XtrLCT": {
+          "type": "purchase",
+          "settings": {
+            "name": "Grace from Columbus, OH",
+            "item": "the God Is Good Faith Snapback",
+            "time": "9 minutes ago"
+          }
+        },
+        "purchase_pHmUej": {
+          "type": "purchase",
+          "settings": {
+            "name": "Daniel from Phoenix, AZ",
+            "item": "the Valor Victory Tee",
+            "time": "14 minutes ago"
+          }
+        },
+        "purchase_cPKKBT": {
+          "type": "purchase",
+          "settings": {
+            "name": "Rebecca from Tampa, FL",
+            "item": "2 tees",
+            "time": "19 minutes ago"
+          }
+        },
+        "purchase_zA4R4H": {
+          "type": "purchase",
+          "settings": {
+            "name": "Josiah from Denver, CO",
+            "item": "the Living Proof Tee",
+            "time": "just now"
+          }
+        },
+        "purchase_pVm7RM": {
+          "type": "purchase",
+          "settings": {
+            "name": "Caleb from Kansas City, MO",
+            "item": "a Romans 1:16 Gospel Tee",
+            "time": "23 minutes ago"
+          }
+        },
+        "purchase_KyXQAT": {
+          "type": "purchase",
+          "settings": {
+            "name": "Naomi from Austin, TX",
+            "item": "the John 3:16 Unisex Hoodie",
+            "time": "6 minutes ago"
+          }
+        }
+      },
+      "block_order": [
+        "purchase_Xpebz6",
+        "purchase_JmYJXk",
+        "purchase_XtrLCT",
+        "purchase_pHmUej",
+        "purchase_cPKKBT",
+        "purchase_zA4R4H",
+        "purchase_pVm7RM",
+        "purchase_KyXQAT"
+      ],
+      "settings": {
+        "start_delay_seconds": 4,
+        "interval_seconds": 13,
+        "visible_seconds": 5
+      }
     }
   },
   "order": [
@@ -456,6 +540,7 @@
     "featured",
     "mission",
     "story",
-    "jewelry"
+    "jewelry",
+    "ul_recent_purchase_RrXbUp"
   ]
 }
