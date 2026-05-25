@@ -160,6 +160,13 @@
   .ul-hero--text-light { color: var(--ul-bone); }
   .ul-hero--text-dark { color: var(--ul-espresso); }
 
+  /* Soft legibility halo so text stays readable over any photo */
+  .ul-hero--text-light .ul-hero__eyebrow,
+  .ul-hero--text-light .ul-hero__heading,
+  .ul-hero--text-light .ul-hero__sub {
+    text-shadow: 0 1px 32px rgb(var(--ul-espresso-rgb) / 0.45);
+  }
+
   .ul-hero__eyebrow {
     color: var(--ul-brass);
     display: inline-flex;
@@ -266,10 +273,10 @@
       background:
         linear-gradient(
           to top,
-          rgb(var(--ul-espresso-rgb) / 0.96) 0%,
-          rgb(var(--ul-espresso-rgb) / 0.9) 26%,
-          rgb(var(--ul-espresso-rgb) / 0.62) 50%,
-          rgb(var(--ul-espresso-rgb) / 0.2) 76%,
+          rgb(var(--ul-espresso-rgb) / 0.97) 0%,
+          rgb(var(--ul-espresso-rgb) / 0.92) 38%,
+          rgb(var(--ul-espresso-rgb) / 0.7) 56%,
+          rgb(var(--ul-espresso-rgb) / 0.26) 78%,
           rgb(var(--ul-espresso-rgb) / 0) 100%
         );
     }
