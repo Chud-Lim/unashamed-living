@@ -18,6 +18,9 @@
       "name": "SS - Social proof",
       "settings": {
         "coupon_position": "above_title",
+        "first_image": "shopify://shop_images/unisex-staple-t-shirt-white-front-2-69bf9006d13f1.jpg",
+        "second_image": "shopify://shop_images/distressed-dad-hat-black-left-side-69dfd1e628fc3.jpg",
+        "third_image": "shopify://shop_images/womens-relaxed-t-shirt-navy-front-69c1f95cbb679.jpg",
         "image_size": 30,
         "image_size_mobile": 25,
         "image_radius": 100,
