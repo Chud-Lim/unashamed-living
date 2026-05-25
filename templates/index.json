@@ -137,6 +137,8 @@
       "settings": {
         "columns_desktop": 4,
         "mobile_carousel": true,
+        "content_width": "full",
+        "content_max_width": 1200,
         "color_mode": "white",
         "header_alignment": "left",
         "padding_top": 96,
@@ -228,6 +230,7 @@
         },
         "button_1": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "label": "Shop all",
             "url": "shopify://collections/all",
