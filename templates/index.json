@@ -11,14 +11,6 @@
   "sections": {
     "hero": {
       "type": "ul-hero",
-      "settings": {
-        "content_alignment": "left",
-        "content_vertical": "bottom",
-        "text_color": "light",
-        "image": "shopify://shop_images/freepik__img1-img2-img3-img4-create-smiling-models-wearing-__83748.png",
-        "image_mobile": "shopify://shop_images/freepik__img1-group-of-models-wearing-this-sweater-together__64584.jpg",
-        "image_alt": "Friends wearing Unashamed Living apparel together"
-      },
       "blocks": {
         "eyebrow_1": {
           "type": "eyebrow",
@@ -41,9 +33,10 @@
         "button_1": {
           "type": "button",
           "settings": {
-            "label": "Shop the collection",
+            "label": "Shop All",
             "link": "shopify://collections/all",
-            "style": "primary"
+            "style": "primary",
+            "open_in_new_tab": false
           }
         },
         "button_2": {
@@ -51,7 +44,8 @@
           "settings": {
             "label": "Our mission",
             "link": "shopify://collections",
-            "style": "secondary"
+            "style": "secondary",
+            "open_in_new_tab": false
           }
         }
       },
@@ -61,18 +55,23 @@
         "subheading_1",
         "button_1",
         "button_2"
-      ]
+      ],
+      "settings": {
+        "image": "shopify://shop_images/freepik__img1-img2-img3-img4-create-smiling-models-wearing-__83748.png",
+        "image_alt": "Friends wearing Unashamed Living apparel together",
+        "image_mobile": "shopify://shop_images/freepik__img1-group-of-models-wearing-this-sweater-together__64584.jpg",
+        "content_alignment": "left",
+        "content_vertical": "bottom",
+        "content_max_width": 720,
+        "height_desktop": 92,
+        "height_mobile": 88,
+        "text_color": "light",
+        "overlay_opacity": 5,
+        "scrim_strength": 100
+      }
     },
     "tiles": {
       "type": "ul-category-tiles",
-      "settings": {
-        "columns_desktop": 3,
-        "mobile_carousel": true,
-        "color_mode": "bone",
-        "header_alignment": "left",
-        "padding_top": 96,
-        "padding_bottom": 96
-      },
       "blocks": {
         "eyebrow_1": {
           "type": "eyebrow",
@@ -90,7 +89,9 @@
           "type": "tile",
           "settings": {
             "label": "Apparel",
+            "sublabel": "",
             "link": "shopify://collections/women",
+            "image_alt": "",
             "collection": "women"
           }
         },
@@ -98,7 +99,9 @@
           "type": "tile",
           "settings": {
             "label": "Accessories",
+            "sublabel": "",
             "link": "shopify://collections/accessories",
+            "image_alt": "",
             "collection": "accessories"
           }
         },
@@ -106,7 +109,9 @@
           "type": "tile",
           "settings": {
             "label": "Home Decor",
+            "sublabel": "",
             "link": "shopify://collections/home-decor",
+            "image_alt": "",
             "collection": "home-decor"
           }
         }
@@ -117,20 +122,18 @@
         "tile_1",
         "tile_2",
         "tile_3"
-      ]
+      ],
+      "settings": {
+        "columns_desktop": 3,
+        "mobile_carousel": true,
+        "color_mode": "bone",
+        "header_alignment": "left",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     },
     "featured": {
       "type": "ul-featured-collection",
-      "settings": {
-        "product_limit": 8,
-        "columns_desktop": 4,
-        "image_ratio": "portrait",
-        "mobile_carousel": true,
-        "show_vendor": false,
-        "color_mode": "bone",
-        "header_alignment": "left",
-        "collection": "frontpage"
-      },
       "blocks": {
         "eyebrow_1": {
           "type": "eyebrow",
@@ -157,18 +160,22 @@
         "eyebrow_1",
         "heading_1",
         "button_1"
-      ]
+      ],
+      "settings": {
+        "collection": "frontpage",
+        "product_limit": 8,
+        "columns_desktop": 4,
+        "image_ratio": "portrait",
+        "mobile_carousel": true,
+        "show_vendor": false,
+        "color_mode": "bone",
+        "header_alignment": "left",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     },
     "mission": {
       "type": "ul-mission-impact",
-      "settings": {
-        "layout": "split",
-        "media_position": "left",
-        "color_mode": "dark",
-        "show_hairline": false,
-        "image": "shopify://shop_images/freepik__img1-have-these-people-praying-over-a-few-homeless__50642.png",
-        "image_alt": "Believers praying over people in need"
-      },
       "blocks": {
         "eyebrow_1": {
           "type": "eyebrow",
@@ -214,7 +221,8 @@
           "settings": {
             "label": "Join the mission",
             "link": "shopify://collections/all",
-            "style": "primary"
+            "style": "primary",
+            "open_in_new_tab": false
           }
         }
       },
@@ -226,18 +234,20 @@
         "stat_2",
         "stat_3",
         "button_1"
-      ]
+      ],
+      "settings": {
+        "layout": "split",
+        "media_position": "left",
+        "color_mode": "dark",
+        "show_hairline": false,
+        "image": "shopify://shop_images/freepik__img1-have-these-people-praying-over-a-few-homeless__50642.png",
+        "image_alt": "Believers praying over people in need",
+        "padding_top": 104,
+        "padding_bottom": 104
+      }
     },
     "story": {
       "type": "ul-editorial-story",
-      "settings": {
-        "media_position": "left",
-        "color_mode": "bone",
-        "image_ratio": "portrait",
-        "image": "shopify://shop_images/freepik__candid-i-with-natural-textures-and-highly-realisti__83749.png",
-        "image_mobile": "shopify://shop_images/freepik__img1-make-the-design-on-the-front-of-the-shirts-be__82995.png",
-        "image_alt": "Candid portrait in warm natural light"
-      },
       "blocks": {
         "eyebrow_1": {
           "type": "eyebrow",
@@ -262,7 +272,8 @@
           "settings": {
             "label": "Read our story",
             "link": "shopify://pages/need-prayer",
-            "style": "secondary"
+            "style": "secondary",
+            "open_in_new_tab": false
           }
         }
       },
@@ -271,17 +282,20 @@
         "heading_1",
         "body_1",
         "button_1"
-      ]
+      ],
+      "settings": {
+        "media_position": "left",
+        "color_mode": "bone",
+        "image": "shopify://shop_images/freepik__candid-i-with-natural-textures-and-highly-realisti__83749.png",
+        "image_mobile": "shopify://shop_images/freepik__img1-make-the-design-on-the-front-of-the-shirts-be__82995.png",
+        "image_alt": "Candid portrait in warm natural light",
+        "image_ratio": "portrait",
+        "padding_top": 104,
+        "padding_bottom": 104
+      }
     },
     "jewelry": {
       "type": "ul-jewelry-feature",
-      "settings": {
-        "text_position": "left",
-        "color_mode": "bone",
-        "card_ratio": "square",
-        "padding_top": 104,
-        "padding_bottom": 104
-      },
       "blocks": {
         "eyebrow_1": {
           "type": "eyebrow",
@@ -336,19 +350,17 @@
         "product_1",
         "product_2",
         "product_3"
-      ]
+      ],
+      "settings": {
+        "text_position": "left",
+        "card_ratio": "square",
+        "color_mode": "bone",
+        "padding_top": 104,
+        "padding_bottom": 104
+      }
     },
     "testimonials": {
       "type": "ul-testimonials",
-      "settings": {
-        "color_mode": "bone",
-        "columns_desktop": 3,
-        "header_alignment": "center",
-        "show_ratings": true,
-        "mobile_carousel": true,
-        "padding_top": 96,
-        "padding_bottom": 96
-      },
       "blocks": {
         "eyebrow_1": {
           "type": "eyebrow",
@@ -368,7 +380,8 @@
             "quote": "I wore the tee to work and three people asked about my faith. That’s exactly the point.",
             "author": "Marcus T.",
             "detail": "Dallas, TX",
-            "rating": 5
+            "rating": 5,
+            "image_alt": ""
           }
         },
         "quote_2": {
@@ -377,7 +390,8 @@
             "quote": "Beautiful quality, and knowing 10% goes to the mission makes it mean so much more.",
             "author": "Hannah R.",
             "detail": "Verified buyer",
-            "rating": 5
+            "rating": 5,
+            "image_alt": ""
           }
         },
         "quote_3": {
@@ -386,7 +400,8 @@
             "quote": "The pendant hasn’t left my neck since it arrived. A quiet, daily reminder.",
             "author": "Priya S.",
             "detail": "Columbus, OH",
-            "rating": 5
+            "rating": 5,
+            "image_alt": ""
           }
         }
       },
@@ -396,22 +411,20 @@
         "quote_1",
         "quote_2",
         "quote_3"
-      ]
+      ],
+      "disabled": true,
+      "settings": {
+        "columns_desktop": 3,
+        "mobile_carousel": true,
+        "header_alignment": "center",
+        "color_mode": "bone",
+        "show_ratings": true,
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     },
     "newsletter": {
       "type": "ul-newsletter",
-      "settings": {
-        "color_mode": "bone",
-        "button_label": "Subscribe",
-        "placeholder_text": "Enter your email",
-        "success_text": "Welcome to the movement. Check your inbox.",
-        "fineprint": "By subscribing you agree to receive emails. Unsubscribe anytime.",
-        "padding_top": 112,
-        "padding_bottom": 112,
-        "overlay_opacity": 40,
-        "image": "shopify://shop_images/freepik__img1-change-setting-to-a-dimly-lit-city-plaza-at-n__50641.png",
-        "image_alt": ""
-      },
       "blocks": {
         "eyebrow_1": {
           "type": "eyebrow",
@@ -436,7 +449,19 @@
         "eyebrow_1",
         "heading_1",
         "subheading_1"
-      ]
+      ],
+      "settings": {
+        "color_mode": "bone",
+        "image": "shopify://shop_images/freepik__img1-change-setting-to-a-dimly-lit-city-plaza-at-n__50641.png",
+        "image_alt": "",
+        "overlay_opacity": 40,
+        "button_label": "Subscribe",
+        "placeholder_text": "Enter your email",
+        "success_text": "Welcome to the movement. Check your inbox.",
+        "fineprint": "By subscribing you agree to receive emails. Unsubscribe anytime.",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
     }
   },
   "order": [
