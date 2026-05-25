@@ -422,6 +422,12 @@
           "settings": {
             "product": "the-cross-crew-pin"
           }
+        },
+        "product_k7BWxq": {
+          "type": "product",
+          "settings": {
+            "product": "god-is-good-faith-snapback"
+          }
         }
       },
       "block_order": [
@@ -431,7 +437,8 @@
         "button_1",
         "product_1",
         "product_2",
-        "product_3"
+        "product_3",
+        "product_k7BWxq"
       ],
       "settings": {
         "text_position": "left",
