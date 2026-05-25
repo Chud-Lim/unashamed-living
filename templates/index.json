@@ -412,12 +412,11 @@
         "quote_2",
         "quote_3"
       ],
-      "disabled": true,
       "settings": {
         "columns_desktop": 3,
         "mobile_carousel": true,
         "header_alignment": "center",
-        "color_mode": "bone",
+        "color_mode": "white",
         "show_ratings": true,
         "padding_top": 96,
         "padding_bottom": 96
