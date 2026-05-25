@@ -95,13 +95,19 @@
   .ul-hero {
     position: relative;
     isolation: isolate;
-    min-height: var(--ul-hero-min-mobile, 88svh);
-    display: grid;
+    min-height: var(--ul-hero-min-mobile, 86svh);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     overflow: hidden;
     background: var(--ul-dark);
   }
 
+  .ul-hero--v-center { justify-content: center; }
+  .ul-hero--v-bottom { justify-content: flex-end; }
+
   .ul-hero__media,
+  .ul-hero__media picture,
   .ul-hero__img {
     position: absolute;
     inset: 0;
@@ -109,9 +115,12 @@
     height: 100%;
   }
 
+  .ul-hero__media picture { display: block; }
+
   .ul-hero__img {
     object-fit: cover;
-    object-position: center center;
+    object-position: center 30%;
+    min-height: 100%;
   }
 
   .ul-hero__scrim {
@@ -126,14 +135,9 @@
   .ul-hero__inner {
     position: relative;
     z-index: 2;
-    display: flex;
-    align-items: var(--ul-hero-v-align, flex-end);
-    padding-block: clamp(40px, 8vh, 104px);
     width: 100%;
+    padding-block: clamp(36px, 6vh, 88px);
   }
-
-  .ul-hero--v-center .ul-hero__inner { --ul-hero-v-align: center; }
-  .ul-hero--v-bottom .ul-hero__inner { --ul-hero-v-align: flex-end; }
 
   .ul-hero__content {
     max-width: var(--ul-hero-maxw, 720px);
