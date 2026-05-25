@@ -181,8 +181,10 @@
   Store update could overwrite this section file; re-apply this block if so.
 {%- endcomment -%}
 {%- style -%}
-  /* Full width on mobile: break the card out of the page gutter (no white side edges) */
-  @media (max-width: 1023px) {
+  /* Full width on TRUE mobile only (<=749px = single-column product layout, so the
+     100vw break-out has no adjacent column to overlap). Above this the product is
+     multi-column and breaking out would cover the media gallery. */
+  @media (max-width: 749px) {
     .section-{{ section.id }} {
       width: 100vw;
       max-width: 100vw;
@@ -199,19 +201,29 @@
   .proof-image-{{ section.id }}:nth-child(2) { --proof-tx: 4px; }
   .proof-image-{{ section.id }}:nth-child(3) { --proof-tx: 0px; }
 
-  /* Staggered pop-in: avatars appear one at a time, not all together */
+  /* Two animations per avatar: a one-time staggered pop-IN on load, then a gentle
+     idle pop that LOOPS forever. The idle loop is desynced per avatar (different
+     delays + durations) so they pop one at a time, smoothly — never all together,
+     never aggressive (mostly resting, one soft scale every ~5s). */
   @media (prefers-reduced-motion: no-preference) {
     .proof-image-{{ section.id }} {
-      animation: ss-proof-pop-{{ section.id }} 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      animation:
+        ss-proof-pop-{{ section.id }} 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+        ss-proof-idle-{{ section.id }} 5s ease-in-out infinite;
     }
-    .proof-image-{{ section.id }}:nth-child(1) { animation-delay: 0.15s; }
-    .proof-image-{{ section.id }}:nth-child(2) { animation-delay: 0.42s; }
-    .proof-image-{{ section.id }}:nth-child(3) { animation-delay: 0.66s; }
+    .proof-image-{{ section.id }}:nth-child(1) { animation-delay: 0.15s, 1.6s; animation-duration: 0.55s, 4.7s; }
+    .proof-image-{{ section.id }}:nth-child(2) { animation-delay: 0.42s, 3.3s; animation-duration: 0.55s, 5.9s; }
+    .proof-image-{{ section.id }}:nth-child(3) { animation-delay: 0.66s, 2.4s; animation-duration: 0.55s, 5.3s; }
   }
   @keyframes ss-proof-pop-{{ section.id }} {
     0%   { opacity: 0; transform: translate(var(--proof-tx, 0)) scale(0.3); }
     62%  { opacity: 1; transform: translate(var(--proof-tx, 0)) scale(1.12); }
     100% { opacity: 1; transform: translate(var(--proof-tx, 0)) scale(1); }
+  }
+  /* Idle loop: long rest, then one soft pop and settle (subtle, scale 1.07). */
+  @keyframes ss-proof-idle-{{ section.id }} {
+    0%, 70%, 100% { transform: translate(var(--proof-tx, 0)) scale(1); }
+    84%           { transform: translate(var(--proof-tx, 0)) scale(1.07); }
   }
 {%- endstyle -%}
 
