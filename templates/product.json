@@ -530,7 +530,7 @@
         "product_limit": 10,
         "exclude_current": true,
         "image_ratio": "portrait",
-        "color_mode": "bone",
+        "color_mode": "white",
         "header_alignment": "left",
         "padding_top": 80,
         "padding_bottom": 80
