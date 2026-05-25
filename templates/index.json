@@ -57,9 +57,9 @@
         "button_2"
       ],
       "settings": {
-        "image": "shopify://shop_images/freepik__img1-img2-img3-img4-create-smiling-models-wearing-__83748.png",
+        "image": "shopify://shop_images/hero.webp",
         "image_alt": "Friends wearing Unashamed Living apparel together",
-        "image_mobile": "shopify://shop_images/freepik__img1-group-of-models-wearing-this-sweater-together__64584.jpg",
+        "image_mobile": "shopify://shop_images/heromobile.webp",
         "content_alignment": "left",
         "content_vertical": "bottom",
         "content_max_width": 720,
