@@ -358,17 +358,6 @@
   }
 {% endstylesheet %}
 
-<script>
-  (function () {
-    var el = document.querySelector('.ul-testimonials-{{ section.id }}');
-    if (!el) return;
-    var carousel = {{ s.mobile_carousel | json }};
-    if (window.matchMedia('(max-width: 749px)').matches) {
-      el.classList.add(carousel ? 'ul-testimonials--mobile-carousel' : 'ul-testimonials--mobile-stack');
-    }
-  })();
-</script>
-
 {% schema %}
 {
   "name": "UL Testimonials",
