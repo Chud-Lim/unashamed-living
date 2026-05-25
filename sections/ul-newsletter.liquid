@@ -117,6 +117,11 @@
     color: var(--ul-espresso);
   }
 
+  .ul-newsletter--mode-white {
+    background: #ffffff;
+    color: var(--ul-espresso);
+  }
+
   .ul-newsletter--mode-dark {
     background: var(--ul-espresso);
     color: var(--ul-bone);
@@ -416,12 +421,14 @@
     {
       "type": "select",
       "id": "color_mode",
-      "label": "Color mode",
+      "label": "Section background",
+      "info": "Only visible when no background image is set.",
       "options": [
+        { "value": "white", "label": "White" },
         { "value": "bone", "label": "Bone (warm light)" },
         { "value": "dark", "label": "Dark (espresso)" }
       ],
-      "default": "bone"
+      "default": "white"
     },
     {
       "type": "header",
