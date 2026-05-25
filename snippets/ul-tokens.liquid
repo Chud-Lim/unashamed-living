@@ -24,15 +24,15 @@
   {%- if ul_font_body_semibold != blank -%}{{ ul_font_body_semibold | font_face: font_display: 'swap' }}{%- endif -%}
   :root {
     --ul-bone: {{ ul_bone }};
-    --ul-bone-rgb: {{ ul_bone | color_extract: 'red' }}, {{ ul_bone | color_extract: 'green' }}, {{ ul_bone | color_extract: 'blue' }};
+    --ul-bone-rgb: {{ ul_bone | color_extract: 'red' }} {{ ul_bone | color_extract: 'green' }} {{ ul_bone | color_extract: 'blue' }};
     --ul-espresso: {{ ul_espresso }};
-    --ul-espresso-rgb: {{ ul_espresso | color_extract: 'red' }}, {{ ul_espresso | color_extract: 'green' }}, {{ ul_espresso | color_extract: 'blue' }};
+    --ul-espresso-rgb: {{ ul_espresso | color_extract: 'red' }} {{ ul_espresso | color_extract: 'green' }} {{ ul_espresso | color_extract: 'blue' }};
     --ul-dark: {{ ul_dark }};
-    --ul-dark-rgb: {{ ul_dark | color_extract: 'red' }}, {{ ul_dark | color_extract: 'green' }}, {{ ul_dark | color_extract: 'blue' }};
+    --ul-dark-rgb: {{ ul_dark | color_extract: 'red' }} {{ ul_dark | color_extract: 'green' }} {{ ul_dark | color_extract: 'blue' }};
     --ul-brass: {{ ul_brass }};
-    --ul-brass-rgb: {{ ul_brass | color_extract: 'red' }}, {{ ul_brass | color_extract: 'green' }}, {{ ul_brass | color_extract: 'blue' }};
+    --ul-brass-rgb: {{ ul_brass | color_extract: 'red' }} {{ ul_brass | color_extract: 'green' }} {{ ul_brass | color_extract: 'blue' }};
     --ul-oxblood: {{ ul_oxblood }};
-    --ul-oxblood-rgb: {{ ul_oxblood | color_extract: 'red' }}, {{ ul_oxblood | color_extract: 'green' }}, {{ ul_oxblood | color_extract: 'blue' }};
+    --ul-oxblood-rgb: {{ ul_oxblood | color_extract: 'red' }} {{ ul_oxblood | color_extract: 'green' }} {{ ul_oxblood | color_extract: 'blue' }};
 
     --ul-font-display: {% if ul_font_display != blank %}{{ ul_font_display.family }}, {{ ul_font_display.fallback_families }}{% else %}Georgia, 'Times New Roman', serif{% endif %};
     --ul-font-body: {% if ul_font_body != blank %}{{ ul_font_body.family }}, {{ ul_font_body.fallback_families }}{% else %}-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif{% endif %};
