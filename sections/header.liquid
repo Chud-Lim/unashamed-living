@@ -1113,6 +1113,27 @@
     font-family: var(--menu-localization-font);
     font-size: var(--menu-localization-font-size);
   }
+
+  /* UL header polish: kill bottom separator line in all states + refine nav */
+  #header-component .header__row,
+  #header-component .header__row--top,
+  #header-component .header__columns,
+  #header-component .header__row--top .header__columns,
+  #header-component .header__row--bottom {
+    border-block-end-width: 0 !important;
+    border-bottom-width: 0 !important;
+    box-shadow: none;
+  }
+  .header-menu .menu-list__link,
+  .header__row .menu-list__link {
+    letter-spacing: 0.04em;
+    transition: color 0.25s ease;
+  }
+  .header-menu .menu-list__link:hover,
+  .header__row .menu-list__link:hover {
+    color: var(--ul-brass, #a87c4f);
+  }
+
 {% endstylesheet %}
 
 {% unless request.design_mode %}

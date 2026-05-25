@@ -1,3 +1,4 @@
+{% render 'ul-tokens' %}
 
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
@@ -89,6 +90,23 @@
       grid-column: 1 / -1;
     }
   }
+
+  /* UL footer polish: brand serif headings + brass link hover */
+  .footer-content .menu__heading,
+  .footer-content .menu__heading__default {
+    font-family: var(--ul-font-display, 'Playfair Display', Georgia, serif);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .footer-content .menu__list a,
+  .footer-utilities a {
+    transition: color 0.25s ease, opacity 0.25s ease;
+  }
+  .footer-content .menu__list a:hover,
+  .footer-utilities__group-policies a:hover {
+    color: var(--ul-brass, #a87c4f);
+  }
+
 {% endstylesheet %}
 
 {% schema %}
