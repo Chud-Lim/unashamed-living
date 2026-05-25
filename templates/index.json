@@ -397,7 +397,7 @@
         "button_1": {
           "type": "button",
           "settings": {
-            "label": "Shop jewelry",
+            "label": "Shop now",
             "link": "shopify://collections/accessories",
             "style": "secondary"
           }
