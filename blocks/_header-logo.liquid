@@ -185,6 +185,19 @@
   "class": "header-logo",
   "settings": [
     {
+      "type": "select",
+      "id": "ul_logo_type",
+      "label": "Logo type",
+      "options": [
+        { "value": "wordmark", "label": "Text wordmark" },
+        { "value": "image", "label": "Image (uploaded in Theme settings)" }
+      ],
+      "default": "wordmark",
+      "info": "Text wordmark uses the brand serif. Switch to Image once a logo is uploaded under Theme settings > Logo."
+    },
+    { "type": "text", "id": "ul_wordmark_line1", "label": "Wordmark line 1", "default": "Unashamed" },
+    { "type": "text", "id": "ul_wordmark_line2", "label": "Wordmark line 2", "default": "Living" },
+    {
       "type": "paragraph",
       "content": "t:content.edit_logo_in_theme_settings"
     },
