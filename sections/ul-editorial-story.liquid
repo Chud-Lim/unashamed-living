@@ -295,6 +295,13 @@
     .ul-editorial-story--media-left .ul-editorial-story__text { justify-content: flex-start; }
     .ul-editorial-story--media-right .ul-editorial-story__text { justify-content: flex-end; }
   }
+
+  /* ul-mobile-pad: scale section padding down on mobile for balanced spacing */
+  @media (max-width: 749px) {
+    .ul-editorial-story {
+      padding-block: max(40px, calc(var(--ul-es-pad-top, 104px) * 0.55)) max(40px, calc(var(--ul-es-pad-bottom, 104px) * 0.55));
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}

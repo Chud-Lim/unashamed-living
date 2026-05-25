@@ -358,6 +358,13 @@
       .ul-product-complementary .ul-reveal--soft { transform: translateY(14px); }
     }
   }
+
+  /* ul-mobile-pad: scale section padding down on mobile for balanced spacing */
+  @media (max-width: 749px) {
+    .ul-product-complementary {
+      padding-block: max(40px, calc(var(--ul-pc-pt, 80px) * 0.55)) max(40px, calc(var(--ul-pc-pb, 80px) * 0.55));
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}

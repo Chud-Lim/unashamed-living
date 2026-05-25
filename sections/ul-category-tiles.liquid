@@ -342,6 +342,13 @@
       max-width: unset;
     }
   }
+
+  /* ul-mobile-pad: scale section padding down on mobile for balanced spacing */
+  @media (max-width: 749px) {
+    .ul-category-tiles {
+      padding-block: max(40px, calc(var(--ul-ct-pad-top, 96px) * 0.55)) max(40px, calc(var(--ul-ct-pad-bot, 96px) * 0.55));
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}

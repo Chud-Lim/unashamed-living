@@ -349,6 +349,13 @@
       grid-template-columns: repeat(2, 1fr);
     }
   }
+
+  /* ul-mobile-pad: scale section padding down on mobile for balanced spacing */
+  @media (max-width: 749px) {
+    .ul-testimonials {
+      padding-block: max(40px, calc(var(--ul-tm-pt, 96px) * 0.55)) max(40px, calc(var(--ul-tm-pb, 96px) * 0.55));
+    }
+  }
 {% endstylesheet %}
 
 <script>

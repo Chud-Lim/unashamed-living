@@ -386,6 +386,13 @@
       border-radius: 0 var(--ul-radius) var(--ul-radius) 0;
     }
   }
+
+  /* ul-mobile-pad: scale section padding down on mobile for balanced spacing */
+  @media (max-width: 749px) {
+    .ul-newsletter {
+      padding-block: max(40px, calc(var(--ul-nl-pad-top, 112px) * 0.55)) max(40px, calc(var(--ul-nl-pad-bot, 112px) * 0.55));
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}

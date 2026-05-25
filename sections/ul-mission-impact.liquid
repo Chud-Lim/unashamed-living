@@ -429,6 +429,13 @@
       .ul-mission-impact .ul-reveal--soft { transform: translateY(14px); }
     }
   }
+
+  /* ul-mobile-pad: scale section padding down on mobile for balanced spacing */
+  @media (max-width: 749px) {
+    .ul-mission-impact {
+      padding-block: max(40px, calc(var(--ul-mi-pad-top, 104px) * 0.55)) max(40px, calc(var(--ul-mi-pad-bottom, 104px) * 0.55));
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}

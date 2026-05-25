@@ -479,6 +479,13 @@
       .ul-featured-collection .ul-reveal--soft { transform: translateY(14px); }
     }
   }
+
+  /* ul-mobile-pad: scale section padding down on mobile for balanced spacing */
+  @media (max-width: 749px) {
+    .ul-featured-collection {
+      padding-block: max(40px, calc(var(--ul-fc-pad-top, 96px) * 0.55)) max(40px, calc(var(--ul-fc-pad-bottom, 96px) * 0.55));
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
