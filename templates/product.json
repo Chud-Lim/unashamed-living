@@ -148,6 +148,14 @@
                 "padding-inline-end": 0
               },
               "blocks": {
+                "custom_liquid_DaCbpE": {
+                  "type": "custom-liquid",
+                  "name": "t:names.custom_liquid",
+                  "settings": {
+                    "custom_liquid": "<div id='ss-social-proof'></div>"
+                  },
+                  "blocks": {}
+                },
                 "text_7VVz8U": {
                   "type": "text",
                   "name": "t:names.title",
@@ -257,6 +265,7 @@
                 }
               },
               "block_order": [
+                "custom_liquid_DaCbpE",
                 "text_7VVz8U",
                 "review_fHibhx",
                 "group_b7xNnM"
