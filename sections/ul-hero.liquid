@@ -11,6 +11,7 @@
   assign s = section.settings
   assign img_d = s.image
   assign img_m = s.image_mobile | default: s.image
+  assign hero_alt = img_d.alt | default: s.image_alt
   assign sizes = '100vw'
   assign widths = '600, 900, 1200, 1600, 2000, 2600, 3200'
   assign mobile_widths_arr = '440, 640, 840, 1080, 1320' | split: ', '
@@ -47,10 +48,10 @@
             sizes: sizes,
             width: img_d.width,
             height: img_d.height,
-            alt: img_d.alt | default: section.settings.image_alt,
             class: 'ul-hero__img',
             fetchpriority: 'high',
-            loading: 'eager'
+            loading: 'eager',
+            alt: hero_alt
         }}
       </picture>
     {%- else -%}
