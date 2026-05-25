@@ -1,0 +1,859 @@
+{% comment %}
+  ---------------------------------------------------------
+  Copyright © 2026 Section Store. All rights reserved.
+  Unauthorized copying, modification, distribution, or use
+  of this code or any portion of it, is strictly prohibited.
+  Violators will be prosecuted to the fullest extent of the law.
+  For inquiries or permissions, contact daniel@section.store
+  ---------------------------------------------------------
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign claim_percentage = section.settings.claim_percentage
+  assign end_percentage = section.settings.end_percentage
+  assign claim_text = section.settings.claim_text
+  assign enable_timer = section.settings.enable_timer
+  assign ends_in_text = section.settings.ends_in_text
+  assign tick_speed = section.settings.tick_speed
+  assign tick_speed_alt = section.settings.tick_speed_alt
+  assign enable_pulse = section.settings.enable_pulse
+  assign testing_mode = section.settings.testing_mode
+
+  assign text_custom = section.settings.text_custom
+  assign text_font = section.settings.text_font
+  assign text_size = section.settings.text_size
+  assign icon_size = section.settings.icon_size
+
+  assign claim_text_color = section.settings.claim_text_color
+  assign progress_color = section.settings.progress_color
+  assign progress_bg_color = section.settings.progress_bg_color
+  assign background_color = section.settings.background_color
+  assign border_color = section.settings.border_color
+
+  assign progress_height = section.settings.progress_height
+  assign text_position = section.settings.text_position
+  assign border_thickness = section.settings.border_thickness
+  assign border_radius = section.settings.border_radius
+  assign full_width = section.settings.full_width
+  assign content_width = section.settings.content_width
+
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign margin_top = section.settings.margin_top
+  assign margin_bottom = section.settings.margin_bottom
+
+  assign text_scale_setting = section.settings.text_scale
+  case text_scale_setting
+    when 'xs'
+      assign ss_scale_value = '0.75'
+    when 's'
+      assign ss_scale_value = '0.875'
+    when 'm'
+      assign ss_scale_value = '1'
+    when 'l'
+      assign ss_scale_value = '1.25'
+    when 'xl'
+      assign ss_scale_value = '1.5'
+    when 'custom'
+      assign ss_scale_value = icon_size | times: 1.0 | divided_by: 100
+    else
+      assign ss_scale_value = '1'
+  endcase
+
+  assign bar_radius = border_radius | divided_by: 2
+  if border_radius == 0
+    assign bar_radius = 4
+  endif
+
+  assign text_size_floor = text_size | times: 0.5 | round
+  if text_size_floor < 12
+    assign text_size_floor = 12
+  endif
+  if text_size_floor > text_size
+    assign text_size_floor = text_size
+  endif
+-%}
+
+{%- if text_custom and text_font != blank -%}
+  {{ text_font | font_face: font_display: 'swap' }}
+{%- endif -%}
+
+{%- style -%}
+  .ss-claimtimer-{{ sid }} {
+    --ss-scale: {{ ss_scale_value }};
+    display: grid;
+    gap: 0.5rem;
+    padding-block: {{ padding_top }}px {{ padding_bottom }}px;
+    margin-block: {{ margin_top }}px {{ margin_bottom }}px;
+    {% if full_width == false %}max-inline-size: {{ content_width }}px;{% endif %}
+    margin-inline: auto;
+    {% if background_color != blank and background_color != 'rgba(0,0,0,0)' %}
+      background-color: {{ background_color }};
+    {% endif %}
+    {% if border_thickness > 0 %}
+      border: {{ border_thickness }}px solid {{ border_color }};
+      border-radius: {{ border_radius }}px;
+      padding-inline: 1rem;
+      padding-block: max({{ padding_top }}px, 0.75rem) max({{ padding_bottom }}px, 0.75rem);
+    {% endif %}
+    color: {{ claim_text_color }};
+    {% if text_scale_setting == 'custom' %}
+      font-size: clamp({{ text_size_floor }}px, 3.5vw, {{ text_size }}px);
+    {% else %}
+      font-size: clamp(calc(10px * var(--ss-scale)), 3.5vw, calc(14px * var(--ss-scale)));
+    {% endif %}
+    {% if text_custom and text_font != blank %}
+      font-family: {{ text_font.family }}, {{ text_font.fallback_families }};
+      font-style: {{ text_font.style }};
+      font-weight: {{ text_font.weight }};
+    {% endif %}
+  }
+
+  .ss-claimtimer-{{ sid }} .ss-claimtimer__bar {
+    position: relative;
+    inline-size: 100%;
+    block-size: {{ progress_height }}px;
+    background: {{ progress_bg_color }};
+    border-radius: {{ bar_radius }}px;
+    overflow: hidden;
+  }
+
+  .ss-claimtimer-{{ sid }} .ss-claimtimer__fill[data-ssct-fill] {
+    display: block !important;
+    block-size: 100%;
+    inline-size: 0%;
+    background: {{ progress_color }};
+    border-radius: inherit;
+    transition: inline-size 0.8s ease-out;
+  }
+
+  .ss-claimtimer-{{ sid }} .ss-claimtimer__row {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    min-inline-size: 0;
+    overflow-wrap: break-word;
+  }
+
+  .ss-claimtimer-{{ sid }}.is-text-inside .ss-claimtimer__row {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    align-items: center;
+    padding-inline: 0.5rem;
+    {% if text_scale_setting == 'custom' %}
+      font-size: min({{ text_size }}px, calc({{ progress_height }}px * 0.7));
+    {% else %}
+      font-size: min(calc(14px * var(--ss-scale)), calc({{ progress_height }}px * 0.7));
+    {% endif %}
+    color: inherit;
+  }
+
+  .ss-claimtimer-{{ sid }}.is-text-inside .ss-claimtimer__bar {
+    overflow: visible;
+  }
+
+  .ss-claimtimer-{{ sid }}.is-text-inside .ss-claimtimer__bar > .ss-claimtimer__fill {
+    border-radius: {{ bar_radius }}px;
+  }
+
+  .ss-claimtimer-{{ sid }} .ss-claimtimer__pct {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    display: inline-block;
+    transform-origin: center;
+  }
+
+  .ss-claimtimer-{{ sid }} .ss-claimtimer__time {
+    display: inline-flex;
+    gap: 0.25rem;
+    font-weight: 500;
+  }
+
+  .ss-claimtimer-{{ sid }} .ss-claimtimer__count {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @keyframes ss-claimtimer-pulse-{{ sid }} {
+    0%, 100% { scale: 1; }
+    50% { scale: 1.2; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ss-claimtimer-{{ sid }}.is-pulse .ss-claimtimer__pct {
+      animation: ss-claimtimer-pulse-{{ sid }} 0.6s ease-in-out;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ss-claimtimer-{{ sid }} .ss-claimtimer__fill {
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<div data-ssct-host="{{ sid }}" hidden></div>
+
+<template data-ssct-tpl="{{ sid }}">
+  <div
+    class="ss-claimtimer-{{ sid }}{% if text_position == 'inside' %} is-text-inside{% endif %}"
+    data-ssct
+    data-ssct-start="{{ claim_percentage }}"
+    data-ssct-end="{{ end_percentage }}"
+    data-ssct-tick="{{ tick_speed }}"
+    data-ssct-tick-alt="{{ tick_speed_alt }}"
+    data-ssct-pulse="{{ enable_pulse }}"
+    data-ssct-test="{{ testing_mode }}"
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="{{ claim_percentage }}"
+    aria-label="{{ claim_text | escape }}"
+  >
+    <div class="ss-claimtimer__bar">
+      <div class="ss-claimtimer__fill" data-ssct-fill></div>
+      {%- if text_position == 'inside' -%}
+        <div class="ss-claimtimer__row">
+          <span>
+            <span class="ss-claimtimer__pct" data-ssct-pct aria-live="polite">0%</span>
+            {{ claim_text | escape }}
+          </span>
+          {%- if enable_timer -%}
+            <span class="ss-claimtimer__time">
+              <span>{{ ends_in_text | escape }}</span>
+              <span class="ss-claimtimer__count" data-ssct-count>00:00:00</span>
+            </span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+    {%- if text_position == 'under' -%}
+      <div class="ss-claimtimer__row">
+        <span>
+          <span class="ss-claimtimer__pct" data-ssct-pct aria-live="polite">0%</span>
+          {{ claim_text | escape }}
+        </span>
+        {%- if enable_timer -%}
+          <span class="ss-claimtimer__time">
+            <span>{{ ends_in_text | escape }}</span>
+            <span class="ss-claimtimer__count" data-ssct-count>00:00:00</span>
+          </span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</template>
+
+<script>
+(function () {
+  const ns = window.__SSCT__ = window.__SSCT__ || {};
+  const sectionId = '{{ section.id }}';
+  const placementMode = {{ section.settings.placement_mode | json }};
+  const customSelector = {{ section.settings.target_selector | json }};
+  const STORAGE_KEY = 'ssct:' + sectionId;
+  const INJECTED_ATTR = 'data-ssct-injected';
+
+  if (ns[sectionId] && typeof ns[sectionId].destroy === 'function') {
+    try { ns[sectionId].destroy(); } catch (_) {}
+  }
+
+  const AUTO_SELECTORS = [
+    'product-form',
+    '.product-form',
+    '.product-form__buttons',
+    '.shopify-product-form',
+    '.product-info__buy-buttons',
+    '.product-form__buy-buttons',
+    '.product-info__block-item[data-block-type="buy-buttons"]',
+    '.buy-buttons-block',
+    '.product-single__form .add-to-cart',
+    '.product_form .shopify-product-form',
+    '.product-details .shopify-product-form',
+    '.main-product__block-buy_buttons',
+    '.form product-purchase-form',
+    'product-form.product__block__buttons',
+    'form[action$="/cart/add"]:not(.installment)',
+    'form[action$="/cart/add"]',
+    'form[action*="/cart/add"]'
+  ];
+
+  let intervalId = null;
+  let pulseTimeout = null;
+  let isTesting = false;
+  let memoryData = null;
+  let mountedNode = null;
+  let externalTarget = false;
+  let initialAnimDone = false;
+
+  function getNextMidnight() {
+    const t = new Date();
+    t.setHours(24, 0, 0, 0);
+    return t.getTime();
+  }
+
+  function getData() {
+    if (isTesting) return memoryData;
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function setData(d) {
+    if (isTesting) { memoryData = d; return; }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); } catch (e) {}
+  }
+
+  function initData(start) {
+    const now = Date.now();
+    const midnight = getNextMidnight();
+    let d = getData();
+    if (!d || d.endTime <= now || d.startPct !== start) {
+      d = { startPct: start, currentPct: start, endTime: midnight, lastTick: now, useAlt: false };
+      setData(d);
+    }
+    return d;
+  }
+
+  function formatTime(ms) {
+    const s = Math.max(0, Math.floor(ms / 1000));
+    const h = String(Math.floor(s / 3600)).padStart(2, '0');
+    const m = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+    const sec = String(s % 60).padStart(2, '0');
+    return h + ':' + m + ':' + sec;
+  }
+
+  function animateNumber(el, from, to, duration) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || from === to) {
+      el.textContent = to + '%';
+      return;
+    }
+    const start = performance.now();
+    function step(ts) {
+      const t = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.floor(from + (to - from) * eased) + '%';
+      if (t < 1) requestAnimationFrame(step);
+      else el.textContent = to + '%';
+    }
+    requestAnimationFrame(step);
+  }
+
+  function pulse(node) {
+    if (pulseTimeout) clearTimeout(pulseTimeout);
+    node.classList.remove('is-pulse');
+    void node.offsetWidth;
+    requestAnimationFrame(function () {
+      node.classList.add('is-pulse');
+      pulseTimeout = setTimeout(function () { node.classList.remove('is-pulse'); }, 600);
+    });
+  }
+
+  function tick(node) {
+    let d = getData();
+    if (!d) return;
+
+    const now = Date.now();
+    const remaining = Math.max(0, d.endTime - now);
+
+    if (remaining === 0) {
+      const start = parseInt(node.dataset.ssctStart, 10);
+      d = initData(start);
+      const fillEl = node.querySelector('[data-ssct-fill]');
+      if (fillEl) fillEl.style.inlineSize = d.currentPct + '%';
+      node.setAttribute('aria-valuenow', d.currentPct);
+      const pctEl = node.querySelector('[data-ssct-pct]');
+      if (pctEl) pctEl.textContent = d.currentPct + '%';
+      const countEl = node.querySelector('[data-ssct-count]');
+      if (countEl) countEl.textContent = formatTime(d.endTime - now);
+      return;
+    }
+
+    const countEl = node.querySelector('[data-ssct-count]');
+    if (countEl) countEl.textContent = formatTime(remaining);
+
+    const endPct = parseInt(node.dataset.ssctEnd, 10);
+    const tickSpeed = parseInt(node.dataset.ssctTick, 10);
+    const tickAlt = parseInt(node.dataset.ssctTickAlt, 10);
+    const enablePulse = node.dataset.ssctPulse === 'true';
+
+    if (d.currentPct >= endPct) return;
+
+    const speed = (tickAlt > 0 && d.useAlt) ? tickAlt : tickSpeed;
+    if (now - d.lastTick >= speed * 1000) {
+      d.currentPct = Math.min(endPct, d.currentPct + 1);
+      d.lastTick = now;
+      if (tickAlt > 0) d.useAlt = !d.useAlt;
+      setData(d);
+      const fillEl = node.querySelector('[data-ssct-fill]');
+      if (fillEl) fillEl.style.inlineSize = d.currentPct + '%';
+      node.setAttribute('aria-valuenow', d.currentPct);
+      const pctEl = node.querySelector('[data-ssct-pct]');
+      if (pctEl) pctEl.textContent = d.currentPct + '%';
+      if (enablePulse) pulse(node);
+    }
+  }
+
+  function startTimer(node) {
+    isTesting = node.dataset.ssctTest === 'true';
+    const start = parseInt(node.dataset.ssctStart, 10);
+    const d = initData(start);
+    const fillEl = node.querySelector('[data-ssct-fill]');
+
+    if (fillEl) fillEl.style.inlineSize = '0%';
+    node.setAttribute('aria-valuenow', d.currentPct);
+    const countEl = node.querySelector('[data-ssct-count]');
+    if (countEl) countEl.textContent = formatTime(Math.max(0, d.endTime - Date.now()));
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        if (fillEl) fillEl.style.inlineSize = d.currentPct + '%';
+        const pctEl = node.querySelector('[data-ssct-pct]');
+        if (pctEl) animateNumber(pctEl, 0, d.currentPct, 1200);
+        setTimeout(function () { initialAnimDone = true; }, 1200);
+      });
+    });
+
+    if (intervalId) clearInterval(intervalId);
+    intervalId = setInterval(function () { tick(node); }, 1000);
+  }
+
+  function stopTimer() {
+    if (intervalId) { clearInterval(intervalId); intervalId = null; }
+    if (pulseTimeout) { clearTimeout(pulseTimeout); pulseTimeout = null; }
+  }
+
+  function findTarget() {
+    if (placementMode === 'custom' && customSelector) {
+      const el = document.querySelector(customSelector);
+      if (el) return { target: el, mode: 'replace', external: true };
+    } else if (placementMode === 'above' || placementMode === 'auto') {
+      for (let i = 0; i < AUTO_SELECTORS.length; i++) {
+        const el = document.querySelector(AUTO_SELECTORS[i]);
+        if (el) {
+          return {
+            target: el,
+            mode: placementMode === 'above' ? 'before' : 'after',
+            external: true
+          };
+        }
+      }
+    }
+    const host = document.querySelector('[data-ssct-host="' + sectionId + '"]');
+    if (host) return { target: host, mode: 'host', external: false };
+    return null;
+  }
+
+  function removeOrphans() {
+    const orphans = document.querySelectorAll('[' + INJECTED_ATTR + '="' + sectionId + '"]');
+    for (let i = 0; i < orphans.length; i++) orphans[i].remove();
+  }
+
+  function mount() {
+    removeOrphans();
+
+    const tpl = document.querySelector('template[data-ssct-tpl="' + sectionId + '"]');
+    if (!tpl) return;
+    const node = tpl.content.firstElementChild.cloneNode(true);
+    node.setAttribute(INJECTED_ATTR, sectionId);
+
+    const t = findTarget();
+    if (!t) return;
+
+    if (t.mode === 'after') {
+      t.target.insertAdjacentElement('afterend', node);
+    } else if (t.mode === 'before') {
+      t.target.insertAdjacentElement('beforebegin', node);
+    } else if (t.mode === 'host') {
+      t.target.removeAttribute('hidden');
+      t.target.replaceChildren(node);
+    } else {
+      t.target.replaceChildren(node);
+    }
+
+    mountedNode = node;
+    externalTarget = t.external;
+    startTimer(node);
+  }
+
+  function unmount() {
+    stopTimer();
+    removeOrphans();
+    if (mountedNode && !externalTarget) {
+      const host = document.querySelector('[data-ssct-host="' + sectionId + '"]');
+      if (host) {
+        host.replaceChildren();
+        host.setAttribute('hidden', '');
+      }
+    }
+    mountedNode = null;
+    externalTarget = false;
+    initialAnimDone = false;
+    if (isTesting) memoryData = null;
+  }
+
+  function onLoad(e) {
+    if (e.detail && e.detail.sectionId === sectionId) {
+      unmount();
+      mount();
+    }
+  }
+  function onUnload(e) {
+    if (e.detail && e.detail.sectionId === sectionId) {
+      unmount();
+    }
+  }
+  function onBeforeUnload() { stopTimer(); }
+
+  function destroy() {
+    document.removeEventListener('shopify:section:load', onLoad);
+    document.removeEventListener('shopify:section:unload', onUnload);
+    window.removeEventListener('beforeunload', onBeforeUnload);
+    unmount();
+    delete ns[sectionId];
+  }
+
+  document.addEventListener('shopify:section:load', onLoad);
+  document.addEventListener('shopify:section:unload', onUnload);
+  window.addEventListener('beforeunload', onBeforeUnload);
+
+  ns[sectionId] = { destroy: destroy };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mount, { once: true });
+  } else {
+    mount();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "SS - Claim Timer",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Placement"
+    },
+    {
+      "type": "select",
+      "id": "placement_mode",
+      "label": "Position",
+      "options": [
+        { "value": "above", "label": "Above Add to Cart" },
+        { "value": "auto", "label": "Below Add to Cart" },
+        { "value": "custom", "label": "Custom" },
+        { "value": "inline", "label": "Standalone" }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "text",
+      "id": "target_selector",
+      "label": "CSS selector",
+      "info": "Renders inside the first element matching this selector.",
+      "visible_if": "{{ section.settings.placement_mode == 'custom' }}"
+    },
+    {
+      "type": "header",
+      "content": "Claim"
+    },
+    {
+      "type": "range",
+      "id": "claim_percentage",
+      "label": "Starting %",
+      "min": 50,
+      "max": 95,
+      "step": 1,
+      "default": 88,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "end_percentage",
+      "label": "End %",
+      "min": 70,
+      "max": 99,
+      "step": 1,
+      "default": 94,
+      "unit": "%",
+      "info": "Highest value the bar will reach. Stays under 100% so it never looks sold out."
+    },
+    {
+      "type": "text",
+      "id": "claim_text",
+      "label": "Label",
+      "default": "Claimed Already"
+    },
+    {
+      "type": "header",
+      "content": "Timer",
+      "info": "Counts down to midnight in the visitor's timezone, then resets."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_timer",
+      "label": "Show countdown",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "ends_in_text",
+      "label": "\"Ends in\" label",
+      "default": "Ends in",
+      "visible_if": "{{ section.settings.enable_timer }}"
+    },
+    {
+      "type": "range",
+      "id": "tick_speed",
+      "label": "Tick speed",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 5,
+      "unit": "s",
+      "info": "How often the percentage increases by 1."
+    },
+    {
+      "type": "range",
+      "id": "tick_speed_alt",
+      "label": "Alternate tick speed",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 0,
+      "unit": "s",
+      "info": "Set above 0 to vary the interval, so it feels more organic."
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_pulse",
+      "label": "Pulse on each tick",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "text_scale",
+      "label": "Text & icon size",
+      "options": [
+        { "value": "xs", "label": "XS" },
+        { "value": "s",  "label": "S" },
+        { "value": "m",  "label": "M" },
+        { "value": "l",  "label": "L" },
+        { "value": "xl", "label": "XL" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "m",
+      "info": "M is the standard size. Pick Custom for pixel control."
+    },
+    {
+      "type": "checkbox",
+      "id": "text_custom",
+      "label": "Custom font",
+      "default": false
+    },
+    {
+      "type": "font_picker",
+      "id": "text_font",
+      "label": "Font",
+      "default": "assistant_n4",
+      "visible_if": "{{ section.settings.text_custom }}"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "default": 14,
+      "unit": "px",
+      "visible_if": "{{ section.settings.text_scale == 'custom' }}"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 50,
+      "max": 200,
+      "step": 5,
+      "default": 100,
+      "unit": "%",
+      "visible_if": "{{ section.settings.text_scale == 'custom' }}"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "claim_text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "progress_color",
+      "label": "Progress fill",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "progress_bg_color",
+      "label": "Progress track",
+      "default": "#F5F5F1"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.border_thickness > 0 }}"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "progress_height",
+      "label": "Bar height",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "options": [
+        { "value": "under", "label": "Under bar" },
+        { "value": "inside", "label": "Inside bar" }
+      ],
+      "default": "under"
+    },
+    {
+      "type": "range",
+      "id": "border_thickness",
+      "label": "Border",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "default": 4,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Width",
+      "min": 800,
+      "max": 2000,
+      "step": 100,
+      "default": 1200,
+      "unit": "px",
+      "visible_if": "{{ section.settings.full_width == false }}"
+    },
+    {
+      "type": "header",
+      "content": "Section padding (inside)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Section margin (outside)"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Development"
+    },
+    {
+      "type": "checkbox",
+      "id": "testing_mode",
+      "label": "Testing mode",
+      "default": false,
+      "info": "Resets timer state on every reload. Use during setup, then turn off."
+    }
+  ],
+  "presets": [
+    {
+      "name": "SS - Claim Timer"
+    }
+  ]
+}
+{% endschema %}
