@@ -143,74 +143,6 @@
         "padding_bottom": 96
       }
     },
-    "hotspots": {
-      "type": "ul-hotspots",
-      "blocks": {
-        "hs_1": {
-          "type": "hotspot",
-          "settings": {
-            "image": "shopify://shop_images/mangreen.webp",
-            "image_alt": "Models wearing Unashamed Living crewnecks",
-            "product": "victorious-goodness-hoodie",
-            "pos_x": 45,
-            "pos_y": 45,
-            "popup_position": "bottom"
-          }
-        },
-        "hs_2": {
-          "type": "hotspot",
-          "settings": {
-            "image": "shopify://shop_images/livingproof_1.webp",
-            "image_alt": "Friends together in faith sweatshirts",
-            "product": "girls-living-proof-faith-tee",
-            "pos_x": 40,
-            "pos_y": 55,
-            "popup_position": "top"
-          }
-        },
-        "hs_3": {
-          "type": "hotspot",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/freepik__img1-img2-img3-img4-create-smiling-models-wearing-__83748.png",
-            "image_alt": "Models smiling in faith apparel",
-            "product": "victorious-goodness-hoodie",
-            "pos_x": 50,
-            "pos_y": 58,
-            "popup_position": "top"
-          }
-        },
-        "hs_4": {
-          "type": "hotspot",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/freepik__img1-make-the-design-on-the-front-of-the-shirts-be__82995.png",
-            "image_alt": "Gospel tee worn boldly",
-            "product": "romans-1-16-unashamed-gospel-tee",
-            "pos_x": 49,
-            "pos_y": 40,
-            "popup_position": "bottom"
-          }
-        }
-      },
-      "block_order": [
-        "hs_1",
-        "hs_2",
-        "hs_3",
-        "hs_4"
-      ],
-      "settings": {
-        "eyebrow": "Shop the look",
-        "heading": "Wear the witness",
-        "content_width": "full",
-        "content_max_width": 1100,
-        "aspect_ratio": "portrait",
-        "color_mode": "white",
-        "buy_label": "Buy now",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "featured": {
       "type": "ul-featured-collection",
       "blocks": {
@@ -223,7 +155,7 @@
         "heading_1": {
           "type": "heading",
           "settings": {
-            "text": "Trending now"
+            "text": "Top picks"
           }
         },
         "button_1": {
@@ -241,8 +173,8 @@
         "button_1"
       ],
       "settings": {
-        "collection": "women-apperal-copy",
-        "product_limit": 4,
+        "collection": "frontpage",
+        "product_limit": 8,
         "columns_desktop": 4,
         "image_ratio": "portrait",
         "mobile_carousel": true,
@@ -397,7 +329,7 @@
         "button_1": {
           "type": "button",
           "settings": {
-            "label": "Shop now",
+            "label": "Shop jewelry",
             "link": "shopify://collections/accessories",
             "style": "secondary"
           }
@@ -437,15 +369,144 @@
         "padding_top": 104,
         "padding_bottom": 104
       }
+    },
+    "testimonials": {
+      "type": "ul-testimonials",
+      "blocks": {
+        "eyebrow_1": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "From the community"
+          }
+        },
+        "heading_1": {
+          "type": "heading",
+          "settings": {
+            "text": "Worn with conviction"
+          }
+        },
+        "quote_1": {
+          "type": "quote",
+          "settings": {
+            "quote": "I wore the tee to work and three people asked about my faith. That’s exactly the point.",
+            "author": "Marcus T.",
+            "detail": "Dallas, TX",
+            "rating": 5,
+            "image_alt": ""
+          }
+        },
+        "quote_2": {
+          "type": "quote",
+          "settings": {
+            "quote": "Beautiful quality, and knowing 10% goes to the mission makes it mean so much more.",
+            "author": "Hannah R.",
+            "detail": "Verified buyer",
+            "rating": 5,
+            "image_alt": ""
+          }
+        },
+        "quote_3": {
+          "type": "quote",
+          "settings": {
+            "quote": "The pendant hasn’t left my neck since it arrived. A quiet, daily reminder.",
+            "author": "Priya S.",
+            "detail": "Columbus, OH",
+            "rating": 5,
+            "image_alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow_1",
+        "heading_1",
+        "quote_1",
+        "quote_2",
+        "quote_3"
+      ],
+      "settings": {
+        "columns_desktop": 3,
+        "mobile_carousel": true,
+        "header_alignment": "center",
+        "color_mode": "white",
+        "show_ratings": true,
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "hotspots": {
+      "type": "ul-hotspots",
+      "blocks": {
+        "hs_1": {
+          "type": "hotspot",
+          "settings": {
+            "image": "shopify://shop_images/freepik__create-a-group-of-models-wearing-this-sweater-toge__64573.png",
+            "image_alt": "Models wearing Unashamed Living crewnecks",
+            "product": "the-gospel-simplicity-crew",
+            "pos_x": 44,
+            "pos_y": 56,
+            "popup_position": "top"
+          }
+        },
+        "hs_2": {
+          "type": "hotspot",
+          "settings": {
+            "image": "shopify://shop_images/freepik__img1-group-of-models-wearing-this-sweater-together__64584.jpg",
+            "image_alt": "Friends together in faith sweatshirts",
+            "product": "the-luminary-witness-top",
+            "pos_x": 57,
+            "pos_y": 49,
+            "popup_position": "top"
+          }
+        },
+        "hs_3": {
+          "type": "hotspot",
+          "settings": {
+            "image": "shopify://shop_images/freepik__img1-img2-img3-img4-create-smiling-models-wearing-__83748.png",
+            "image_alt": "Models smiling in faith apparel",
+            "product": "victorious-goodness-hoodie",
+            "pos_x": 50,
+            "pos_y": 58,
+            "popup_position": "top"
+          }
+        },
+        "hs_4": {
+          "type": "hotspot",
+          "settings": {
+            "image": "shopify://shop_images/freepik__img1-make-the-design-on-the-front-of-the-shirts-be__82995.png",
+            "image_alt": "Gospel tee worn boldly",
+            "product": "romans-1-16-unashamed-gospel-tee",
+            "pos_x": 49,
+            "pos_y": 40,
+            "popup_position": "bottom"
+          }
+        }
+      },
+      "block_order": [
+        "hs_1",
+        "hs_2",
+        "hs_3",
+        "hs_4"
+      ],
+      "settings": {
+        "eyebrow": "Shop the look",
+        "heading": "Wear the witness",
+        "content_width": "page",
+        "aspect_ratio": "portrait",
+        "color_mode": "white",
+        "buy_label": "Buy now",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
     "hero",
     "tiles",
-    "hotspots",
     "featured",
+    "hotspots",
     "mission",
     "story",
-    "jewelry"
+    "jewelry",
+    "testimonials"
   ]
 }

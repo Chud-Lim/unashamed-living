@@ -25,18 +25,18 @@
         "reset_weekday": "1",
         "reset_hour": "00",
         "reset_minute": "00",
-        "title": "<em><strong>FLASH SALE</strong></em> 20% OFF",
+        "title": "NEW DROPS SALE",
         "show_days": false,
         "label_days": "Days",
-        "label_hours": "Hrs",
-        "label_minutes": "Min",
-        "label_seconds": "Sec",
+        "label_hours": "Hours",
+        "label_minutes": "Minutes",
+        "label_seconds": "Seconds",
         "number_style": "inline",
         "gap_desktop": 28,
         "gap_mobile": 10,
         "show_code": true,
-        "code": "BOLD20",
-        "code_action": "copy",
+        "code": "CHECK THEM OUT",
+        "code_action": "link",
         "code_url": "",
         "code_success": "Copied!",
         "code_hover": true,
@@ -63,7 +63,7 @@
         "background_style": "gradient",
         "bg_color": "#0a0a0a",
         "bg_gradient": "radial-gradient(rgba(26, 6, 6, 1), rgba(5, 5, 5, 1) 65%)",
-        "glow_color": "#a87c4f"
+        "glow_color": "#A87C4F"
       }
     },
     "header_section": {
