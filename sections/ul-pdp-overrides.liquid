@@ -22,6 +22,16 @@
     }
   }
 
+  /* Tighten the buy-box vertical rhythm. The block's `gap` setting kept reverting
+     when the merchant saved in the editor, so it's forced here (durable). Compounding
+     margins on the added blocks are zeroed so the gap stays consistent. */
+  .product-information .product-details {
+    gap: 16px !important;
+    row-gap: 16px !important;
+  }
+  .product-information .ul-giving { margin-block: 0 !important; }
+  .product-information .payment-icons { padding-block: 0 !important; }
+
   /* --- Typography: brand display on title + section/accordion headings --- */
   .product-information .product-details h1,
   .product-information .product-details h2 {
@@ -59,25 +69,29 @@
     box-shadow: inset 0 0 0 1px var(--ul-brass);
   }
 
-  /* --- Add-to-cart button → brand brass --- */
-  .product-information .product-form-buttons .button:not(.shopify-payment-button__button) {
-    background: var(--ul-brass);
-    color: #fff;
-    border: 1.5px solid transparent;
+  /* --- Add-to-cart button → bold OXBLOOD so it stands out (both main + sticky).
+     Targets .add-to-cart-button (the class on both) because the main button uses the
+     theme's secondary/primary scheme style otherwise (the muted grey). --- */
+  .product-information .add-to-cart-button:not(.shopify-payment-button__button),
+  .sticky-add-to-cart__button.add-to-cart-button {
+    background: var(--ul-oxblood) !important;
+    color: #fff !important;
+    border: 1.5px solid var(--ul-oxblood) !important;
     border-radius: var(--ul-radius);
     font-family: var(--ul-font-body);
     font-weight: 600;
     letter-spacing: 0.03em;
     transition: background-color 0.35s var(--ul-ease), transform 0.45s var(--ul-ease);
   }
-  .product-information .product-form-buttons .button:not(.shopify-payment-button__button):hover {
-    background: color-mix(in srgb, var(--ul-brass) 84%, black);
+  .product-information .add-to-cart-button:not(.shopify-payment-button__button):hover,
+  .sticky-add-to-cart__button.add-to-cart-button:hover {
+    background: color-mix(in srgb, var(--ul-oxblood) 86%, black) !important;
     transform: translateY(-1px);
   }
-  .product-information .product-form-buttons .button[disabled],
-  .product-information .product-form-buttons .button:disabled {
-    background: rgb(var(--ul-espresso-rgb) / 0.25);
-    color: rgb(255 255 255 / 0.85);
+  .product-information .add-to-cart-button[disabled],
+  .product-information .add-to-cart-button:disabled {
+    background: rgb(var(--ul-espresso-rgb) / 0.3) !important;
+    color: rgb(255 255 255 / 0.85) !important;
     transform: none;
   }
 
@@ -100,12 +114,6 @@
     border-radius: var(--ul-radius);
   }
 
-  /* --- Sticky ATC bar parity --- */
-  .sticky-add-to-cart__button.add-to-cart-button {
-    background: var(--ul-brass);
-    color: #fff;
-    border-radius: var(--ul-radius);
-  }
 
   /* --- Remove the Essential app's duplicate sticky cart on the PDP; keep the theme's native sticky add-to-cart --- */
   #sticky-cart-portal,
