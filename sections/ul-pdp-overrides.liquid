@@ -32,6 +32,15 @@
   .product-information .ul-giving { margin-block: 0 !important; }
   .product-information .payment-icons { padding-block: 0 !important; }
 
+  /* Collapse blank/empty block wrappers in the buy box so they don't leave grid-gap
+     holes (e.g. the size-chart / product-options app blocks when they render nothing
+     for a product). Self-correcting: an app block re-shows the moment it has real
+     content (not just scripts/empty nodes). */
+  .product-information .product-details > *:empty,
+  .product-information .product-details .shopify-app-block:not(:has(:not(script):not(style):not(:empty))) {
+    display: none !important;
+  }
+
   /* --- Typography: brand display on title + section/accordion headings --- */
   .product-information .product-details h1,
   .product-information .product-details h2 {

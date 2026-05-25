@@ -628,6 +628,90 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "ul_recent_purchase": {
+      "type": "ul-recent-purchase",
+      "blocks": {
+        "p1": {
+          "type": "purchase",
+          "settings": {
+            "name": "Hannah from Nashville, TN",
+            "item": "the Faith Over Fear Hoodie",
+            "time": "just now"
+          }
+        },
+        "p2": {
+          "type": "purchase",
+          "settings": {
+            "name": "Marcus from Dallas, TX",
+            "item": "the Proverbs 31 Kingdom Motherhood Tee",
+            "time": "4 minutes ago"
+          }
+        },
+        "p3": {
+          "type": "purchase",
+          "settings": {
+            "name": "Grace from Columbus, OH",
+            "item": "the God Is Good Faith Snapback",
+            "time": "9 minutes ago"
+          }
+        },
+        "p4": {
+          "type": "purchase",
+          "settings": {
+            "name": "Daniel from Phoenix, AZ",
+            "item": "the Valor Victory Tee",
+            "time": "14 minutes ago"
+          }
+        },
+        "p5": {
+          "type": "purchase",
+          "settings": {
+            "name": "Rebecca from Tampa, FL",
+            "item": "2 tees",
+            "time": "19 minutes ago"
+          }
+        },
+        "p6": {
+          "type": "purchase",
+          "settings": {
+            "name": "Josiah from Denver, CO",
+            "item": "the Living Proof Tee",
+            "time": "just now"
+          }
+        },
+        "p7": {
+          "type": "purchase",
+          "settings": {
+            "name": "Caleb from Kansas City, MO",
+            "item": "a Romans 1:16 Gospel Tee",
+            "time": "23 minutes ago"
+          }
+        },
+        "p8": {
+          "type": "purchase",
+          "settings": {
+            "name": "Naomi from Austin, TX",
+            "item": "the John 3:16 Unisex Hoodie",
+            "time": "6 minutes ago"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6",
+        "p7",
+        "p8"
+      ],
+      "settings": {
+        "start_delay_seconds": 4,
+        "interval_seconds": 13,
+        "visible_seconds": 5
+      }
     }
   },
   "order": [
@@ -639,6 +723,7 @@
     "ul_complement",
     "ul_prayer",
     "ul_mission_pdp",
-    "1763540355defdb10b"
+    "1763540355defdb10b",
+    "ul_recent_purchase"
   ]
 }

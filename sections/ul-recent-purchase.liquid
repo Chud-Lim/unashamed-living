@@ -1,0 +1,189 @@
+{%- comment -%}
+  ul-recent-purchase — social-proof "recent order" toast for the product page.
+  Ported from the SHOCK'D build, rebranded to Unashamed Living. Self-contained:
+  markup + scoped CSS + rotation JS + editable buyer blocks. Fixed bottom-left;
+  rotates through the buyer list. Add this section to the product template only.
+{%- endcomment -%}
+{% render 'ul-tokens' %}
+
+{%- liquid
+  assign s = section.settings
+  assign purchases = section.blocks | where: 'type', 'purchase'
+-%}
+
+{%- if purchases.size > 0 -%}
+  <div class="ul-toast ul-toast-{{ section.id }}" role="status" aria-live="polite" aria-label="Recent order">
+    <div class="ul-toast__avatar" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6.5 8h11l-.9 10.2a2 2 0 0 1-2 1.8H9.4a2 2 0 0 1-2-1.8L6.5 8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </div>
+    <div class="ul-toast__content">
+      <strong data-ul-toast-name>{{ purchases.first.settings.name }}</strong> just bought <strong data-ul-toast-item>{{ purchases.first.settings.item }}</strong>
+      <div class="ul-toast__meta">
+        <span class="ul-toast__dot" aria-hidden="true"></span>
+        <span data-ul-toast-time>{{ purchases.first.settings.time }}</span> · Verified order
+      </div>
+    </div>
+    <script type="application/json" data-ul-toast-data>
+      [
+        {%- for block in purchases -%}
+          { "name": {{ block.settings.name | json }}, "item": {{ block.settings.item | json }}, "time": {{ block.settings.time | json }} }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    </script>
+  </div>
+
+  <script>
+    (function () {
+      var t = document.querySelector('.ul-toast-{{ section.id }}');
+      if (!t) return;
+      var nameEl = t.querySelector('[data-ul-toast-name]');
+      var itemEl = t.querySelector('[data-ul-toast-item]');
+      var timeEl = t.querySelector('[data-ul-toast-time]');
+      var src = t.querySelector('[data-ul-toast-data]');
+      var buyers = [];
+      if (src) { try { buyers = JSON.parse(src.textContent) || []; } catch (e) {} }
+      if (!buyers.length) return;
+      var i = 0;
+      function show() {
+        var b = buyers[i % buyers.length];
+        if (nameEl) nameEl.textContent = b.name;
+        if (itemEl) itemEl.textContent = b.item;
+        if (timeEl) timeEl.textContent = b.time;
+        t.classList.add('is-shown');
+        setTimeout(function () { t.classList.remove('is-shown'); }, {{ s.visible_seconds | default: 5 | times: 1000 }});
+        i++;
+      }
+      setTimeout(show, {{ s.start_delay_seconds | default: 4 | times: 1000 }});
+      setInterval(show, {{ s.interval_seconds | default: 13 | times: 1000 }});
+    })();
+  </script>
+{%- endif -%}
+
+{% stylesheet %}
+  .ul-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 50;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    max-width: 350px;
+    padding: 13px 16px;
+    background: #ffffff;
+    border: 1px solid rgb(var(--ul-espresso-rgb) / 0.08);
+    border-left: 3px solid var(--ul-brass);
+    border-radius: var(--ul-radius);
+    box-shadow: 0 14px 44px rgb(0 0 0 / 0.16);
+    font-family: var(--ul-font-body);
+    color: var(--ul-espresso);
+    transform: translateY(170%);
+    opacity: 0;
+    transition: transform 0.6s var(--ul-ease), opacity 0.6s var(--ul-ease);
+    pointer-events: none;
+  }
+  .ul-toast.is-shown {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .ul-toast__avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--ul-espresso);
+    color: var(--ul-brass);
+    display: grid;
+    place-items: center;
+  }
+  .ul-toast__avatar svg { width: 20px; height: 20px; }
+
+  .ul-toast__content {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+  .ul-toast__content strong {
+    font-weight: 600;
+    color: var(--ul-espresso);
+  }
+
+  .ul-toast__meta {
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    letter-spacing: 0.01em;
+    color: rgb(var(--ul-espresso-rgb) / 0.55);
+  }
+  .ul-toast__dot {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .ul-toast__dot { animation: ul-toast-pulse 1.6s ease-in-out infinite; }
+  }
+  @keyframes ul-toast-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.4); }
+  }
+
+  /* Clear the native sticky add-to-cart bar on mobile */
+  @media (max-width: 749px) {
+    .ul-toast {
+      left: 12px;
+      right: 12px;
+      bottom: 84px;
+      max-width: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ul-toast { transform: none; transition: opacity 0.4s ease; }
+    .ul-toast.is-shown { transform: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "UL Recent purchase",
+  "tag": "section",
+  "class": "ul-recent-purchase-section",
+  "max_blocks": 16,
+  "settings": [
+    { "type": "paragraph", "content": "A rotating 'recent order' toast (bottom-left). Add it to the product template only. Edit the buyers below." },
+    { "type": "range", "id": "start_delay_seconds", "label": "First shows after", "min": 1, "max": 15, "step": 1, "unit": "s", "default": 4 },
+    { "type": "range", "id": "interval_seconds", "label": "Repeat every", "min": 5, "max": 60, "step": 1, "unit": "s", "default": 13 },
+    { "type": "range", "id": "visible_seconds", "label": "Stays visible for", "min": 3, "max": 12, "step": 1, "unit": "s", "default": 5 }
+  ],
+  "blocks": [
+    {
+      "type": "purchase",
+      "name": "Buyer",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Buyer (Name from City, ST)", "default": "Hannah from Nashville, TN" },
+        { "type": "text", "id": "item", "label": "What they bought", "default": "the Faith Over Fear Hoodie" },
+        { "type": "text", "id": "time", "label": "When", "default": "just now" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UL Recent purchase",
+      "blocks": [
+        { "type": "purchase", "settings": { "name": "Hannah from Nashville, TN", "item": "the Faith Over Fear Hoodie", "time": "just now" } },
+        { "type": "purchase", "settings": { "name": "Marcus from Dallas, TX", "item": "the Proverbs 31 Kingdom Motherhood Tee", "time": "4 minutes ago" } },
+        { "type": "purchase", "settings": { "name": "Grace from Columbus, OH", "item": "the God Is Good Faith Snapback", "time": "9 minutes ago" } },
+        { "type": "purchase", "settings": { "name": "Daniel from Phoenix, AZ", "item": "the Valor Victory Tee", "time": "14 minutes ago" } },
+        { "type": "purchase", "settings": { "name": "Rebecca from Tampa, FL", "item": "2 tees", "time": "19 minutes ago" } },
+        { "type": "purchase", "settings": { "name": "Josiah from Denver, CO", "item": "the Living Proof Tee", "time": "just now" } },
+        { "type": "purchase", "settings": { "name": "Caleb from Kansas City, MO", "item": "a Romans 1:16 Gospel Tee", "time": "23 minutes ago" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
