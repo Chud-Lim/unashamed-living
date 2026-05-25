@@ -1,0 +1,510 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "blocks": {
+        "heading": {
+          "type": "text",
+          "name": "Title",
+          "settings": {
+            "text": "<h1>{{ closest.page.title }}</h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "page-content": {
+          "type": "page-content",
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "heading",
+        "page-content"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 40,
+        "padding-block-end": 0
+      }
+    },
+    "section_CEm4Ab": {
+      "type": "section",
+      "blocks": {
+        "text_BgUWax": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Fill out the form below (write your size and gender in comment section)</h2>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 20,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "contact_form_9mrEMP": {
+          "type": "contact-form",
+          "settings": {
+            "width": "custom",
+            "custom_width": 50,
+            "width_mobile": "custom",
+            "custom_width_mobile": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "submit-button": {
+              "type": "contact-form-submit-button",
+              "static": true,
+              "settings": {
+                "label": "Submit",
+                "style_class": "button",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": []
+        }
+      },
+      "block_order": [
+        "text_BgUWax",
+        "contact_form_9mrEMP"
+      ],
+      "name": "t:names.contact_form",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "full-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-1",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image": "shopify://shop_images/freepik__img1-make-this-same-image-in-size-1080-x-1080-reta__78398.png",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 32,
+        "padding-block-end": 32
+      }
+    },
+    "media_with_content_aNBVF8": {
+      "type": "media-with-content",
+      "blocks": {
+        "media": {
+          "type": "_media-without-appearance",
+          "static": true,
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/freepik__img1-img2-img3-img4-create-smiling-models-wearing-__83748.png",
+            "link": "",
+            "video_loop": true,
+            "video_autoplay": false,
+            "image_position": "cover",
+            "video_position": "cover"
+          },
+          "blocks": {}
+        },
+        "content": {
+          "type": "_content-without-appearance",
+          "static": true,
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "space-between",
+            "gap": 24
+          },
+          "blocks": {
+            "text_CKtfmR": {
+              "type": "text",
+              "name": "t:names.caption",
+              "settings": {
+                "text": "<p>Coming together For Christ</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h6",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "group_LGFY83": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "text_RLHGQg": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h2>The Unashamed Living Mission</h2>",
+                    "width": "100%",
+                    "max_width": "none",
+                    "alignment": "center",
+                    "type_preset": "h2",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_pYEXRG": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>At <strong>Unashamed Living</strong>, we believe reaching souls matters more than making sales. We’ve built this <strong>Christian brand</strong> to empower you with <strong>faith-based conversation starters</strong>, giving every believer the confidence to share the Gospel wherever they go.</p><p>Our mission is to ensure that being introverted or shy is never a barrier to your testimony. When you wear <strong>Unashamed Living</strong>, you aren't just wearing a brand—you are making a bold statement. Together, we represent Him, ensuring that the light of Christ is truly seen in each of us as we live out our faith authentically.</p>",
+                    "width": "100%",
+                    "max_width": "narrow",
+                    "alignment": "center",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_RLHGQg",
+                "text_pYEXRG"
+              ]
+            },
+            "button_qDkfnt": {
+              "type": "button",
+              "settings": {
+                "label": "Shop now",
+                "link": "shopify://collections/all",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_CKtfmR",
+            "group_LGFY83",
+            "button_qDkfnt"
+          ]
+        }
+      },
+      "name": "t:names.editorial",
+      "settings": {
+        "media_position": "left",
+        "media_width": "medium",
+        "media_height": "60svh",
+        "section_width": "full-width",
+        "extend_media": true,
+        "color_scheme": "scheme-4",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "collection_list_VQHLAb": {
+      "type": "collection-list",
+      "blocks": {
+        "group_d47raj": {
+          "type": "group",
+          "name": "t:names.header",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_8KJ4qi": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<h3>Check out our collection!</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_8KJ4qi"
+          ]
+        },
+        "static-collection-card": {
+          "type": "_collection-card",
+          "name": "t:names.collection_card",
+          "static": true,
+          "settings": {
+            "placement": "below_image",
+            "horizontal_alignment": "center",
+            "vertical_alignment": "center",
+            "collection_card_gap": 8,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0
+          },
+          "blocks": {
+            "collection_title_3xLPqb": {
+              "type": "collection-title",
+              "name": "t:names.collection_title",
+              "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h5",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "collection-card-image": {
+              "type": "_collection-card-image",
+              "name": "t:names.collection_card_image",
+              "static": true,
+              "settings": {
+                "image_ratio": "adapt",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "collection_title_3xLPqb"
+          ]
+        }
+      },
+      "block_order": [
+        "group_d47raj"
+      ],
+      "name": "t:names.collections_editorial",
+      "settings": {
+        "collection_list": [
+          "women",
+          "women-apperal-copy",
+          "under-20",
+          "toddler"
+        ],
+        "layout_type": "editorial",
+        "carousel_on_mobile": false,
+        "columns": 3,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "bento_gap": 8,
+        "rows_gap": 8,
+        "max_collections": 4,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "gap": 64,
+        "color_scheme": "",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    }
+  },
+  "order": [
+    "main",
+    "section_CEm4Ab",
+    "media_with_content_aNBVF8",
+    "collection_list_VQHLAb"
+  ]
+}

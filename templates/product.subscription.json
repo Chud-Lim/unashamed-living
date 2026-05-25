@@ -1,0 +1,1390 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product-information": {
+      "type": "product-information",
+      "blocks": {
+        "media-gallery": {
+          "type": "_product-media-gallery",
+          "static": true,
+          "settings": {
+            "media_presentation": "grid",
+            "media_columns": "two",
+            "image_gap": 0,
+            "large_first_image": false,
+            "icons_style": "arrow",
+            "slideshow_controls_style": "dots",
+            "slideshow_mobile_controls_style": "dots",
+            "thumbnail_position": "bottom",
+            "thumbnail_width": 44,
+            "aspect_ratio": "1/1.25",
+            "constrain_to_viewport": false,
+            "media_fit": "cover",
+            "media_radius": 0,
+            "extend_media": true,
+            "zoom": true,
+            "video_loop": false,
+            "hide_variants": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "product-details": {
+          "type": "_product-details",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "details_position": "flex-start",
+            "gap": 40,
+            "sticky_details_desktop": true,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 40,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "group_8fkkWP": {
+              "type": "group",
+              "name": "Header",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "text_7VVz8U": {
+                  "type": "text",
+                  "name": "t:names.title",
+                  "settings": {
+                    "text": "<h1>{{ closest.product.title }}</h1>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h2",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "review_fdhCBJ": {
+                  "type": "review",
+                  "name": "t:names.product_review_stars",
+                  "settings": {
+                    "stars_style": "shaded",
+                    "show_number": true,
+                    "rating_color": "primary",
+                    "type_preset": "paragraph",
+                    "alignment": "left"
+                  },
+                  "blocks": {}
+                },
+                "group_b7xNnM": {
+                  "type": "group",
+                  "name": "t:names.group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": false,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "align_baseline": false,
+                    "horizontal_alignment_flex_direction_column": "flex-start",
+                    "vertical_alignment_flex_direction_column": "center",
+                    "gap": 16,
+                    "width": "fill",
+                    "custom_width": 100,
+                    "width_mobile": "fill",
+                    "custom_width_mobile": 100,
+                    "height": "fit",
+                    "custom_height": 100,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "background_media": "none",
+                    "video_position": "cover",
+                    "background_image_position": "cover",
+                    "border": "none",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 0,
+                    "toggle_overlay": false,
+                    "overlay_color": "#00000026",
+                    "overlay_style": "solid",
+                    "gradient_direction": "to top",
+                    "link": "",
+                    "open_in_new_tab": false,
+                    "placeholder": "",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {
+                    "price_UN6aHJ": {
+                      "type": "price",
+                      "name": "t:names.product_price",
+                      "settings": {
+                        "show_sale_price_first": true,
+                        "show_installments": false,
+                        "show_tax_info": false,
+                        "type_preset": "h6",
+                        "width": "fit-content",
+                        "alignment": "left",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "color": "var(--color-foreground)",
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "price_UN6aHJ"
+                  ]
+                }
+              },
+              "block_order": [
+                "text_7VVz8U",
+                "review_fdhCBJ",
+                "group_b7xNnM"
+              ]
+            },
+            "variant_picker_3Nha6V": {
+              "type": "variant-picker",
+              "name": "t:names.product_variant_picker",
+              "settings": {
+                "variant_style": "buttons",
+                "show_swatches": true,
+                "alignment": "left",
+                "padding-block-start": 16,
+                "padding-block-end": 16,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "buy_buttons_NmYpFG": {
+              "type": "buy-buttons",
+              "name": "t:names.product_buy_buttons",
+              "settings": {
+                "stacking": false,
+                "show_pickup_availability": false,
+                "gift_card_form": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true,
+                  "settings": {
+                    "style_class": "button"
+                  },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": []
+            },
+            "accordion_iWQwkW": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h6",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_TbgNUF": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Product Details",
+                    "open_by_default": true,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_n6TMzy": {
+                      "type": "text",
+                      "settings": {
+                        "text": "{{ closest.product.description }}",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "center",
+                        "type_preset": "rte",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_n6TMzy"
+                  ]
+                },
+                "accordion_row_76yCLJ": {
+                  "type": "_accordion-row",
+                  "name": "t:names.accordion_row",
+                  "settings": {
+                    "heading": "Product maintenance and care",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_AqeQbB": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<h2>🧺 Care Instructions </h2><p>To ensure the longevity and fit of your apparel, please follow these gentle care steps:</p><ol><li><strong>Wash Cold:</strong> Always turn the garment inside out and wash using a <strong>cold water setting</strong> (gentle cycle) with a mild detergent. This prevents shrinking and preserves color vibrancy.</li><li><strong>Air Dry is Best:</strong> For zero shrinkage, lay flat or hang to air dry. If you must machine dry, use the <strong>lowest heat setting</strong> possible and remove while still slightly damp.</li><li><strong>Avoid High Heat:</strong> High temperatures in washing or drying are the main cause of shrinkage in cotton fibers.</li></ol>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "center",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_AqeQbB"
+                  ]
+                },
+                "accordion_row_kmdwc8": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Size & Fit",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_hYWKPd": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Our products are crafted to fit true to size, ensuring that you can confidently select your usual size with ease. Whether you’re looking for a relaxed or tailored fit, our designs are made to complement your unique shape and style.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "center",
+                        "type_preset": "rte",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_hYWKPd"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_TbgNUF",
+                "accordion_row_76yCLJ",
+                "accordion_row_kmdwc8"
+              ]
+            }
+          },
+          "block_order": [
+            "group_8fkkWP",
+            "variant_picker_3Nha6V",
+            "buy_buttons_NmYpFG",
+            "accordion_iWQwkW"
+          ]
+        }
+      },
+      "settings": {
+        "content_width": "content-center-aligned",
+        "desktop_media_position": "left",
+        "equal_columns": false,
+        "limit_details_width": false,
+        "gap": 40,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "media_with_content_EMXw43": {
+      "type": "media-with-content",
+      "blocks": {
+        "media": {
+          "type": "_media-without-appearance",
+          "static": true,
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/freepik__candid-i-with-natural-textures-and-highly-realisti__83749.png",
+            "link": "shopify://pages/need-prayer",
+            "video_loop": true,
+            "video_autoplay": false,
+            "image_position": "cover",
+            "video_position": "cover"
+          },
+          "blocks": {}
+        },
+        "content": {
+          "type": "_content-without-appearance",
+          "static": true,
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "space-between",
+            "gap": 24
+          },
+          "blocks": {
+            "text_gJP4RN": {
+              "type": "text",
+              "name": "t:names.caption",
+              "settings": {
+                "text": "<p>Allow us to pray over you. 🙏🏼</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "h2",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "group_BNENXg": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "text_H3HyMP": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h2>We all need prayer</h2>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "h3",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_jr9XfE": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Prayer is a <strong>vital act of faith</strong> where we seek God's intervention, and being prayed over is deeply important because it signifies the power of the communal body of Christ acting on our behalf (James 5:16). When others pray over us, they are invoking the promises of God, particularly for healing, strength, and guidance, as Jesus commanded his disciples to pray for one another (Matthew 18:19-20). The laying on of hands often accompanies this, symbolizing the transfer of the Holy Spirit's power and blessing, reinforcing that our battles are not fought alone but with the support of the church and the direct power of God.</p><p></p>",
+                    "width": "100%",
+                    "max_width": "narrow",
+                    "alignment": "center",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "button_rEJn46": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "Submit your prayer request",
+                    "link": "shopify://pages/need-prayer",
+                    "open_in_new_tab": false,
+                    "style_class": "button",
+                    "width": "custom",
+                    "custom_width": 100,
+                    "width_mobile": "custom",
+                    "custom_width_mobile": 100
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_H3HyMP",
+                "text_jr9XfE",
+                "button_rEJn46"
+              ]
+            }
+          },
+          "block_order": [
+            "text_gJP4RN",
+            "group_BNENXg"
+          ]
+        }
+      },
+      "name": "t:names.editorial",
+      "settings": {
+        "media_position": "left",
+        "media_width": "medium",
+        "media_height": "60svh",
+        "section_width": "full-width",
+        "extend_media": true,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "product_recommendations_UeDczP": {
+      "type": "product-recommendations",
+      "blocks": {
+        "text_hT9TEm": {
+          "type": "text",
+          "name": "t:names.header",
+          "settings": {
+            "text": "<h3>Related items</h3>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h3",
+            "font": "var(--font-primary--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 16,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_7qMAmF": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "portrait",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "group_4V7yPa": {
+              "type": "_product-card-group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 4,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {
+                "judge_me_reviews_preview_badge_qbmej7": {
+                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+                  "settings": {}
+                },
+                "product_title_mDe6FU": {
+                  "type": "product-title",
+                  "name": "t:names.product_title",
+                  "settings": {
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "paragraph",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "price_Qww9yQ": {
+                  "type": "price",
+                  "settings": {
+                    "show_sale_price_first": true,
+                    "show_installments": false,
+                    "show_tax_info": false,
+                    "type_preset": "",
+                    "width": "100%",
+                    "alignment": "left",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "color": "var(--color-foreground)",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "swatches_QtbikB": {
+                  "type": "swatches",
+                  "name": "t:names.swatches",
+                  "settings": {
+                    "product_swatches_alignment": "flex-start",
+                    "product_swatches_alignment_mobile": "flex-start",
+                    "hide_padding": false,
+                    "product_swatches_padding_top": 4,
+                    "product_swatches_padding_bottom": 0,
+                    "product_swatches_padding_left": 0,
+                    "product_swatches_padding_right": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "judge_me_reviews_preview_badge_qbmej7",
+                "product_title_mDe6FU",
+                "price_Qww9yQ",
+                "swatches_QtbikB"
+              ]
+            }
+          },
+          "block_order": [
+            "product_card_gallery_7qMAmF",
+            "group_4V7yPa"
+          ]
+        }
+      },
+      "block_order": [
+        "text_hT9TEm"
+      ],
+      "name": "t:names.product_recommendations",
+      "settings": {
+        "product": "{{ closest.product }}",
+        "recommendation_type": "related",
+        "layout_type": "carousel",
+        "carousel_on_mobile": false,
+        "max_products": 10,
+        "columns": 3,
+        "mobile_columns": "2",
+        "columns_gap": 0,
+        "rows_gap": 36,
+        "icons_style": "none",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "gap": 28,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 24,
+        "padding-block-end": 24
+      }
+    },
+    "section_jRVw4J": {
+      "type": "section",
+      "blocks": {
+        "image_EkcHTd": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/freepik__img1-img2-img3-img4-create-smiling-models-wearing-__83748.png",
+            "link": "shopify://products/the-platinum-impact-plan-100-commitment-to-community",
+            "image_ratio": "square",
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "group_x3qGfn": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "custom",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_9p647t": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h3>🙏 <strong>Become a Cornerstone of Change: Join the Platinum Impact Plan</strong> 🚀</h3><p></p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_dDD9WB": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Stop simply subscribing, start <strong>investing in transformation.</strong></p><p>The <strong>Platinum Impact Plan</strong> is more than a premium partnership—it's a <strong>direct fulfillment of the sacred call</strong> to care for the most vulnerable among us (James 1:27).</p><p><strong>Here's the impact you unlock:</strong></p><ul><li><strong>⚡ Immediate Transformation:</strong> A powerful <strong>30%</strong> of your subscription fee is immediately funneled to fund <strong>vital projects</strong> in communities and churches, creating <strong>tangible, life-changing results</strong> in neighborhoods and ministries—right now.</li><li><strong>🎁 Exclusive Rewards:</strong> As a thank you for your commitment to impact, you receive exclusive monthly items, enriching biblical study guides, free shipping, and earn a generous <strong>30% commission</strong> for every referral.</li></ul><p><strong>Don't just watch change happen. Be the catalyst.</strong></p><p><strong>Join the Platinum Impact Plan today</strong> and become a <strong>cornerstone investor</strong> in faith and flourishing communities!</p>",
+                "width": "100%",
+                "max_width": "narrow",
+                "alignment": "center",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "button_qnPbDV": {
+              "type": "button",
+              "settings": {
+                "label": "Join now",
+                "link": "shopify://products/the-diamond-legacy-plan-visionary-impact-direct-influence",
+                "open_in_new_tab": false,
+                "style_class": "button",
+                "width": "custom",
+                "custom_width": 100,
+                "width_mobile": "custom",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_9p647t",
+            "text_dDD9WB",
+            "button_qnPbDV"
+          ]
+        }
+      },
+      "block_order": [
+        "image_EkcHTd",
+        "group_x3qGfn"
+      ],
+      "name": "t:names.image_with_text",
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 32,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
+    "section_PfQWq4": {
+      "type": "section",
+      "blocks": {
+        "image_i9C9fa": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/freepik__img1-group-of-models-wearing-this-sweater-together__64584.jpg",
+            "link": "shopify://products/the-diamond-legacy-plan-visionary-impact-direct-influence",
+            "image_ratio": "square",
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "group_nfEqgx": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "custom",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_WWVi3G": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h2>💎 <strong>Forge a Lasting Legacy: Enroll in the Diamond Legacy Plan</strong> 🌟</h2><p></p><p></p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_PgjHCz": {
+              "type": "text",
+              "settings": {
+                "text": "<p>This isn't just a contribution—it's <strong>foundational partnership</strong> designed for <strong>high-impact, transformational change.</strong></p><p>The <strong>Diamond Legacy Plan</strong> directly honors the biblical mandate to care for the vulnerable (James 1:27). When you join, you become a driver of <strong>deep, sustainable community renewal.</strong></p><p><strong>Here is the foundational impact you create:</strong></p><ul><li><strong>📈 Maximum Impact:</strong> A guaranteed <strong>30%</strong> of your investment is allocated to specific, <strong>high-priority initiatives</strong>, funding essential educational programs and securing community stability.</li><li><strong>📚 Partner Privileges:</strong> As a Diamond Partner, you receive exclusive weekly biblical study guides, enjoy three free shipments every month, and earn an excellent <strong>25% passive income commission</strong> for every referral.</li></ul><p><strong>Your partnership doesn't just fund change—it creates a lasting legacy of faith-driven renewal.</strong></p><p><strong>Join the Diamond Legacy Plan today</strong> and lay the groundwork for a brighter future!</p>",
+                "width": "100%",
+                "max_width": "narrow",
+                "alignment": "center",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "button_gn8XE6": {
+              "type": "button",
+              "settings": {
+                "label": "Join now",
+                "link": "shopify://products/the-diamond-legacy-plan-visionary-impact-direct-influence",
+                "open_in_new_tab": false,
+                "style_class": "button",
+                "width": "custom",
+                "custom_width": 100,
+                "width_mobile": "custom",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_WWVi3G",
+            "text_PgjHCz",
+            "button_gn8XE6"
+          ]
+        }
+      },
+      "block_order": [
+        "image_i9C9fa",
+        "group_nfEqgx"
+      ],
+      "name": "t:names.image_with_text",
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 32,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
+    "section_wxmkRf": {
+      "type": "section",
+      "blocks": {
+        "image_B8niAd": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/freepik__create-a-group-of-models-wearing-this-sweater-toge__64573.png",
+            "link": "shopify://products/the-gold-partner-plan-consistent-giving-measurable-results",
+            "image_ratio": "square",
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "group_pVh3g7": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "custom",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_4Kjigd": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h2>✨ <strong>Sustain the Mission: Join the Gold Partner Plan</strong> 🤝</h2><p></p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_6fQKj6": {
+              "type": "text",
+              "settings": {
+                "text": "<p>The <strong>Gold Partner Plan</strong> is the <strong>essential tier</strong> for believers who value <strong>consistent, sustainable impact.</strong></p><p>Your commitment provides the <strong>reliable funding</strong> that keeps faith-driven community and church development moving forward year after year.</p><p><strong>Here's the vital support you provide:</strong></p><ul><li><strong>🌱 Consistent Impact:</strong> A fixed, substantial percentage of your subscription provides crucial, reliable funding for <strong>operational needs, educational programs, and local resource support.</strong> Your steady contribution helps someone take a step closer to Christ every day.</li><li><strong>🔑 Valuable Benefits:</strong> As a thank you for your commitment, you unlock a monthly e-book, receive free shipping on one order per month, and earn a generous <strong>20% passive income commission</strong> for every referral.</li></ul><p><strong>Don't underestimate the power of consistency. Become a crucial provider.</strong></p><p><strong>Join the Gold Partner Plan today</strong> and ensure neighborhoods and ministries <strong>thrive</strong>!</p>",
+                "width": "100%",
+                "max_width": "narrow",
+                "alignment": "center",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "button_iUkgPB": {
+              "type": "button",
+              "settings": {
+                "label": "Join now",
+                "link": "shopify://products/the-gold-partner-plan-consistent-giving-measurable-results",
+                "open_in_new_tab": false,
+                "style_class": "button",
+                "width": "custom",
+                "custom_width": 100,
+                "width_mobile": "custom",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_4Kjigd",
+            "text_6fQKj6",
+            "button_iUkgPB"
+          ]
+        }
+      },
+      "block_order": [
+        "image_B8niAd",
+        "group_pVh3g7"
+      ],
+      "name": "t:names.image_with_text",
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 32,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
+    "17635874591627b4fd": {
+      "type": "_blocks",
+      "blocks": {
+        "judge_me_reviews_review_widget_BxYwa7": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 750,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_BxYwa7"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    }
+  },
+  "order": [
+    "product-information",
+    "media_with_content_EMXw43",
+    "product_recommendations_UeDczP",
+    "section_jRVw4J",
+    "section_PfQWq4",
+    "section_wxmkRf",
+    "17635874591627b4fd"
+  ]
+}
