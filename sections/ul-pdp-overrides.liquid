@@ -14,8 +14,16 @@
   .product-information {
     padding-block: clamp(24px, 4vw, 56px);
   }
+  /* Prevent grid columns from forcing horizontal overflow (grid items default to min-width:auto) */
+  .product-information__grid,
+  .product-information__grid > *,
+  .product-information__media,
+  .product-information .product-details {
+    min-width: 0;
+  }
   @media (min-width: 750px) {
-    .product-information__grid { column-gap: clamp(32px, 5vw, 72px); }
+    /* Bring the info column closer to the media (was 72px, felt detached) */
+    .product-information__grid { column-gap: clamp(24px, 2.4vw, 44px); }
   }
 
   /* --- Typography: brand display on title + section/accordion headings --- */
