@@ -14,6 +14,13 @@
   .product-information {
     padding-block: clamp(24px, 4vw, 56px);
   }
+  /* Gap between media and info via info-column padding (the theme grid uses fixed
+     gutter columns, so a column-gap overflows). Stays inside the column -> no overflow. */
+  @media (min-width: 750px) {
+    .product-information .product-details {
+      padding-inline-start: clamp(20px, 2.4vw, 44px);
+    }
+  }
 
   /* --- Typography: brand display on title + section/accordion headings --- */
   .product-information .product-details h1,
