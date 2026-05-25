@@ -2284,5 +2284,64 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Unashamed Living Brand",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand colors"
+      },
+      {
+        "type": "paragraph",
+        "content": "Palette for the custom Unashamed Living (ul-) homepage and product sections."
+      },
+      {
+        "type": "color",
+        "id": "ul_bone",
+        "label": "Base / bone",
+        "default": "#F4EFE6"
+      },
+      {
+        "type": "color",
+        "id": "ul_espresso",
+        "label": "Ink / espresso",
+        "default": "#1A1714"
+      },
+      {
+        "type": "color",
+        "id": "ul_dark",
+        "label": "Dark surface",
+        "default": "#242019"
+      },
+      {
+        "type": "color",
+        "id": "ul_brass",
+        "label": "Accent — aged brass",
+        "default": "#A87C4F"
+      },
+      {
+        "type": "color",
+        "id": "ul_oxblood",
+        "label": "Signal — oxblood",
+        "default": "#5E2A28"
+      },
+      {
+        "type": "header",
+        "content": "Brand type"
+      },
+      {
+        "type": "font_picker",
+        "id": "ul_font_display",
+        "label": "Display / headings (serif)",
+        "default": "playfair_display_n6"
+      },
+      {
+        "type": "font_picker",
+        "id": "ul_font_body",
+        "label": "Body / UI (sans)",
+        "default": "work_sans_n4"
+      }
+    ]
   }
 ]

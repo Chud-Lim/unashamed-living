@@ -1,0 +1,536 @@
+{% render 'ul-tokens' %}
+{%- comment -%}
+  ul-mission-impact — the dark, weighty giving moment.
+  Manifesto + 3 impact stats + CTA on a dark surface (Kotn / Elevated-Faith gravity).
+  Three layouts: split (homepage, with image), centered (no image), compact (slim
+  PDP band, no image). Text content as blocks (eyebrow / heading / body / stat /
+  button) for merchant flexibility; stat blocks repeat. All CSS scoped under
+  .ul-mission-impact (a unique ul- class, so it cannot leak). Per-instance values
+  pass as inline --ul-mi-* custom properties. Colors/type/spacing via ul-tokens only.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign img_d = s.image
+  assign img_m = s.image_mobile | default: s.image
+  assign show_media = false
+  if s.layout == 'split' and img_d != blank
+    assign show_media = true
+  endif
+  assign media_sizes = '(min-width: 750px) 50vw, 100vw'
+  assign widths = '600, 800, 1000, 1300, 1600, 2000'
+  assign mobile_widths_arr = '440, 640, 840, 1080, 1320' | split: ', '
+-%}
+
+<div
+  class="ul-mission-impact ul-mission-impact-{{ section.id }} ul-mission-impact--{{ s.layout }} ul-mission-impact--{{ s.color_mode }} ul-mission-impact--media-{{ s.media_position }}{% if show_media %} ul-mission-impact--has-media{% endif %}{% if s.show_hairline %} ul-mission-impact--hairline{% endif %}"
+  style="
+    --ul-mi-pad-top: {{ s.padding_top }}px;
+    --ul-mi-pad-bottom: {{ s.padding_bottom }}px;
+  "
+>
+  <div class="ul-mission-impact__inner ul-container">
+    {%- if show_media -%}
+      <div class="ul-mission-impact__media ul-reveal ul-reveal--soft">
+        {%- if img_d != blank -%}
+          <picture>
+            {%- if img_m != blank -%}
+              <source
+                media="(max-width: 749px)"
+                srcset="{% for w in mobile_widths_arr %}{{ img_m | image_url: width: w }} {{ w }}w{% unless forloop.last %}, {% endunless %}{% endfor %}"
+                sizes="100vw"
+                width="{{ img_m.width }}"
+                height="{{ img_m.height }}"
+              >
+            {%- endif -%}
+            {{
+              img_d
+              | image_url: width: 2000
+              | image_tag:
+                widths: widths,
+                sizes: media_sizes,
+                width: img_d.width,
+                height: img_d.height,
+                alt: img_d.alt | default: s.image_alt,
+                class: 'ul-mission-impact__img',
+                loading: 'lazy'
+            }}
+          </picture>
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'ul-mission-impact__img ul-mission-impact__img--placeholder' }}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="ul-mission-impact__content ul-reveal">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'eyebrow' -%}
+            {%- if block.settings.text != blank -%}
+              <p class="ul-eyebrow ul-mission-impact__eyebrow" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+            {%- endif -%}
+          {%- when 'heading' -%}
+            {%- if block.settings.text != blank -%}
+              <h2 class="ul-mission-impact__heading" {{ block.shopify_attributes }}>{{ block.settings.text }}</h2>
+            {%- endif -%}
+          {%- when 'body' -%}
+            {%- if block.settings.text != blank -%}
+              <div class="ul-mission-impact__body" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+
+      {%- assign stats = section.blocks | where: 'type', 'stat' -%}
+      {%- if stats.size > 0 -%}
+        <dl class="ul-mission-impact__stats">
+          {%- for block in stats -%}
+            {%- if block.settings.value != blank or block.settings.label != blank -%}
+              <div class="ul-mission-impact__stat" style="--ul-mi-stat-i: {{ forloop.index0 }};" {{ block.shopify_attributes }}>
+                <dt class="ul-mission-impact__stat-value">{{ block.settings.value }}</dt>
+                <dd class="ul-mission-impact__stat-label">{{ block.settings.label }}</dd>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </dl>
+      {%- endif -%}
+
+      {%- assign buttons = section.blocks | where: 'type', 'button' -%}
+      {%- if buttons.size > 0 -%}
+        <div class="ul-mission-impact__actions">
+          {%- for block in buttons -%}
+            {%- if block.settings.label != blank -%}
+              <a
+                class="ul-btn ul-btn--{{ block.settings.style }}"
+                href="{{ block.settings.link | default: '#' }}"
+                {% if block.settings.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}
+                {{ block.shopify_attributes }}
+              >{{ block.settings.label }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .ul-mission-impact {
+    --ul-mi-bg: var(--ul-dark);
+    --ul-mi-fg: var(--ul-bone);
+    --ul-mi-accent: var(--ul-brass);
+    --ul-mi-rule: rgb(var(--ul-brass-rgb) / 0.4);
+    --ul-mi-soft: rgb(var(--ul-bone-rgb) / 0.74);
+    background: var(--ul-mi-bg);
+    color: var(--ul-mi-fg);
+  }
+
+  .ul-mission-impact--bone {
+    --ul-mi-bg: var(--ul-bone);
+    --ul-mi-fg: var(--ul-espresso);
+    --ul-mi-accent: var(--ul-brass);
+    --ul-mi-rule: rgb(var(--ul-brass-rgb) / 0.4);
+    --ul-mi-soft: rgb(var(--ul-espresso-rgb) / 0.78);
+  }
+
+  .ul-mission-impact--hairline {
+    border-top: 1px solid var(--ul-mi-rule);
+    border-bottom: 1px solid var(--ul-mi-rule);
+  }
+
+  .ul-mission-impact__inner {
+    padding-block: var(--ul-mi-pad-top, 104px) var(--ul-mi-pad-bottom, 104px);
+  }
+
+  /* ---- Content column ---- */
+  .ul-mission-impact__content {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 2vw, 24px);
+    max-width: 60ch;
+  }
+
+  .ul-mission-impact__eyebrow {
+    color: var(--ul-mi-accent);
+  }
+
+  .ul-mission-impact__heading {
+    font-family: var(--ul-font-display);
+    font-weight: var(--ul-weight-display);
+    font-size: var(--ul-fs-h2);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .ul-mission-impact__body {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-body);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 54ch;
+    color: var(--ul-mi-soft);
+  }
+
+  .ul-mission-impact__body > * {
+    margin: 0;
+  }
+  .ul-mission-impact__body > * + * {
+    margin-top: 0.7em;
+  }
+
+  /* ---- Stats ---- */
+  .ul-mission-impact__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(24px, 4vw, 56px);
+    margin: clamp(6px, 1vw, 12px) 0 0;
+    padding: 0;
+  }
+
+  .ul-mission-impact__stat {
+    margin: 0;
+    min-width: 0;
+  }
+
+  .ul-mission-impact__stat-value {
+    font-family: var(--ul-font-display);
+    font-weight: var(--ul-weight-display);
+    font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--ul-mi-accent);
+  }
+
+  .ul-mission-impact__stat-label {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-small);
+    letter-spacing: var(--ul-eyebrow-ls);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0.6em 0 0;
+    color: var(--ul-mi-soft);
+    max-width: 22ch;
+  }
+
+  /* ---- Actions ---- */
+  .ul-mission-impact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: clamp(8px, 1.4vw, 16px);
+  }
+
+  /* ---- Layout: split (image + content side by side) ---- */
+  .ul-mission-impact--has-media .ul-mission-impact__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 5vw, 72px);
+    align-items: center;
+  }
+
+  .ul-mission-impact__media {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--ul-radius);
+    aspect-ratio: 4 / 5;
+    background: rgb(var(--ul-espresso-rgb) / 0.5);
+  }
+
+  .ul-mission-impact__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+  }
+
+  /* ---- Layout: centered ---- */
+  .ul-mission-impact--centered .ul-mission-impact__content {
+    max-width: 70ch;
+    margin-inline: auto;
+    align-items: center;
+    text-align: center;
+  }
+  .ul-mission-impact--centered .ul-mission-impact__body {
+    margin-inline: auto;
+  }
+  .ul-mission-impact--centered .ul-mission-impact__stats {
+    justify-content: center;
+    text-align: center;
+  }
+  .ul-mission-impact--centered .ul-mission-impact__stat-label {
+    margin-inline: auto;
+  }
+  .ul-mission-impact--centered .ul-mission-impact__actions {
+    justify-content: center;
+  }
+
+  /* ---- Layout: compact (slim PDP band) ---- */
+  .ul-mission-impact--compact .ul-mission-impact__inner {
+    padding-block: var(--ul-mi-pad-top, var(--ul-pad-block-tight)) var(--ul-mi-pad-bottom, var(--ul-pad-block-tight));
+  }
+  .ul-mission-impact--compact .ul-mission-impact__content {
+    max-width: none;
+    gap: clamp(12px, 1.6vw, 18px);
+  }
+  .ul-mission-impact--compact .ul-mission-impact__heading {
+    font-size: var(--ul-fs-h4);
+    line-height: 1.12;
+  }
+  .ul-mission-impact--compact .ul-mission-impact__body {
+    font-size: var(--ul-fs-small);
+    max-width: 60ch;
+  }
+  .ul-mission-impact--compact .ul-mission-impact__stats {
+    gap: clamp(18px, 3vw, 36px);
+  }
+  .ul-mission-impact--compact .ul-mission-impact__stat-value {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+  }
+  .ul-mission-impact--compact .ul-mission-impact__stat-label {
+    font-size: 0.72rem;
+  }
+  .ul-mission-impact--compact .ul-btn {
+    min-height: 44px;
+    padding: 0 24px;
+    font-size: 0.88rem;
+  }
+
+  /* ---- Shared brand button idiom ---- */
+  .ul-mission-impact .ul-btn {
+    --ul-btn-bg: var(--ul-brass);
+    --ul-btn-fg: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    min-height: 52px;
+    padding: 0 32px;
+    border-radius: var(--ul-radius);
+    font-family: var(--ul-font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    background: var(--ul-btn-bg);
+    color: var(--ul-btn-fg);
+    transition: transform 0.45s var(--ul-ease), background-color 0.35s var(--ul-ease), color 0.35s var(--ul-ease), border-color 0.35s var(--ul-ease);
+  }
+
+  .ul-mission-impact .ul-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .ul-mission-impact .ul-btn--primary {
+    --ul-btn-bg: var(--ul-brass);
+    --ul-btn-fg: #fff;
+  }
+  .ul-mission-impact .ul-btn--primary:hover {
+    --ul-btn-bg: color-mix(in srgb, var(--ul-brass) 84%, black);
+  }
+
+  .ul-mission-impact .ul-btn--secondary {
+    --ul-btn-bg: transparent;
+    --ul-btn-fg: var(--ul-bone);
+    border-color: rgb(var(--ul-bone-rgb) / 0.55);
+  }
+  .ul-mission-impact .ul-btn--secondary:hover {
+    --ul-btn-bg: var(--ul-bone);
+    --ul-btn-fg: var(--ul-espresso);
+    border-color: var(--ul-bone);
+  }
+
+  .ul-mission-impact--bone .ul-btn--secondary {
+    --ul-btn-fg: var(--ul-espresso);
+    border-color: rgb(var(--ul-espresso-rgb) / 0.4);
+  }
+  .ul-mission-impact--bone .ul-btn--secondary:hover {
+    --ul-btn-bg: var(--ul-espresso);
+    --ul-btn-fg: var(--ul-bone);
+    border-color: var(--ul-espresso);
+  }
+
+  .ul-mission-impact :focus-visible {
+    outline-offset: 3px;
+  }
+  .ul-mission-impact .ul-btn:focus-visible {
+    outline: 2px solid var(--ul-mi-accent);
+    outline-offset: 3px;
+  }
+
+  /* ---- Desktop split + media position ---- */
+  @media (min-width: 750px) {
+    .ul-mission-impact--has-media .ul-mission-impact__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+    .ul-mission-impact--has-media.ul-mission-impact--media-right .ul-mission-impact__media {
+      order: 2;
+    }
+    .ul-mission-impact--has-media .ul-mission-impact__content {
+      max-width: 52ch;
+    }
+
+    /* Compact reads as a single inline band on wider viewports */
+    .ul-mission-impact--compact .ul-mission-impact__content {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(20px, 3vw, 40px);
+    }
+    .ul-mission-impact--compact .ul-mission-impact__heading {
+      flex: 1 1 16ch;
+      margin: 0;
+    }
+    .ul-mission-impact--compact .ul-mission-impact__stats {
+      margin: 0;
+      flex: 2 1 auto;
+      justify-content: center;
+    }
+    .ul-mission-impact--compact .ul-mission-impact__actions {
+      margin: 0;
+      flex: 0 0 auto;
+    }
+  }
+
+  /* ---- Subtle stat stagger (layered on the shared ul-reveal group) ---- */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ul-mission-impact__stat {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: ul-mi-stat-in linear both;
+        animation-timeline: view();
+        animation-range: entry 4% cover 22%;
+        animation-delay: calc(var(--ul-mi-stat-i, 0) * 90ms);
+      }
+    }
+  }
+  @keyframes ul-mi-stat-in {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Scoped scroll-reveal (reuses shared @keyframes ul-reveal-in from ul-tokens) */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ul-mission-impact .ul-reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        animation: ul-reveal-in linear both;
+        animation-timeline: view();
+        animation-range: entry 2% cover 20%;
+      }
+      .ul-mission-impact .ul-reveal--soft { transform: translateY(14px); }
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "UL Mission",
+  "tag": "section",
+  "class": "ul-mission-impact-section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "split", "label": "Split (image + content)" },
+        { "value": "centered", "label": "Centered (no image)" },
+        { "value": "compact", "label": "Compact band (for product pages)" }
+      ],
+      "default": "split"
+    },
+    {
+      "type": "select",
+      "id": "media_position",
+      "label": "Image position (split layout only)",
+      "info": "Only applies to the Split layout.",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "color_mode",
+      "label": "Color mode",
+      "options": [
+        { "value": "dark", "label": "Dark (bone text on dark)" },
+        { "value": "bone", "label": "Light (espresso text on bone)" }
+      ],
+      "default": "dark"
+    },
+    { "type": "checkbox", "id": "show_hairline", "label": "Show top & bottom hairline", "default": false },
+    { "type": "header", "content": "Image (split layout)" },
+    { "type": "image_picker", "id": "image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Mobile image", "info": "Falls back to the desktop image if empty." },
+    { "type": "text", "id": "image_alt", "label": "Image alt text (accessibility)" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 }
+  ],
+  "blocks": [
+    { "type": "eyebrow", "name": "Eyebrow", "settings": [ { "type": "text", "id": "text", "label": "Eyebrow" } ] },
+    { "type": "heading", "name": "Heading", "settings": [ { "type": "text", "id": "text", "label": "Heading" } ] },
+    { "type": "body", "name": "Manifesto", "settings": [ { "type": "textarea", "id": "text", "label": "Manifesto text" } ] },
+    {
+      "type": "stat",
+      "name": "Impact stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Stat (large)" },
+        { "type": "text", "id": "label", "label": "Stat label (small)" }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Button label" },
+        { "type": "url", "id": "link", "label": "Button link" },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            { "value": "primary", "label": "Primary (brass)" },
+            { "value": "secondary", "label": "Secondary (outline)" }
+          ],
+          "default": "primary"
+        },
+        { "type": "checkbox", "id": "open_in_new_tab", "label": "Open in new tab", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UL Mission",
+      "blocks": [
+        { "type": "eyebrow", "settings": { "text": "Our mission" } },
+        { "type": "heading", "settings": { "text": "Every purchase preaches" } },
+        { "type": "body", "settings": { "text": "Unashamed Living exists so faith goes further than a feeling. Wear it, gift it, live it — and 10% of every sale funds churches, sparks Gospel conversations, and lifts communities worldwide." } },
+        { "type": "stat", "settings": { "value": "10%", "label": "of every sale, given" } },
+        { "type": "stat", "settings": { "value": "3", "label": "pillars we fund" } },
+        { "type": "stat", "settings": { "value": "100%", "label": "faith-owned, mission-led" } },
+        { "type": "button", "settings": { "label": "Join the mission", "link": "shopify://collections/all", "style": "primary" } }
+      ],
+      "settings": {
+        "layout": "split",
+        "media_position": "left",
+        "color_mode": "dark",
+        "show_hairline": false
+      }
+    }
+  ]
+}
+{% endschema %}

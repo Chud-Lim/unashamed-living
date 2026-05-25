@@ -1,0 +1,116 @@
+{%- comment -%}
+  ul-pdp-overrides — style carrier for the product page. Renders the brand tokens
+  and a set of LIGHT, scoped overrides that lift the EXISTING product-information
+  section to the brand design system (type, color, spacing, button + accordion
+  polish). It does NOT touch product-information.liquid and changes no markup;
+  every selector is scoped under .product-information so it cannot leak to
+  homepage product cards. Uses an inline <style> intentionally (it styles classes
+  owned by the theme's product section, not this file's own markup).
+{%- endcomment -%}
+{% render 'ul-tokens' %}
+
+<style>
+  /* --- Spacing / rhythm --- */
+  .product-information {
+    padding-block: clamp(24px, 4vw, 56px);
+  }
+  @media (min-width: 750px) {
+    .product-information__grid { column-gap: clamp(32px, 5vw, 72px); }
+  }
+
+  /* --- Typography: brand display on title + section/accordion headings --- */
+  .product-information .product-details h1,
+  .product-information .product-details h2 {
+    font-family: var(--ul-font-display);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+  }
+  .product-information .product-details h1 {
+    font-size: clamp(1.9rem, 3vw, 2.7rem);
+  }
+
+  /* --- Price --- */
+  .product-information .price {
+    font-family: var(--ul-font-body);
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0.01em;
+  }
+  .product-information .price-item--sale { color: var(--ul-oxblood); }
+  .product-information .compare-at-price { opacity: 0.6; }
+
+  /* --- Variant option buttons / swatches --- */
+  .product-information .variant-option__button-label {
+    border-radius: var(--ul-radius);
+    font-family: var(--ul-font-body);
+    letter-spacing: 0.01em;
+  }
+  .product-information .variant-option__button-label:hover {
+    border-color: rgb(var(--ul-brass-rgb) / 0.7);
+  }
+  .product-information .variant-option input:checked + .variant-option__button-label,
+  .product-information .variant-option__button-label.is-selected {
+    border-color: var(--ul-brass);
+    box-shadow: inset 0 0 0 1px var(--ul-brass);
+  }
+
+  /* --- Add-to-cart button → brand brass --- */
+  .product-information .product-form-buttons .button:not(.shopify-payment-button__button) {
+    background: var(--ul-brass);
+    color: #fff;
+    border: 1.5px solid transparent;
+    border-radius: var(--ul-radius);
+    font-family: var(--ul-font-body);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    transition: background-color 0.35s var(--ul-ease), transform 0.45s var(--ul-ease);
+  }
+  .product-information .product-form-buttons .button:not(.shopify-payment-button__button):hover {
+    background: color-mix(in srgb, var(--ul-brass) 84%, black);
+    transform: translateY(-1px);
+  }
+  .product-information .product-form-buttons .button[disabled],
+  .product-information .product-form-buttons .button:disabled {
+    background: rgb(var(--ul-espresso-rgb) / 0.25);
+    color: rgb(255 255 255 / 0.85);
+    transform: none;
+  }
+
+  /* --- Accordion (details/care/shipping) --- */
+  .product-information .details__header {
+    font-family: var(--ul-font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0;
+    padding-block: 16px;
+  }
+  .product-information .details-content {
+    font-family: var(--ul-font-body);
+    line-height: 1.6;
+    color: rgb(var(--ul-espresso-rgb) / 0.86);
+  }
+
+  /* --- Gallery polish --- */
+  .product-information__media img {
+    border-radius: var(--ul-radius);
+  }
+
+  /* --- Sticky ATC bar parity --- */
+  .sticky-add-to-cart__button.add-to-cart-button {
+    background: var(--ul-brass);
+    color: #fff;
+    border-radius: var(--ul-radius);
+  }
+</style>
+{% schema %}
+{
+  "name": "UL PDP polish",
+  "tag": "div",
+  "class": "ul-pdp-overrides",
+  "settings": [
+    { "type": "paragraph", "content": "Applies the Unashamed Living brand styling to the product page (type, color, button, accordion polish). Keep this near the top of the product template. No visible content." }
+  ],
+  "presets": [ { "name": "UL PDP polish" } ]
+}
+{% endschema %}

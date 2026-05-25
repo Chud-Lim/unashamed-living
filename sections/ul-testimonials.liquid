@@ -1,0 +1,570 @@
+{%- comment -%}
+  ul-testimonials — community testimonials. Text-led quote grid, elegant,
+  faith-brand appropriate. Separate eyebrow / heading blocks; repeatable quote
+  blocks with optional avatar, star rating, author + detail.
+  All CSS scoped under .ul-testimonials. Per-instance values via inline CSS vars.
+{%- endcomment -%}
+{% render 'ul-tokens' %}
+
+{%- liquid
+  assign s = section.settings
+-%}
+
+<div
+  class="ul-testimonials ul-testimonials-{{ section.id }} ul-testimonials--{{ s.color_mode }} ul-testimonials--align-{{ s.header_alignment }}"
+  style="
+    --ul-tm-cols: {{ s.columns_desktop }};
+    --ul-tm-pt: {{ s.padding_top }}px;
+    --ul-tm-pb: {{ s.padding_bottom }}px;
+  "
+>
+  <div class="ul-container">
+
+    {%- comment -%} Header blocks: eyebrow + heading {%- endcomment -%}
+    {%- assign header_blocks = section.blocks | where: 'type', 'eyebrow' -%}
+    {%- assign heading_blocks = section.blocks | where: 'type', 'heading' -%}
+    {%- if header_blocks.size > 0 or heading_blocks.size > 0 -%}
+      <header class="ul-testimonials__header ul-testimonials__reveal">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'eyebrow' -%}
+              <p class="ul-eyebrow ul-testimonials__eyebrow" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+            {%- when 'heading' -%}
+              <h2 class="ul-testimonials__heading" {{ block.shopify_attributes }}>{{ block.settings.text }}</h2>
+          {%- endcase -%}
+        {%- endfor -%}
+      </header>
+    {%- endif -%}
+
+    {%- comment -%} Quote grid {%- endcomment -%}
+    {%- assign quote_blocks = section.blocks | where: 'type', 'quote' -%}
+    {%- if quote_blocks.size > 0 -%}
+      <ul
+        class="ul-testimonials__grid ul-testimonials__reveal"
+        role="list"
+        aria-label="Customer testimonials"
+      >
+        {%- for block in quote_blocks -%}
+          {%- assign b = block.settings -%}
+          {%- assign rating = b.rating | default: 0 -%}
+          <li
+            class="ul-testimonials__card"
+            style="--ul-tm-stagger: {{ forloop.index0 | times: 80 }}ms;"
+            {{ block.shopify_attributes }}
+          >
+            <blockquote class="ul-testimonials__blockquote">
+              <span class="ul-testimonials__glyph" aria-hidden="true">&#8220;</span>
+              <p class="ul-testimonials__quote">{{ b.quote }}</p>
+
+              {%- if s.show_ratings and rating > 0 -%}
+                {%- assign empty_stars = 5 | minus: rating -%}
+                <div
+                  class="ul-testimonials__stars"
+                  role="img"
+                  aria-label="Rated {{ rating }} out of 5"
+                >
+                  {%- for i in (1..rating) -%}
+                    <span class="ul-testimonials__star ul-testimonials__star--filled" aria-hidden="true">&#9733;</span>
+                  {%- endfor -%}
+                  {%- if empty_stars > 0 -%}
+                    {%- for i in (1..empty_stars) -%}
+                      <span class="ul-testimonials__star ul-testimonials__star--empty" aria-hidden="true">&#9733;</span>
+                    {%- endfor -%}
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              <footer class="ul-testimonials__attribution">
+                {%- if b.image != blank -%}
+                  <div class="ul-testimonials__avatar">
+                    {{
+                      b.image
+                      | image_url: width: 96
+                      | image_tag:
+                        width: 48,
+                        height: 48,
+                        loading: 'lazy',
+                        alt: b.image_alt | default: b.author
+                    }}
+                  </div>
+                {%- endif -%}
+                <div class="ul-testimonials__byline">
+                  {%- if b.author != blank -%}
+                    <cite class="ul-testimonials__author">{{ b.author }}</cite>
+                  {%- endif -%}
+                  {%- if b.detail != blank -%}
+                    <span class="ul-testimonials__detail">{{ b.detail }}</span>
+                  {%- endif -%}
+                </div>
+              </footer>
+            </blockquote>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% stylesheet %}
+  .ul-testimonials {
+    padding-block: var(--ul-tm-pt, 96px) var(--ul-tm-pb, 96px);
+    background: var(--ul-bone);
+    color: var(--ul-espresso);
+  }
+
+  .ul-testimonials--dark {
+    background: var(--ul-dark);
+    color: var(--ul-bone);
+  }
+
+  /* Scroll-reveal (scoped to this section, same behaviour as ul-reveal from tokens) */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ul-testimonials__reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        animation: ul-tm-reveal-in linear both;
+        animation-timeline: view();
+        animation-range: entry 2% cover 20%;
+      }
+    }
+  }
+  @keyframes ul-tm-reveal-in {
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Header */
+  .ul-testimonials__header {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.2vw, 16px);
+    margin-block-end: clamp(40px, 5.5vw, 72px);
+  }
+
+  .ul-testimonials--align-center .ul-testimonials__header {
+    align-items: center;
+    text-align: center;
+  }
+
+  .ul-testimonials--align-left .ul-testimonials__header {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .ul-testimonials__eyebrow {
+    color: var(--ul-brass);
+  }
+
+  .ul-testimonials--dark .ul-testimonials__eyebrow {
+    color: color-mix(in srgb, var(--ul-brass) 85%, white);
+  }
+
+  .ul-testimonials__heading {
+    font-family: var(--ul-font-display);
+    font-size: var(--ul-fs-h2);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  /* Grid */
+  .ul-testimonials__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--ul-tm-cols, 3), 1fr);
+    gap: var(--ul-gap);
+  }
+
+  /* Card */
+  .ul-testimonials__card {
+    background: rgb(var(--ul-espresso-rgb) / 0.04);
+    border: 1px solid rgb(var(--ul-espresso-rgb) / 0.09);
+    border-radius: var(--ul-radius);
+    padding: clamp(24px, 3vw, 40px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ul-testimonials--dark .ul-testimonials__card {
+    background: rgb(var(--ul-bone-rgb) / 0.06);
+    border-color: rgb(var(--ul-bone-rgb) / 0.1);
+  }
+
+  /* Stagger reveal: each card delays by its index */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ul-testimonials__card {
+        animation-delay: var(--ul-tm-stagger, 0ms);
+      }
+    }
+  }
+
+  /* Blockquote reset */
+  .ul-testimonials__blockquote {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px, 1.6vw, 20px);
+    height: 100%;
+  }
+
+  /* Decorative quotation glyph */
+  .ul-testimonials__glyph {
+    font-family: var(--ul-font-display);
+    font-size: 3.8rem;
+    line-height: 0.7;
+    color: var(--ul-brass);
+    display: block;
+    margin-block-end: 0.1em;
+    opacity: 0.72;
+  }
+
+  .ul-testimonials--dark .ul-testimonials__glyph {
+    color: color-mix(in srgb, var(--ul-brass) 80%, white);
+  }
+
+  /* Quote text */
+  .ul-testimonials__quote {
+    font-family: var(--ul-font-display);
+    font-size: clamp(1.02rem, 1.25vw, 1.18rem);
+    font-style: italic;
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+  }
+
+  /* Stars */
+  .ul-testimonials__stars {
+    display: flex;
+    gap: 2px;
+    font-size: 0.9rem;
+  }
+
+  .ul-testimonials__star--filled {
+    color: var(--ul-brass);
+  }
+
+  .ul-testimonials__star--empty {
+    color: rgb(var(--ul-espresso-rgb) / 0.2);
+  }
+
+  .ul-testimonials--dark .ul-testimonials__star--empty {
+    color: rgb(var(--ul-bone-rgb) / 0.25);
+  }
+
+  /* Attribution footer */
+  .ul-testimonials__attribution {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-block-start: auto;
+    padding-block-start: clamp(12px, 1.4vw, 18px);
+    border-block-start: 1px solid rgb(var(--ul-espresso-rgb) / 0.08);
+  }
+
+  .ul-testimonials--dark .ul-testimonials__attribution {
+    border-block-start-color: rgb(var(--ul-bone-rgb) / 0.1);
+  }
+
+  /* Avatar */
+  .ul-testimonials__avatar {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1.5px solid rgb(var(--ul-brass-rgb) / 0.35);
+  }
+
+  .ul-testimonials__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Byline */
+  .ul-testimonials__byline {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ul-testimonials__author {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-body);
+    font-weight: 600;
+    font-style: normal;
+    color: inherit;
+  }
+
+  .ul-testimonials__detail {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-small);
+    color: rgb(var(--ul-espresso-rgb) / 0.55);
+  }
+
+  .ul-testimonials--dark .ul-testimonials__detail {
+    color: rgb(var(--ul-bone-rgb) / 0.55);
+  }
+
+  /* Focus visible */
+  .ul-testimonials :focus-visible {
+    outline: 2px solid var(--ul-brass);
+    outline-offset: 3px;
+  }
+
+  /* Mobile: horizontal scroll-snap carousel or stacked */
+  @media (max-width: 749px) {
+    .ul-testimonials--mobile-carousel .ul-testimonials__grid {
+      grid-template-columns: repeat(var(--ul-tm-cols, 3), min(82vw, 320px));
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-block-end: 4px;
+    }
+
+    .ul-testimonials--mobile-carousel .ul-testimonials__grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ul-testimonials--mobile-carousel .ul-testimonials__card {
+      scroll-snap-align: start;
+    }
+
+    .ul-testimonials--mobile-stack .ul-testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 750px) and (max-width: 1023px) {
+    .ul-testimonials__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  (function () {
+    var el = document.querySelector('.ul-testimonials-{{ section.id }}');
+    if (!el) return;
+    var carousel = {{ s.mobile_carousel | json }};
+    if (window.matchMedia('(max-width: 749px)').matches) {
+      el.classList.add(carousel ? 'ul-testimonials--mobile-carousel' : 'ul-testimonials--mobile-stack');
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "UL Testimonials",
+  "tag": "section",
+  "class": "ul-testimonials-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns (desktop)",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_carousel",
+      "label": "Mobile: horizontal scroll carousel",
+      "default": true,
+      "info": "Uncheck to stack quotes vertically on mobile."
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "select",
+      "id": "color_mode",
+      "label": "Color mode",
+      "options": [
+        { "value": "bone", "label": "Bone (light)" },
+        { "value": "dark", "label": "Dark" }
+      ],
+      "default": "bone"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ratings",
+      "label": "Show star ratings",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "eyebrow",
+      "name": "Eyebrow",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Eyebrow text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author name"
+        },
+        {
+          "type": "text",
+          "id": "detail",
+          "label": "Author detail",
+          "info": "Location, role, or \"Verified buyer\"."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Avatar image (optional)"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Avatar alt text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UL Testimonials",
+      "settings": {
+        "color_mode": "bone",
+        "columns_desktop": 3,
+        "header_alignment": "center",
+        "show_ratings": true,
+        "mobile_carousel": true,
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": [
+        {
+          "type": "eyebrow",
+          "settings": {
+            "text": "From the community"
+          }
+        },
+        {
+          "type": "heading",
+          "settings": {
+            "text": "Worn with conviction"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "I wore the tee to work and three people asked about my faith. That’s exactly the point.",
+            "author": "Marcus T.",
+            "detail": "Dallas, TX",
+            "rating": 5
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "Beautiful quality, and knowing 10% goes to the mission makes it mean so much more.",
+            "author": "Hannah R.",
+            "detail": "Verified buyer",
+            "rating": 5
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "The pendant hasn’t left my neck since it arrived. A quiet, daily reminder.",
+            "author": "Priya S.",
+            "detail": "Columbus, OH",
+            "rating": 5
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

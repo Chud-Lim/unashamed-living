@@ -1,0 +1,500 @@
+{%- comment -%}
+  ul-product-complementary — "Complete the look" horizontal scroll-snap carousel.
+  Renders on the PDP below the fold, styled after Mejuri "Style With".
+  Products sourced from a merchant-selected collection; falls back to all products.
+  Excludes the current product when on a product page (optional).
+  All CSS scoped under .ul-product-complementary; per-instance via inline --ul-pc-* props.
+{%- endcomment -%}
+{% render 'ul-tokens' %}
+
+{%- liquid
+  assign s = section.settings
+
+  assign coll = s.collection | default: collections.all
+  assign limit = s.product_limit | default: 10
+
+  assign card_ratio = '3 / 4'
+  if s.image_ratio == 'square'
+    assign card_ratio = '1 / 1'
+  endif
+
+  comment
+    Capture page-level product id BEFORE any loop shadows the `product` variable.
+  endcomment
+  assign current_product_id = nil
+  if s.exclude_current and template.name == 'product'
+    assign current_product_id = product.id
+  endif
+-%}
+
+<div
+  class="ul-product-complementary ul-product-complementary-{{ section.id }} ul-product-complementary--{{ s.color_mode }}"
+  style="
+    --ul-pc-pt: {{ s.padding_top }}px;
+    --ul-pc-pb: {{ s.padding_bottom }}px;
+    --ul-pc-ratio: {{ card_ratio }};
+    --ul-pc-align: {{ s.header_alignment }};
+  "
+>
+  <div class="ul-container">
+
+    {%- comment -%} ── Section header ─────────────────────────────────────────── {%- endcomment -%}
+    {%- assign has_header = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'eyebrow' or block.type == 'heading' -%}
+        {%- assign has_header = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if has_header -%}
+      <div class="ul-product-complementary__header ul-reveal">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'eyebrow' -%}
+              <p class="ul-eyebrow ul-product-complementary__eyebrow" {{ block.shopify_attributes }}>
+                {{- block.settings.text -}}
+              </p>
+            {%- when 'heading' -%}
+              <h2 class="ul-product-complementary__heading" {{ block.shopify_attributes }}>
+                {{- block.settings.text -}}
+              </h2>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} ── Carousel ────────────────────────────────────────────────── {%- endcomment -%}
+    <div
+      class="ul-product-complementary__track ul-reveal"
+      role="region"
+      aria-label="{{ 'Complete the look' | escape }}"
+      tabindex="0"
+    >
+      <ul class="ul-product-complementary__list" role="list">
+        {%- assign rendered = 0 -%}
+        {%- for product in coll.products -%}
+          {%- if rendered >= limit -%}{%- break -%}{%- endif -%}
+          {%- if current_product_id != nil and product.id == current_product_id -%}
+            {%- continue -%}
+          {%- endif -%}
+
+          <li class="ul-product-complementary__item">
+            <a
+              class="ul-product-complementary__card"
+              href="{{ product.url }}"
+              aria-label="{{ product.title | escape }}"
+            >
+              <div class="ul-product-complementary__media">
+                {%- liquid
+                  assign main_img = product.featured_media
+                  assign hover_img = nil
+                  if product.media.size > 1
+                    assign hover_img = product.media[1]
+                  endif
+                -%}
+                {%- if main_img != blank -%}
+                  {{
+                    main_img
+                    | image_url: width: 800
+                    | image_tag:
+                      widths: '300, 400, 500, 600, 800',
+                      sizes: '(min-width: 1200px) 280px, (min-width: 750px) 25vw, 70vw',
+                      loading: 'lazy',
+                      width: main_img.width,
+                      height: main_img.height,
+                      alt: main_img.alt | default: product.title,
+                      class: 'ul-product-complementary__img ul-product-complementary__img--main'
+                  }}
+                  {%- if hover_img != blank -%}
+                    {{
+                      hover_img
+                      | image_url: width: 800
+                      | image_tag:
+                        widths: '300, 400, 500, 600, 800',
+                        sizes: '(min-width: 1200px) 280px, (min-width: 750px) 25vw, 70vw',
+                        loading: 'lazy',
+                        width: hover_img.width,
+                        height: hover_img.height,
+                        alt: hover_img.alt | default: product.title,
+                        class: 'ul-product-complementary__img ul-product-complementary__img--hover',
+                        aria-hidden: 'true'
+                    }}
+                  {%- endif -%}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'ul-product-complementary__img ul-product-complementary__img--placeholder' }}
+                {%- endif -%}
+
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="ul-product-complementary__badge" aria-label="On sale">Sale</span>
+                {%- endif -%}
+              </div>
+
+              <div class="ul-product-complementary__info">
+                <p class="ul-product-complementary__title">{{ product.title }}</p>
+                <div class="ul-product-complementary__price-wrap">
+                  {%- if product.compare_at_price > product.price -%}
+                    <s class="ul-product-complementary__compare">{{ product.compare_at_price | money }}</s>
+                  {%- endif -%}
+                  <span class="ul-product-complementary__price">{{ product.price | money }}</span>
+                </div>
+              </div>
+            </a>
+          </li>
+          {%- assign rendered = rendered | plus: 1 -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+{% stylesheet %}
+  /* ── Root layout ─────────────────────────────────────────────────────── */
+  .ul-product-complementary {
+    padding-block: var(--ul-pc-pt, 80px) var(--ul-pc-pb, 80px);
+  }
+
+  /* Color modes */
+  .ul-product-complementary--bone {
+    background-color: var(--ul-bone);
+    color: var(--ul-espresso);
+  }
+  .ul-product-complementary--dark {
+    background-color: var(--ul-dark);
+    color: var(--ul-bone);
+  }
+
+  /* ── Section header ──────────────────────────────────────────────────── */
+  .ul-product-complementary__header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: clamp(28px, 4vw, 48px);
+    text-align: var(--ul-pc-align, left);
+  }
+
+  .ul-product-complementary__eyebrow {
+    color: var(--ul-brass);
+  }
+
+  .ul-product-complementary--dark .ul-product-complementary__eyebrow {
+    color: color-mix(in srgb, var(--ul-brass) 85%, white);
+  }
+
+  .ul-product-complementary__heading {
+    font-family: var(--ul-font-display);
+    font-size: var(--ul-fs-h2);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  /* ── Carousel track ──────────────────────────────────────────────────── */
+  .ul-product-complementary__track {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    cursor: grab;
+  }
+
+  .ul-product-complementary__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ul-product-complementary__track:focus-visible {
+    outline: 2px solid var(--ul-brass);
+    outline-offset: 4px;
+    border-radius: var(--ul-radius);
+  }
+
+  .ul-product-complementary__list {
+    display: flex;
+    gap: clamp(14px, 2vw, 24px);
+    list-style: none;
+    margin: 0;
+    padding: 4px 0 16px 0;
+  }
+
+  /* ── Product card ────────────────────────────────────────────────────── */
+  .ul-product-complementary__item {
+    flex: 0 0 calc((100% - clamp(42px, 6vw, 72px)) / 1.4);
+    scroll-snap-align: start;
+  }
+
+  .ul-product-complementary__card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: var(--ul-radius);
+  }
+
+  .ul-product-complementary__card:focus-visible {
+    outline: 2px solid var(--ul-brass);
+    outline-offset: 3px;
+    border-radius: var(--ul-radius);
+  }
+
+  /* ── Card media ──────────────────────────────────────────────────────── */
+  .ul-product-complementary__media {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--ul-radius);
+    aspect-ratio: var(--ul-pc-ratio, 3 / 4);
+    background-color: rgb(var(--ul-espresso-rgb) / 0.06);
+  }
+
+  .ul-product-complementary--dark .ul-product-complementary__media {
+    background-color: rgb(var(--ul-bone-rgb) / 0.08);
+  }
+
+  .ul-product-complementary__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.42s var(--ul-ease), transform 0.52s var(--ul-ease);
+  }
+
+  .ul-product-complementary__img--hover {
+    opacity: 0;
+  }
+
+  .ul-product-complementary__card:hover .ul-product-complementary__img--main {
+    transform: scale(1.04);
+  }
+
+  .ul-product-complementary__card:hover .ul-product-complementary__img--hover {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── Sale badge ──────────────────────────────────────────────────────── */
+  .ul-product-complementary__badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: var(--ul-oxblood);
+    color: var(--ul-bone);
+    font-family: var(--ul-font-body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: var(--ul-radius);
+    line-height: 1.4;
+    pointer-events: none;
+  }
+
+  /* ── Card info ───────────────────────────────────────────────────────── */
+  .ul-product-complementary__info {
+    padding-block: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .ul-product-complementary__title {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-body);
+    font-weight: 500;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ul-product-complementary__price-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ul-product-complementary__price {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-small);
+    font-weight: 600;
+    color: var(--ul-brass);
+  }
+
+  .ul-product-complementary__compare {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-small);
+    font-weight: 400;
+    color: currentColor;
+    opacity: 0.52;
+    text-decoration: line-through;
+  }
+
+  /* ── Desktop: ~4 visible cards ───────────────────────────────────────── */
+  @media (min-width: 750px) {
+    .ul-product-complementary__item {
+      flex: 0 0 calc((100% - clamp(42px, 6vw, 72px) * 3) / 4);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .ul-product-complementary__item {
+      flex: 0 0 calc((100% - clamp(42px, 6vw, 72px) * 3) / 4.2);
+    }
+  }
+
+  /* Scoped scroll-reveal (reuses shared @keyframes ul-reveal-in from ul-tokens) */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ul-product-complementary .ul-reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        animation: ul-reveal-in linear both;
+        animation-timeline: view();
+        animation-range: entry 2% cover 20%;
+      }
+      .ul-product-complementary .ul-reveal--soft { transform: translateY(14px); }
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "UL Complete Look",
+  "tag": "section",
+  "class": "ul-product-complementary-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Leave empty to show all products. Wire to a curated \"styled with\" collection."
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Max products shown",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "exclude_current",
+      "label": "Hide the current product",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Card appearance"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        { "value": "portrait", "label": "Portrait (3:4)" },
+        { "value": "square", "label": "Square (1:1)" }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "header",
+      "content": "Section appearance"
+    },
+    {
+      "type": "select",
+      "id": "color_mode",
+      "label": "Color mode",
+      "options": [
+        { "value": "bone", "label": "Bone (light)" },
+        { "value": "dark", "label": "Dark (espresso)" }
+      ],
+      "default": "bone"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "eyebrow",
+      "name": "Eyebrow",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Eyebrow text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Heading"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UL Complete Look",
+      "settings": {
+        "product_limit": 10,
+        "image_ratio": "portrait",
+        "exclude_current": true,
+        "color_mode": "bone",
+        "header_alignment": "left",
+        "padding_top": 80,
+        "padding_bottom": 80
+      },
+      "blocks": [
+        { "type": "eyebrow", "settings": { "text": "Styled together" } },
+        { "type": "heading", "settings": { "text": "Complete the look" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

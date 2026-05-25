@@ -1,0 +1,102 @@
+{%- comment -%}
+  Unashamed Living — shared brand design tokens.
+  Rendered near the top of every ul-* section (and the PDP style carrier) so the
+  brand palette, type, spacing scale, and scroll-reveal utility are available to
+  every section's scoped {% stylesheet %}. Duplicate :root blocks across sections
+  are harmless (identical declarations). Colors + fonts are admin-editable via the
+  "Unashamed Living Brand" group in Theme settings, with safe hardcoded fallbacks.
+{%- endcomment -%}
+{%- liquid
+  assign ul_bone = settings.ul_bone | default: '#F4EFE6'
+  assign ul_espresso = settings.ul_espresso | default: '#1A1714'
+  assign ul_dark = settings.ul_dark | default: '#242019'
+  assign ul_brass = settings.ul_brass | default: '#A87C4F'
+  assign ul_oxblood = settings.ul_oxblood | default: '#5E2A28'
+  assign ul_font_display = settings.ul_font_display
+  assign ul_font_body = settings.ul_font_body
+  assign ul_font_display_bold = ul_font_display | font_modify: 'weight', 'bolder'
+  assign ul_font_body_semibold = ul_font_body | font_modify: 'weight', 600
+-%}
+{%- if ul_font_display != blank -%}{{ ul_font_display | font_face: font_display: 'swap' }}{%- endif -%}
+{%- if ul_font_display_bold != blank -%}{{ ul_font_display_bold | font_face: font_display: 'swap' }}{%- endif -%}
+{%- if ul_font_body != blank -%}{{ ul_font_body | font_face: font_display: 'swap' }}{%- endif -%}
+{%- if ul_font_body_semibold != blank -%}{{ ul_font_body_semibold | font_face: font_display: 'swap' }}{%- endif -%}
+<style>
+  :root {
+    --ul-bone: {{ ul_bone }};
+    --ul-bone-rgb: {{ ul_bone | color_extract: 'red' }}, {{ ul_bone | color_extract: 'green' }}, {{ ul_bone | color_extract: 'blue' }};
+    --ul-espresso: {{ ul_espresso }};
+    --ul-espresso-rgb: {{ ul_espresso | color_extract: 'red' }}, {{ ul_espresso | color_extract: 'green' }}, {{ ul_espresso | color_extract: 'blue' }};
+    --ul-dark: {{ ul_dark }};
+    --ul-dark-rgb: {{ ul_dark | color_extract: 'red' }}, {{ ul_dark | color_extract: 'green' }}, {{ ul_dark | color_extract: 'blue' }};
+    --ul-brass: {{ ul_brass }};
+    --ul-brass-rgb: {{ ul_brass | color_extract: 'red' }}, {{ ul_brass | color_extract: 'green' }}, {{ ul_brass | color_extract: 'blue' }};
+    --ul-oxblood: {{ ul_oxblood }};
+    --ul-oxblood-rgb: {{ ul_oxblood | color_extract: 'red' }}, {{ ul_oxblood | color_extract: 'green' }}, {{ ul_oxblood | color_extract: 'blue' }};
+
+    --ul-font-display: {% if ul_font_display != blank %}{{ ul_font_display.family }}, {{ ul_font_display.fallback_families }}{% else %}Georgia, 'Times New Roman', serif{% endif %};
+    --ul-font-body: {% if ul_font_body != blank %}{{ ul_font_body.family }}, {{ ul_font_body.fallback_families }}{% else %}-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif{% endif %};
+    --ul-weight-display: {% if ul_font_display != blank %}{{ ul_font_display.weight }}{% else %}600{% endif %};
+    --ul-weight-body: {% if ul_font_body != blank %}{{ ul_font_body.weight }}{% else %}400{% endif %};
+
+    /* Layout */
+    --ul-maxw: 1320px;
+    --ul-pad-block: clamp(56px, 8.5vw, 116px);
+    --ul-pad-block-tight: clamp(40px, 6vw, 80px);
+    --ul-pad-inline: clamp(20px, 5vw, 64px);
+    --ul-gap: clamp(16px, 3vw, 40px);
+    --ul-radius: 2px;
+
+    /* Type scale (fluid) */
+    --ul-fs-hero: clamp(2.6rem, 7vw, 5.6rem);
+    --ul-fs-h2: clamp(2rem, 4.4vw, 3.4rem);
+    --ul-fs-h3: clamp(1.5rem, 2.6vw, 2.15rem);
+    --ul-fs-h4: clamp(1.18rem, 1.7vw, 1.4rem);
+    --ul-fs-body: clamp(1rem, 1.05vw, 1.075rem);
+    --ul-fs-small: 0.82rem;
+    --ul-eyebrow-ls: 0.18em;
+
+    --ul-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --ul-dur: 0.7s;
+  }
+
+  .ul-container {
+    width: 100%;
+    max-width: var(--ul-maxw);
+    margin-inline: auto;
+    padding-inline: var(--ul-pad-inline);
+  }
+
+  /* Eyebrow / kicker label */
+  .ul-eyebrow {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-small);
+    letter-spacing: var(--ul-eyebrow-ls);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* JS-free scroll reveal: visible by default; only animates where supported,
+     and never when the user prefers reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ul-reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        animation: ul-reveal-in linear both;
+        animation-timeline: view();
+        animation-range: entry 2% cover 20%;
+      }
+      .ul-reveal--soft {
+        transform: translateY(14px);
+      }
+    }
+  }
+  @keyframes ul-reveal-in {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

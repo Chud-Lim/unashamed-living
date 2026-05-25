@@ -1,0 +1,146 @@
+{%- comment -%}
+  ul-giving — compact giving + trust strip for the product page, placed right
+  after the buy buttons inside the existing product-information section's
+  _product-details block. Public theme block (accepted by @theme). Brand-styled,
+  scoped under .ul-giving. Renders ul-tokens so the brand palette is available
+  even if used standalone.
+{%- endcomment -%}
+{% render 'ul-tokens' %}
+
+{%- liquid
+  assign s = block.settings
+-%}
+<div class="ul-giving ul-giving-{{ block.id }}" {{ block.shopify_attributes }}>
+  {%- if s.line != blank -%}
+    <p class="ul-giving__line">
+      <span class="ul-giving__mark" aria-hidden="true">10%</span>
+      <span>{{ s.line }}</span>
+    </p>
+  {%- endif -%}
+
+  <ul class="ul-giving__items" role="list">
+    {%- if s.item_1 != blank -%}
+      <li class="ul-giving__item">
+        <span class="ul-giving__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 8h10"/></svg>
+        </span>
+        <span>{{ s.item_1 }}</span>
+      </li>
+    {%- endif -%}
+    {%- if s.item_2 != blank -%}
+      <li class="ul-giving__item">
+        <span class="ul-giving__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
+        </span>
+        <span>{{ s.item_2 }}</span>
+      </li>
+    {%- endif -%}
+    {%- if s.item_3 != blank -%}
+      <li class="ul-giving__item">
+        <span class="ul-giving__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="1.6"/><circle cx="17.5" cy="17" r="1.6"/></svg>
+        </span>
+        <span>{{ s.item_3 }}</span>
+      </li>
+    {%- endif -%}
+  </ul>
+
+  {%- if s.link_label != blank and s.link != blank -%}
+    <a class="ul-giving__link" href="{{ s.link }}">{{ s.link_label }}</a>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .ul-giving {
+    margin-block: 18px 4px;
+    padding: 18px 20px;
+    border: 1px solid rgb(var(--ul-brass-rgb) / 0.35);
+    border-radius: var(--ul-radius);
+    background: rgb(var(--ul-brass-rgb) / 0.06);
+    font-family: var(--ul-font-body);
+    color: var(--ul-espresso);
+  }
+
+  .ul-giving__line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 12px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .ul-giving__mark {
+    flex-shrink: 0;
+    font-family: var(--ul-font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--ul-brass);
+    line-height: 1;
+  }
+
+  .ul-giving__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ul-giving__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .ul-giving__icon {
+    display: inline-flex;
+    color: var(--ul-brass);
+  }
+  .ul-giving__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .ul-giving__link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.82rem;
+    color: var(--ul-espresso);
+    text-underline-offset: 3px;
+    text-decoration-color: rgb(var(--ul-brass-rgb) / 0.6);
+  }
+  .ul-giving__link:hover { color: var(--ul-brass); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "UL Giving strip",
+  "settings": [
+    { "type": "text", "id": "line", "label": "Giving line" },
+    { "type": "header", "content": "Trust items" },
+    { "type": "text", "id": "item_1", "label": "Item 1 (faith)" },
+    { "type": "text", "id": "item_2", "label": "Item 2 (global)" },
+    { "type": "text", "id": "item_3", "label": "Item 3 (shipping)" },
+    { "type": "header", "content": "Optional link" },
+    { "type": "text", "id": "link_label", "label": "Link label" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "presets": [
+    {
+      "name": "UL Giving strip",
+      "settings": {
+        "line": "of every sale funds churches, conversations, and communities worldwide.",
+        "item_1": "Equips churches",
+        "item_2": "Global impact",
+        "item_3": "Fast shipping"
+      }
+    }
+  ]
+}
+{% endschema %}

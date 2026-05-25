@@ -1,0 +1,563 @@
+{%- comment -%}
+  ul-featured-collection — best-sellers / featured product grid, premium cards.
+  Header row: eyebrow + heading (left) with a "view all" button (right on desktop).
+  Products are DYNAMIC — pulled from the chosen collection (falls back to
+  collections.all when empty; the orchestrator wires the real handle in the
+  template JSON). Premium card: front→back image cross-fade on hover, brass price,
+  compare-at strike + Sale badge, sold-out state. All CSS scoped under
+  .ul-featured-collection (a unique ul- class, so it cannot leak). Per-instance
+  values are passed as inline --ul-fc-* custom properties.
+{%- endcomment -%}
+{% render 'ul-tokens' %}
+
+{%- liquid
+  assign s = section.settings
+  assign coll = s.collection | default: collections.all
+  assign card_widths = '180, 260, 360, 460, 560, 720' | split: ', '
+-%}
+
+<div
+  class="ul-featured-collection ul-featured-collection-{{ section.id }} ul-fc--{{ s.color_mode }} ul-fc--head-{{ s.header_alignment }}{% if s.mobile_carousel %} ul-fc--carousel{% endif %} ul-fc--ratio-{{ s.image_ratio }}"
+  style="
+    --ul-fc-cols: {{ s.columns_desktop }};
+    --ul-fc-pad-top: {{ s.padding_top }}px;
+    --ul-fc-pad-bottom: {{ s.padding_bottom }}px;
+  "
+>
+  <div class="ul-fc__inner ul-container">
+    {%- assign has_header = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'eyebrow' and block.settings.text != blank -%}{%- assign has_header = true -%}{%- endif -%}
+      {%- if block.type == 'heading' and block.settings.text != blank -%}{%- assign has_header = true -%}{%- endif -%}
+      {%- if block.type == 'button' and block.settings.label != blank -%}{%- assign has_header = true -%}{%- endif -%}
+    {%- endfor -%}
+
+    {%- if has_header -%}
+      <div class="ul-fc__header ul-reveal ul-reveal--soft">
+        <div class="ul-fc__headings">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'eyebrow' -%}
+                {%- if block.settings.text != blank -%}
+                  <p class="ul-eyebrow ul-fc__eyebrow" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- endif -%}
+              {%- when 'heading' -%}
+                {%- if block.settings.text != blank -%}
+                  <h2 class="ul-fc__heading" {{ block.shopify_attributes }}>{{ block.settings.text }}</h2>
+                {%- endif -%}
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+
+        {%- assign buttons = section.blocks | where: 'type', 'button' -%}
+        {%- for block in buttons -%}
+          {%- if block.settings.label != blank -%}
+            <a
+              class="ul-btn ul-btn--{{ block.settings.style }} ul-fc__cta"
+              href="{{ block.settings.url | default: '#' }}"
+              {{ block.shopify_attributes }}
+            >{{ block.settings.label }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if coll.products.size > 0 -%}
+      <ul class="ul-fc__grid ul-reveal" role="list">
+        {%- for product in coll.products limit: s.product_limit -%}
+          {%- liquid
+            assign second_media = product.media[1]
+            assign on_sale = false
+            if product.compare_at_price > product.price
+              assign on_sale = true
+            endif
+          -%}
+          <li class="ul-fc__item">
+            <a class="ul-fc__card" href="{{ product.url }}">
+              <div class="ul-fc__media">
+                {%- if product.featured_media != blank -%}
+                  {{
+                    product.featured_media
+                    | image_url: width: 720
+                    | image_tag:
+                      widths: card_widths,
+                      sizes: '(min-width: 990px) 24vw, (min-width: 750px) 30vw, 72vw',
+                      class: 'ul-fc__img ul-fc__img--primary',
+                      loading: 'lazy',
+                      alt: product.featured_media.alt | default: product.title
+                  }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'ul-fc__img ul-fc__img--primary ul-fc__img--placeholder' }}
+                {%- endif -%}
+
+                {%- if second_media != blank -%}
+                  {{
+                    second_media
+                    | image_url: width: 720
+                    | image_tag:
+                      widths: card_widths,
+                      sizes: '(min-width: 990px) 24vw, (min-width: 750px) 30vw, 72vw',
+                      class: 'ul-fc__img ul-fc__img--hover',
+                      loading: 'lazy',
+                      alt: ''
+                  }}
+                {%- endif -%}
+
+                {%- if product.available == false -%}
+                  <span class="ul-fc__badge ul-fc__badge--soldout">Sold out</span>
+                {%- elsif on_sale -%}
+                  <span class="ul-fc__badge ul-fc__badge--sale">Sale</span>
+                {%- endif -%}
+              </div>
+
+              <div class="ul-fc__info">
+                {%- if s.show_vendor and product.vendor != blank -%}
+                  <p class="ul-fc__vendor">{{ product.vendor }}</p>
+                {%- endif -%}
+                <h3 class="ul-fc__title">{{ product.title }}</h3>
+                <p class="ul-fc__price{% if on_sale %} ul-fc__price--sale{% endif %}">
+                  {%- if on_sale -%}
+                    <span class="ul-fc__price-was">{{ product.compare_at_price | money }}</span>
+                  {%- endif -%}
+                  <span class="ul-fc__price-now">{{ product.price | money }}</span>
+                </p>
+              </div>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <ul class="ul-fc__grid ul-reveal" role="list">
+        {%- for i in (1..4) -%}
+          <li class="ul-fc__item">
+            <div class="ul-fc__card ul-fc__card--placeholder">
+              <div class="ul-fc__media">
+                {{ 'product-1' | placeholder_svg_tag: 'ul-fc__img ul-fc__img--primary ul-fc__img--placeholder' }}
+              </div>
+              <div class="ul-fc__info">
+                <h3 class="ul-fc__title">Product title</h3>
+                <p class="ul-fc__price"><span class="ul-fc__price-now">$0.00</span></p>
+              </div>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .ul-featured-collection {
+    --ul-fc-card-radius: var(--ul-radius);
+    padding-block: var(--ul-fc-pad-top, 96px) var(--ul-fc-pad-bottom, 96px);
+    background: var(--ul-bone);
+    color: var(--ul-espresso);
+  }
+
+  .ul-featured-collection.ul-fc--dark {
+    background: var(--ul-dark);
+    color: var(--ul-bone);
+  }
+
+  .ul-fc__inner {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(28px, 4vw, 52px);
+  }
+
+  /* Header row */
+  .ul-fc__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: clamp(16px, 3vw, 32px);
+    flex-wrap: wrap;
+  }
+
+  .ul-fc--head-center .ul-fc__header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ul-fc__headings {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1vw, 14px);
+  }
+
+  .ul-fc__eyebrow {
+    color: var(--ul-brass);
+  }
+
+  .ul-fc--dark .ul-fc__eyebrow {
+    color: color-mix(in srgb, var(--ul-brass) 78%, white);
+  }
+
+  .ul-fc__heading {
+    font-family: var(--ul-font-display);
+    font-weight: 700;
+    font-size: var(--ul-fs-h2);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .ul-fc__cta {
+    flex: none;
+  }
+
+  /* Grid */
+  .ul-fc__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--ul-fc-cols, 4), minmax(0, 1fr));
+    gap: var(--ul-gap);
+  }
+
+  .ul-fc__item {
+    margin: 0;
+  }
+
+  /* Card */
+  .ul-fc__card {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1vw, 16px);
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+  }
+
+  .ul-fc__card--placeholder {
+    opacity: 0.5;
+  }
+
+  .ul-fc__media {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--ul-fc-card-radius);
+    background: rgb(var(--ul-espresso-rgb) / 0.04);
+    aspect-ratio: 1 / 1;
+  }
+
+  .ul-fc--ratio-portrait .ul-fc__media {
+    aspect-ratio: 4 / 5;
+  }
+
+  .ul-fc--dark .ul-fc__media {
+    background: rgb(var(--ul-bone-rgb) / 0.06);
+  }
+
+  .ul-fc__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .ul-fc__img--primary {
+    transition: opacity 0.6s var(--ul-ease), transform 0.7s var(--ul-ease);
+  }
+
+  .ul-fc__img--hover {
+    opacity: 0;
+    transition: opacity 0.6s var(--ul-ease), transform 0.7s var(--ul-ease);
+  }
+
+  @media (hover: hover) {
+    .ul-fc__card:hover .ul-fc__img--primary {
+      transform: scale(1.05);
+    }
+    .ul-fc__card:hover .ul-fc__img--hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    /* When a hover image exists, fade the primary out underneath it */
+    .ul-fc__card:has(.ul-fc__img--hover):hover .ul-fc__img--primary {
+      opacity: 0;
+    }
+  }
+
+  /* Badges */
+  .ul-fc__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-small);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.4em 0.85em;
+    border-radius: var(--ul-fc-card-radius);
+  }
+
+  .ul-fc__badge--sale {
+    background: var(--ul-oxblood);
+    color: var(--ul-bone);
+  }
+
+  .ul-fc__badge--soldout {
+    background: rgb(var(--ul-espresso-rgb) / 0.78);
+    color: var(--ul-bone);
+  }
+
+  /* Info */
+  .ul-fc__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .ul-fc__vendor {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-small);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0;
+    opacity: 0.6;
+  }
+
+  .ul-fc__title {
+    font-family: var(--ul-font-body);
+    font-weight: 500;
+    font-size: var(--ul-fs-body);
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .ul-fc__price {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-body);
+    margin: 0;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.6em;
+    flex-wrap: wrap;
+  }
+
+  .ul-fc__price-now {
+    color: var(--ul-brass);
+    font-weight: 600;
+  }
+
+  .ul-fc--dark .ul-fc__price-now {
+    color: color-mix(in srgb, var(--ul-brass) 80%, white);
+  }
+
+  .ul-fc__price-was {
+    text-decoration: line-through;
+    opacity: 0.55;
+    font-weight: 400;
+  }
+
+  /* Buttons (shared brand button idiom) */
+  .ul-btn {
+    --ul-btn-bg: var(--ul-brass);
+    --ul-btn-fg: var(--ul-espresso);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    min-height: 52px;
+    padding: 0 32px;
+    border-radius: var(--ul-radius);
+    font-family: var(--ul-font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    background: var(--ul-btn-bg);
+    color: var(--ul-btn-fg);
+    transition: transform 0.45s var(--ul-ease), background-color 0.35s var(--ul-ease), color 0.35s var(--ul-ease), border-color 0.35s var(--ul-ease);
+  }
+
+  .ul-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .ul-btn--primary {
+    --ul-btn-bg: var(--ul-brass);
+    --ul-btn-fg: #fff;
+  }
+  .ul-btn--primary:hover {
+    --ul-btn-bg: color-mix(in srgb, var(--ul-brass) 84%, black);
+  }
+
+  .ul-btn--secondary {
+    --ul-btn-bg: transparent;
+    --ul-btn-fg: var(--ul-espresso);
+    border-color: rgb(var(--ul-espresso-rgb) / 0.4);
+  }
+  .ul-btn--secondary:hover {
+    --ul-btn-bg: var(--ul-espresso);
+    --ul-btn-fg: var(--ul-bone);
+    border-color: var(--ul-espresso);
+  }
+
+  .ul-fc--dark .ul-btn--secondary {
+    --ul-btn-fg: var(--ul-bone);
+    border-color: rgb(var(--ul-bone-rgb) / 0.55);
+  }
+  .ul-fc--dark .ul-btn--secondary:hover {
+    --ul-btn-bg: var(--ul-bone);
+    --ul-btn-fg: var(--ul-espresso);
+    border-color: var(--ul-bone);
+  }
+
+  .ul-fc__card:focus-visible,
+  .ul-btn:focus-visible {
+    outline: 2px solid var(--ul-brass);
+    outline-offset: 3px;
+  }
+
+  .ul-fc--dark .ul-fc__card:focus-visible,
+  .ul-fc--dark .ul-btn:focus-visible {
+    outline-color: var(--ul-bone);
+  }
+
+  /* Tablet */
+  @media (max-width: 989px) {
+    .ul-fc__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* Mobile: 2-up by default */
+  @media (max-width: 749px) {
+    .ul-fc__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ul-fc__header {
+      align-items: flex-start;
+    }
+
+    /* Optional horizontal scroll-snap carousel */
+    .ul-fc--carousel .ul-fc__grid {
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      margin-inline: calc(-1 * var(--ul-pad-inline));
+      padding-inline: var(--ul-pad-inline);
+    }
+
+    .ul-fc--carousel .ul-fc__grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ul-fc--carousel .ul-fc__item {
+      flex: 0 0 72vw;
+      scroll-snap-align: start;
+    }
+  }
+
+  /* Scoped scroll-reveal (reuses shared @keyframes ul-reveal-in from ul-tokens) */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ul-featured-collection .ul-reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        animation: ul-reveal-in linear both;
+        animation-timeline: view();
+        animation-range: entry 2% cover 20%;
+      }
+      .ul-featured-collection .ul-reveal--soft { transform: translateY(14px); }
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "UL Featured",
+  "tag": "section",
+  "class": "ul-featured-collection-section",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to show all products." },
+    { "type": "range", "id": "product_limit", "label": "Products to show", "min": 4, "max": 12, "step": 1, "default": 8 },
+    { "type": "range", "id": "columns_desktop", "label": "Columns on desktop", "min": 3, "max": 5, "step": 1, "default": 4 },
+    {
+      "type": "select", "id": "image_ratio", "label": "Image shape",
+      "options": [
+        { "value": "square", "label": "Square" },
+        { "value": "portrait", "label": "Portrait" }
+      ],
+      "default": "portrait"
+    },
+    { "type": "checkbox", "id": "mobile_carousel", "label": "Swipeable carousel on mobile", "default": true },
+    { "type": "checkbox", "id": "show_vendor", "label": "Show product vendor", "default": false },
+    {
+      "type": "select", "id": "color_mode", "label": "Color theme",
+      "options": [
+        { "value": "bone", "label": "Bone (light)" },
+        { "value": "dark", "label": "Dark" }
+      ],
+      "default": "bone"
+    },
+    {
+      "type": "select", "id": "header_alignment", "label": "Header alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    { "type": "eyebrow", "name": "Eyebrow", "settings": [ { "type": "text", "id": "text", "label": "Eyebrow" } ] },
+    { "type": "heading", "name": "Heading", "settings": [ { "type": "text", "id": "text", "label": "Heading" } ] },
+    {
+      "type": "button", "name": "Button",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Button label" },
+        { "type": "url", "id": "url", "label": "Button link" },
+        {
+          "type": "select", "id": "style", "label": "Style",
+          "options": [
+            { "value": "primary", "label": "Primary (brass)" },
+            { "value": "secondary", "label": "Secondary (outline)" }
+          ],
+          "default": "secondary"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UL Featured",
+      "blocks": [
+        { "type": "eyebrow", "settings": { "text": "Wear it boldly" } },
+        { "type": "heading", "settings": { "text": "Best sellers" } },
+        { "type": "button", "settings": { "label": "Shop all", "url": "shopify://collections/all", "style": "secondary" } }
+      ],
+      "settings": {
+        "product_limit": 8,
+        "columns_desktop": 4,
+        "image_ratio": "portrait",
+        "mobile_carousel": true,
+        "show_vendor": false,
+        "color_mode": "bone",
+        "header_alignment": "left"
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,469 @@
+{% render 'ul-tokens' %}
+{%- comment -%}
+  ul-jewelry-feature — Mejuri-style jewelry merchandising row.
+  Split layout: an editorial copy column (eyebrow / heading / body / button as
+  blocks) beside a media side that floats 2-3 faith-themed jewelry product cards
+  on a soft, elevated surface. Calm, macro + on-body, one clear CTA.
+
+  Featured pieces come from repeatable `product` blocks (a product picker per
+  block) — no handles are hardcoded here. Empty product blocks are skipped, so
+  the orchestrator can leave them blank in the preset and wire real products in
+  the template JSON.
+
+  All CSS is scoped under .ul-jewelry-feature (a unique ul- class, so it cannot
+  leak). Per-instance values pass as inline --ul-jf-* custom properties. Colors
+  and type come only from ul-tokens; spacing from tokens + .ul-container.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign product_blocks = section.blocks | where: 'type', 'product'
+  assign buttons = section.blocks | where: 'type', 'button'
+
+  comment
+    Pre-split width arrays for the floating product cards (each card spans roughly
+    a half-column on desktop, full-width-ish on mobile).
+  endcomment
+  assign card_widths = '320, 460, 600, 760, 920, 1100' | split: ', '
+  assign card_sizes = '(max-width: 749px) 46vw, (max-width: 1100px) 30vw, 360px'
+-%}
+
+<div
+  class="ul-jewelry-feature ul-jewelry-feature-{{ section.id }} ul-jewelry-feature--{{ s.color_mode }} ul-jewelry-feature--text-{{ s.text_position }} ul-jewelry-feature--ratio-{{ s.card_ratio }}"
+  style="
+    --ul-jf-pad-top: {{ s.padding_top }}px;
+    --ul-jf-pad-bottom: {{ s.padding_bottom }}px;
+  "
+>
+  <div class="ul-jewelry-feature__inner ul-container">
+    <div class="ul-jewelry-feature__copy ul-reveal ul-reveal--soft">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'eyebrow' -%}
+            {%- if block.settings.text != blank -%}
+              <p class="ul-eyebrow ul-jewelry-feature__eyebrow" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+            {%- endif -%}
+          {%- when 'heading' -%}
+            {%- if block.settings.text != blank -%}
+              <h2 class="ul-jewelry-feature__heading" {{ block.shopify_attributes }}>{{ block.settings.text }}</h2>
+            {%- endif -%}
+          {%- when 'body' -%}
+            {%- if block.settings.text != blank -%}
+              <div class="ul-jewelry-feature__body" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+
+      {%- if buttons.size > 0 -%}
+        <div class="ul-jewelry-feature__actions">
+          {%- for block in buttons -%}
+            {%- if block.settings.label != blank -%}
+              <a
+                class="ul-btn ul-btn--{{ block.settings.style }}"
+                href="{{ block.settings.link | default: '#' }}"
+                {{ block.shopify_attributes }}
+              >{{ block.settings.label }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="ul-jewelry-feature__media">
+      <ul class="ul-jewelry-feature__cards" role="list">
+        {%- for block in product_blocks -%}
+          {%- assign product = block.settings.product -%}
+          {%- if product != blank -%}
+            {%- assign primary = product.featured_media -%}
+            {%- assign secondary = product.media[1] -%}
+            <li class="ul-jewelry-feature__card-item ul-reveal" style="--ul-jf-i: {{ forloop.index0 }};" {{ block.shopify_attributes }}>
+              <a class="ul-jewelry-feature__card" href="{{ product.url }}">
+                <span class="ul-jewelry-feature__frame">
+                  {%- if primary != blank -%}
+                    {{
+                      primary
+                      | image_url: width: 1100
+                      | image_tag:
+                        widths: card_widths,
+                        sizes: card_sizes,
+                        width: primary.width,
+                        height: primary.height,
+                        alt: primary.alt | default: product.title,
+                        class: 'ul-jewelry-feature__img ul-jewelry-feature__img--primary',
+                        loading: 'lazy'
+                    }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'ul-jewelry-feature__img ul-jewelry-feature__img--primary ul-jewelry-feature__img--placeholder' }}
+                  {%- endif -%}
+
+                  {%- if secondary != blank -%}
+                    {{
+                      secondary
+                      | image_url: width: 1100
+                      | image_tag:
+                        widths: card_widths,
+                        sizes: card_sizes,
+                        width: secondary.width,
+                        height: secondary.height,
+                        alt: '',
+                        class: 'ul-jewelry-feature__img ul-jewelry-feature__img--secondary',
+                        loading: 'lazy'
+                    }}
+                  {%- endif -%}
+                </span>
+
+                <span class="ul-jewelry-feature__card-meta">
+                  <span class="ul-jewelry-feature__card-title">{{ product.title }}</span>
+                  <span class="ul-jewelry-feature__card-price">{{ product.price | money }}</span>
+                </span>
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .ul-jewelry-feature {
+    background: var(--ul-bone);
+    color: var(--ul-espresso);
+    padding-block: var(--ul-jf-pad-top, 104px) var(--ul-jf-pad-bottom, 104px);
+  }
+
+  .ul-jewelry-feature--dark {
+    background: var(--ul-dark);
+    color: var(--ul-bone);
+  }
+
+  .ul-jewelry-feature__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--ul-gap);
+    align-items: center;
+  }
+
+  .ul-jewelry-feature__copy {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px, 1.8vw, 22px);
+    max-width: 46ch;
+  }
+
+  .ul-jewelry-feature__eyebrow {
+    color: var(--ul-brass);
+  }
+
+  .ul-jewelry-feature--dark .ul-jewelry-feature__eyebrow {
+    color: color-mix(in srgb, var(--ul-brass) 78%, white);
+  }
+
+  .ul-jewelry-feature__heading {
+    font-family: var(--ul-font-display);
+    font-weight: 700;
+    font-size: var(--ul-fs-h2);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .ul-jewelry-feature__body {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-body);
+    line-height: 1.6;
+    max-width: 44ch;
+  }
+
+  .ul-jewelry-feature__body > :first-child { margin-top: 0; }
+  .ul-jewelry-feature__body > :last-child { margin-bottom: 0; }
+
+  .ul-jewelry-feature__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: clamp(4px, 1vw, 10px);
+  }
+
+  /* Media side: floating product cards on a soft surface */
+  .ul-jewelry-feature__cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(12px, 1.6vw, 22px);
+  }
+
+  .ul-jewelry-feature__card-item {
+    min-width: 0;
+  }
+
+  .ul-jewelry-feature__card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* The "float": generous internal padding on an elevated bone surface */
+  .ul-jewelry-feature__frame {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--ul-radius);
+    background: color-mix(in srgb, var(--ul-bone) 86%, white);
+    border: 1px solid rgb(var(--ul-brass-rgb) / 0.18);
+    padding: clamp(18px, 3vw, 40px);
+    aspect-ratio: 1 / 1;
+  }
+
+  .ul-jewelry-feature--ratio-portrait .ul-jewelry-feature__frame {
+    aspect-ratio: 4 / 5;
+  }
+
+  .ul-jewelry-feature--dark .ul-jewelry-feature__frame {
+    background: color-mix(in srgb, var(--ul-dark) 84%, var(--ul-bone));
+    border-color: rgb(var(--ul-brass-rgb) / 0.32);
+  }
+
+  .ul-jewelry-feature__img {
+    position: absolute;
+    inset: clamp(18px, 3vw, 40px);
+    width: auto;
+    height: auto;
+    max-width: calc(100% - 2 * clamp(18px, 3vw, 40px));
+    max-height: calc(100% - 2 * clamp(18px, 3vw, 40px));
+    margin: auto;
+    object-fit: contain;
+    transition: opacity 0.5s var(--ul-ease), transform 0.6s var(--ul-ease);
+  }
+
+  .ul-jewelry-feature__img--placeholder {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+  }
+
+  .ul-jewelry-feature__img--secondary {
+    opacity: 0;
+  }
+
+  /* Hover: swap to the second image (if present) + subtle zoom */
+  @media (prefers-reduced-motion: no-preference) {
+    .ul-jewelry-feature__card:hover .ul-jewelry-feature__img--primary,
+    .ul-jewelry-feature__card:focus-visible .ul-jewelry-feature__img--primary {
+      transform: scale(1.04);
+    }
+    .ul-jewelry-feature__card:hover .ul-jewelry-feature__frame:has(.ul-jewelry-feature__img--secondary) .ul-jewelry-feature__img--primary,
+    .ul-jewelry-feature__card:focus-visible .ul-jewelry-feature__frame:has(.ul-jewelry-feature__img--secondary) .ul-jewelry-feature__img--primary {
+      opacity: 0;
+    }
+    .ul-jewelry-feature__card:hover .ul-jewelry-feature__img--secondary,
+    .ul-jewelry-feature__card:focus-visible .ul-jewelry-feature__img--secondary {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+  }
+
+  .ul-jewelry-feature__card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-inline: 2px;
+  }
+
+  .ul-jewelry-feature__card-title {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-small);
+    line-height: 1.35;
+    color: inherit;
+  }
+
+  .ul-jewelry-feature__card-price {
+    font-family: var(--ul-font-body);
+    font-size: var(--ul-fs-small);
+    font-weight: 600;
+    color: var(--ul-brass);
+  }
+
+  .ul-jewelry-feature--dark .ul-jewelry-feature__card-price {
+    color: color-mix(in srgb, var(--ul-brass) 78%, white);
+  }
+
+  /* Buttons (shared brand button idiom) */
+  .ul-jewelry-feature .ul-btn {
+    --ul-btn-bg: var(--ul-brass);
+    --ul-btn-fg: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    min-height: 52px;
+    padding: 0 32px;
+    border-radius: var(--ul-radius);
+    font-family: var(--ul-font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    background: var(--ul-btn-bg);
+    color: var(--ul-btn-fg);
+    transition: transform 0.45s var(--ul-ease), background-color 0.35s var(--ul-ease), color 0.35s var(--ul-ease), border-color 0.35s var(--ul-ease);
+  }
+
+  .ul-jewelry-feature .ul-btn:hover { transform: translateY(-2px); }
+
+  .ul-jewelry-feature .ul-btn--primary { --ul-btn-bg: var(--ul-brass); --ul-btn-fg: #fff; }
+  .ul-jewelry-feature .ul-btn--primary:hover { --ul-btn-bg: color-mix(in srgb, var(--ul-brass) 84%, black); }
+
+  .ul-jewelry-feature .ul-btn--secondary {
+    --ul-btn-bg: transparent;
+    --ul-btn-fg: var(--ul-espresso);
+    border-color: rgb(var(--ul-espresso-rgb) / 0.4);
+  }
+  .ul-jewelry-feature .ul-btn--secondary:hover {
+    --ul-btn-bg: var(--ul-espresso);
+    --ul-btn-fg: var(--ul-bone);
+    border-color: var(--ul-espresso);
+  }
+
+  .ul-jewelry-feature--dark .ul-btn--secondary {
+    --ul-btn-fg: var(--ul-bone);
+    border-color: rgb(var(--ul-bone-rgb) / 0.55);
+  }
+  .ul-jewelry-feature--dark .ul-btn--secondary:hover {
+    --ul-btn-bg: var(--ul-bone);
+    --ul-btn-fg: var(--ul-espresso);
+    border-color: var(--ul-bone);
+  }
+
+  .ul-jewelry-feature .ul-btn:focus-visible {
+    outline: 2px solid var(--ul-brass);
+    outline-offset: 3px;
+  }
+
+  .ul-jewelry-feature__card:focus-visible {
+    outline: 2px solid var(--ul-brass);
+    outline-offset: 4px;
+    border-radius: var(--ul-radius);
+  }
+
+  /* Stagger the reveal across the cards */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ul-jewelry-feature__card-item.ul-reveal {
+        animation-delay: calc(var(--ul-jf-i, 0) * 0.08s);
+      }
+    }
+  }
+
+  @media (min-width: 750px) {
+    .ul-jewelry-feature__inner {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: clamp(40px, 6vw, 96px);
+    }
+
+    .ul-jewelry-feature--text-right .ul-jewelry-feature__copy { order: 2; }
+    .ul-jewelry-feature--text-right .ul-jewelry-feature__media { order: 1; }
+    .ul-jewelry-feature--text-right .ul-jewelry-feature__inner {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    }
+  }
+
+  /* Scoped scroll-reveal (reuses shared @keyframes ul-reveal-in from ul-tokens) */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ul-jewelry-feature .ul-reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        animation: ul-reveal-in linear both;
+        animation-timeline: view();
+        animation-range: entry 2% cover 20%;
+      }
+      .ul-jewelry-feature .ul-reveal--soft { transform: translateY(14px); }
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "UL Jewelry",
+  "tag": "section",
+  "class": "ul-jewelry-feature-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select", "id": "text_position", "label": "Copy column position",
+      "options": [ { "value": "left", "label": "Left" }, { "value": "right", "label": "Right" } ],
+      "default": "left"
+    },
+    {
+      "type": "select", "id": "card_ratio", "label": "Product image shape",
+      "options": [ { "value": "square", "label": "Square" }, { "value": "portrait", "label": "Portrait" } ],
+      "default": "square"
+    },
+    { "type": "header", "content": "Appearance" },
+    {
+      "type": "select", "id": "color_mode", "label": "Color mode",
+      "options": [ { "value": "bone", "label": "Bone (light)" }, { "value": "dark", "label": "Dark" } ],
+      "default": "bone"
+    },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 }
+  ],
+  "blocks": [
+    { "type": "eyebrow", "name": "Eyebrow", "settings": [ { "type": "text", "id": "text", "label": "Eyebrow" } ] },
+    { "type": "heading", "name": "Heading", "settings": [ { "type": "text", "id": "text", "label": "Heading" } ] },
+    { "type": "body", "name": "Body text", "settings": [ { "type": "textarea", "id": "text", "label": "Body text" } ] },
+    {
+      "type": "button", "name": "Button",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Button label" },
+        { "type": "url", "id": "link", "label": "Button link" },
+        {
+          "type": "select", "id": "style", "label": "Style",
+          "options": [ { "value": "primary", "label": "Primary (brass)" }, { "value": "secondary", "label": "Secondary (outline)" } ]
+        }
+      ]
+    },
+    {
+      "type": "product", "name": "Featured piece",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Jewelry piece", "info": "Empty pieces are skipped. Hover swaps to the product's second image when one exists." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UL Jewelry",
+      "blocks": [
+        { "type": "eyebrow", "settings": { "text": "Carry it close" } },
+        { "type": "heading", "settings": { "text": "Faith you can wear" } },
+        { "type": "body", "settings": { "text": "Quiet pieces with a loud purpose — crafted to start conversations and carry the cross with you everywhere." } },
+        { "type": "button", "settings": { "label": "Shop jewelry", "link": "shopify://collections/accessories", "style": "secondary" } },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ],
+      "settings": {
+        "text_position": "left",
+        "color_mode": "bone",
+        "card_ratio": "square",
+        "padding_top": 104,
+        "padding_bottom": 104
+      }
+    }
+  ]
+}
+{% endschema %}
