@@ -1,0 +1,278 @@
+{%- comment -%}
+  ul-prayer — bespoke "pray over you" editorial invitation for the product page.
+  Split layout: a full-bleed evocative image beside a calm content panel with the
+  brand serif heading, a refined eyebrow rule, left-aligned readable body, a faint
+  cross watermark, and a brass CTA. Replaces the generic media-with-content block.
+  All CSS scoped under .ul-prayer; per-instance values via inline custom props.
+{%- endcomment -%}
+{% render 'ul-tokens' %}
+
+{%- liquid
+  assign s = section.settings
+  assign color_mode = s.color_mode | default: 'bone'
+  assign media_position = s.media_position | default: 'left'
+  assign img = s.image
+  assign img_alt = s.image_alt | default: s.heading | default: 'Prayer'
+-%}
+
+<div
+  class="ul-prayer ul-prayer-{{ section.id }} ul-prayer--{{ color_mode }} ul-prayer--media-{{ media_position }}"
+  style="--ul-pr-pt: {{ s.padding_top }}px; --ul-pr-pb: {{ s.padding_bottom }}px; --ul-pr-minh: {{ s.min_height }}svh;"
+>
+  <div class="ul-prayer__media">
+    {%- if img != blank -%}
+      <picture>
+        {{
+          img
+          | image_url: width: 1600
+          | image_tag:
+            widths: '600, 900, 1200, 1600, 2000',
+            sizes: '(min-width: 750px) 52vw, 100vw',
+            loading: 'lazy',
+            class: 'ul-prayer__img',
+            alt: img_alt
+        }}
+      </picture>
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'ul-prayer__img ul-prayer__img--placeholder' }}
+    {%- endif -%}
+  </div>
+
+  <div class="ul-prayer__content">
+    <svg class="ul-prayer__cross" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <path d="M32 6v52M14 22h36" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+
+    <div class="ul-prayer__inner ul-reveal">
+      {%- if s.eyebrow != blank -%}
+        <p class="ul-prayer__eyebrow"><span class="ul-prayer__rule" aria-hidden="true"></span>{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.heading != blank -%}
+        <h2 class="ul-prayer__heading">{{ s.heading }}</h2>
+      {%- endif -%}
+      {%- if s.body != blank -%}
+        <div class="ul-prayer__body">{{ s.body }}</div>
+      {%- endif -%}
+      {%- if s.button_label != blank and s.button_link != blank -%}
+        <a class="ul-prayer__cta" href="{{ s.button_link }}">
+          <span>{{ s.button_label }}</span>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .ul-prayer {
+    display: grid;
+    grid-template-columns: 1fr;
+    background: var(--ul-bone);
+    color: var(--ul-espresso);
+  }
+  .ul-prayer--white { background: #ffffff; }
+  .ul-prayer--dark { background: var(--ul-dark); color: var(--ul-bone); }
+
+  @media (min-width: 750px) {
+    .ul-prayer {
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: stretch;
+      min-height: var(--ul-pr-minh, 70svh);
+    }
+    .ul-prayer--media-right { grid-template-columns: 0.95fr 1.05fr; }
+    .ul-prayer--media-right .ul-prayer__media { order: 2; }
+  }
+
+  /* Media: full-bleed, no dead space */
+  .ul-prayer__media {
+    position: relative;
+    overflow: hidden;
+    min-height: 46svh;
+  }
+  @media (min-width: 750px) {
+    .ul-prayer__media { min-height: 100%; }
+  }
+  .ul-prayer__media picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .ul-prayer__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* faint warm vignette so the image edge melts into the panel */
+  .ul-prayer__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 70%, rgb(var(--ul-espresso-rgb) / 0.12));
+    pointer-events: none;
+  }
+  .ul-prayer--dark .ul-prayer__media::after {
+    background: linear-gradient(90deg, transparent 72%, rgb(0 0 0 / 0.25));
+  }
+
+  /* Content panel */
+  .ul-prayer__content {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(40px, 6vw, 88px) clamp(24px, 5vw, 76px);
+  }
+
+  /* Faint cross watermark */
+  .ul-prayer__cross {
+    position: absolute;
+    top: clamp(-10px, 1vw, 18px);
+    right: clamp(-14px, 1vw, 28px);
+    width: clamp(120px, 16vw, 230px);
+    height: auto;
+    color: var(--ul-brass);
+    opacity: 0.07;
+    pointer-events: none;
+  }
+  .ul-prayer--dark .ul-prayer__cross { opacity: 0.12; }
+
+  .ul-prayer__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 47ch;
+    text-align: left;
+  }
+
+  /* Eyebrow + brass rule */
+  .ul-prayer__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 clamp(14px, 1.6vw, 22px);
+    font-family: var(--ul-font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ul-brass);
+  }
+  .ul-prayer--dark .ul-prayer__eyebrow { color: color-mix(in srgb, var(--ul-brass) 82%, white); }
+  .ul-prayer__rule {
+    flex-shrink: 0;
+    width: clamp(24px, 3vw, 44px);
+    height: 1.5px;
+    background: currentColor;
+  }
+
+  .ul-prayer__heading {
+    font-family: var(--ul-font-display);
+    font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+    margin: 0 0 clamp(16px, 1.8vw, 24px);
+    text-wrap: balance;
+  }
+
+  .ul-prayer__body {
+    font-family: var(--ul-font-body);
+    font-size: clamp(1rem, 1.05vw, 1.075rem);
+    line-height: 1.72;
+    color: rgb(var(--ul-espresso-rgb) / 0.82);
+  }
+  .ul-prayer--dark .ul-prayer__body { color: rgb(var(--ul-bone-rgb) / 0.82); }
+  .ul-prayer__body :first-child { margin-top: 0; }
+  .ul-prayer__body :last-child { margin-bottom: 0; }
+  .ul-prayer__body p { margin: 0 0 0.9em; }
+  .ul-prayer__body strong { color: var(--ul-brass); font-weight: 600; }
+  .ul-prayer--dark .ul-prayer__body strong { color: color-mix(in srgb, var(--ul-brass) 82%, white); }
+
+  /* Brass CTA with arrow */
+  .ul-prayer__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    margin-top: clamp(24px, 3vw, 38px);
+    padding: 14px 26px;
+    background: var(--ul-brass);
+    color: #fff;
+    border-radius: var(--ul-radius);
+    font-family: var(--ul-font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    transition: background-color 0.35s var(--ul-ease), transform 0.4s var(--ul-ease);
+  }
+  .ul-prayer__cta svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.4s var(--ul-ease);
+  }
+  .ul-prayer__cta:hover {
+    background: color-mix(in srgb, var(--ul-brass) 84%, black);
+    transform: translateY(-1px);
+  }
+  .ul-prayer__cta:hover svg { transform: translateX(4px); }
+  .ul-prayer__cta:focus-visible { outline: 2px solid var(--ul-brass); outline-offset: 3px; }
+
+  /* Section vertical padding lives on the content panel only (media is full-bleed) */
+  @media (max-width: 749px) {
+    .ul-prayer__content {
+      padding-block: max(36px, var(--ul-pr-pt, 56px)) max(36px, var(--ul-pr-pb, 56px));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "UL Prayer",
+  "tag": "section",
+  "class": "ul-prayer-section",
+  "settings": [
+    { "type": "header", "content": "Media" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text" },
+    {
+      "type": "select", "id": "media_position", "label": "Image position",
+      "options": [ { "value": "left", "label": "Left" }, { "value": "right", "label": "Right" } ],
+      "default": "left"
+    },
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "body", "label": "Body" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "header", "content": "Appearance" },
+    {
+      "type": "select", "id": "color_mode", "label": "Section background",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "bone", "label": "Bone (warm)" },
+        { "value": "dark", "label": "Dark (espresso)" }
+      ],
+      "default": "bone"
+    },
+    { "type": "range", "id": "min_height", "label": "Desktop min height", "min": 50, "max": 90, "step": 2, "unit": "svh", "default": 70 },
+    { "type": "header", "content": "Spacing (mobile)" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "presets": [
+    {
+      "name": "UL Prayer",
+      "settings": {
+        "eyebrow": "Allow us to pray over you 🙏🏼",
+        "heading": "We all need prayer",
+        "body": "<p>Prayer is a <strong>vital act of faith</strong>. When others pray over you, they invoke the promises of God for healing, strength, and guidance. You are not meant to carry your battles alone.</p>",
+        "button_label": "Submit your prayer request",
+        "color_mode": "bone",
+        "media_position": "left"
+      }
+    }
+  ]
+}
+{% endschema %}

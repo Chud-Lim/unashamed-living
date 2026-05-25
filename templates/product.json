@@ -460,189 +460,6 @@
         "padding_bottom": 80
       }
     },
-    "media_with_content_EMXw43": {
-      "type": "media-with-content",
-      "blocks": {
-        "media": {
-          "type": "_media-without-appearance",
-          "static": true,
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/freepik__candid-i-with-natural-textures-and-highly-realisti__83749.png",
-            "link": "shopify://pages/need-prayer",
-            "video_loop": true,
-            "video_autoplay": false,
-            "image_position": "cover",
-            "video_position": "cover"
-          },
-          "blocks": {}
-        },
-        "content": {
-          "type": "_content-without-appearance",
-          "static": true,
-          "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "space-between",
-            "gap": 24
-          },
-          "blocks": {
-            "text_gJP4RN": {
-              "type": "text",
-              "name": "t:names.caption",
-              "settings": {
-                "text": "<p><strong>Allow us to pray over you. 🙏🏼</strong></p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "center",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 45,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "group_BNENXg": {
-              "type": "group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "link": "",
-                "open_in_new_tab": false,
-                "placeholder": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "text_H3HyMP": {
-                  "type": "text",
-                  "name": "t:names.heading",
-                  "settings": {
-                    "text": "<h2>We all need prayer</h2>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "center",
-                    "type_preset": "h3",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "text_jr9XfE": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Prayer is a <strong>vital act of faith</strong> where we seek God's intervention, and being prayed over is deeply important because it signifies the power of the communal body of Christ acting on our behalf (James 5:16). When others pray over us, they are invoking the promises of God, particularly for healing, strength, and guidance, as Jesus commanded his disciples to pray for one another (Matthew 18:19-20). The laying on of hands often accompanies this, symbolizing the transfer of the Holy Spirit's power and blessing, reinforcing that our battles are not fought alone but with the support of the church and the direct power of God.</p><p></p>",
-                    "width": "100%",
-                    "max_width": "narrow",
-                    "alignment": "center",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "button_rEJn46": {
-                  "type": "button",
-                  "name": "t:names.button",
-                  "settings": {
-                    "label": "Submit your prayer request",
-                    "link": "shopify://pages/need-prayer",
-                    "open_in_new_tab": false,
-                    "style_class": "button",
-                    "width": "custom",
-                    "custom_width": 100,
-                    "width_mobile": "custom",
-                    "custom_width_mobile": 100
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_H3HyMP",
-                "text_jr9XfE",
-                "button_rEJn46"
-              ]
-            }
-          },
-          "block_order": [
-            "text_gJP4RN",
-            "group_BNENXg"
-          ]
-        }
-      },
-      "name": "t:names.editorial",
-      "settings": {
-        "media_position": "left",
-        "media_width": "medium",
-        "media_height": "60svh",
-        "section_width": "full-width",
-        "extend_media": true,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
     "ul_mission_pdp": {
       "type": "ul-mission-impact",
       "blocks": {
@@ -757,6 +574,23 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "ul_prayer": {
+      "type": "ul-prayer",
+      "settings": {
+        "image": "shopify://shop_images/freepik__candid-i-with-natural-textures-and-highly-realisti__83749.png",
+        "image_alt": "Believers kneeling in prayer before a cross",
+        "media_position": "left",
+        "eyebrow": "Allow us to pray over you. 🙏🏼",
+        "heading": "We all need prayer",
+        "body": "<p>Prayer is a <strong>vital act of faith</strong> where we seek God's intervention, and being prayed over is deeply important because it signifies the power of the communal body of Christ acting on our behalf (James 5:16). When others pray over us, they are invoking the promises of God, particularly for healing, strength, and guidance, as Jesus commanded his disciples to pray for one another (Matthew 18:19-20). The laying on of hands often accompanies this, symbolizing the transfer of the Holy Spirit's power and blessing, reinforcing that our battles are not fought alone but with the support of the church and the direct power of God.</p><p></p>",
+        "button_label": "Submit your prayer request",
+        "button_link": "shopify://pages/need-prayer",
+        "color_mode": "bone",
+        "min_height": 70,
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
     }
   },
   "order": [
@@ -765,7 +599,7 @@
     "product-information",
     "ul_product_tabs",
     "ul_complement",
-    "media_with_content_EMXw43",
+    "ul_prayer",
     "ul_mission_pdp",
     "1763540355defdb10b"
   ]
