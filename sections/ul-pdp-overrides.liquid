@@ -137,28 +137,6 @@
     }
   }
 
-  /* --- Editorial (media-with-content) section: brand it. Theme's blue scheme button -> brass,
-     headings to the brand serif. Scoped to the PDP because this stylesheet only loads here. --- */
-  .media-with-content h1,
-  .media-with-content h2,
-  .media-with-content h3 {
-    font-family: var(--ul-font-display);
-    letter-spacing: -0.01em;
-  }
-  .media-with-content .button {
-    background: var(--ul-brass) !important;
-    color: #fff !important;
-    border: 1.5px solid var(--ul-brass) !important;
-    border-radius: var(--ul-radius);
-    font-family: var(--ul-font-body);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    transition: background-color 0.35s var(--ul-ease, ease), transform 0.35s var(--ul-ease, ease);
-  }
-  .media-with-content .button:hover {
-    background: color-mix(in srgb, var(--ul-brass) 84%, black) !important;
-    transform: translateY(-1px);
-  }
 </style>
 {% schema %}
 {
