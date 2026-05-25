@@ -297,6 +297,7 @@
     font-size: 0.88rem;
   }
 
+
   /* ---- Shared brand button idiom ---- */
   .ul-mission-impact .ul-btn {
     --ul-btn-bg: var(--ul-brass);
@@ -373,26 +374,73 @@
       max-width: 52ch;
     }
 
-    /* Compact reads as a single inline band on wider viewports */
+    /* ---- Compact desktop: 2-column grid for clear hierarchy ---- */
+    /* Left col: eyebrow → heading → body (one reading flow)       */
+    /* Right col: stats row top, CTA anchored below                */
     .ul-mission-impact--compact .ul-mission-impact__content {
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: clamp(20px, 3vw, 40px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      column-gap: clamp(40px, 6vw, 80px);
+      row-gap: 0;
+      align-items: start;
+      position: relative;
+    }
+
+    /* Eyebrow, heading, body all live in the left column */
+    .ul-mission-impact--compact .ul-mission-impact__eyebrow,
+    .ul-mission-impact--compact .ul-mission-impact__heading,
+    .ul-mission-impact--compact .ul-mission-impact__body {
+      grid-column: 1;
+    }
+
+    .ul-mission-impact--compact .ul-mission-impact__eyebrow {
+      grid-row: 1;
+      margin-bottom: clamp(6px, 0.8vw, 10px);
     }
     .ul-mission-impact--compact .ul-mission-impact__heading {
-      flex: 1 1 16ch;
+      grid-row: 2;
+      margin: 0 0 clamp(12px, 1.4vw, 18px);
+    }
+    .ul-mission-impact--compact .ul-mission-impact__body {
+      grid-row: 3;
+      max-width: 52ch;
       margin: 0;
     }
+
+    /* Full-height brass hairline between left and right columns */
+    .ul-mission-impact--compact .ul-mission-impact__content::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      /* The grid is 1fr 1fr; midpoint = 50% of container width.
+         Shift left by half the column gap to hit the gap's center. */
+      left: calc(50% - clamp(20px, 3vw, 40px));
+      width: 1px;
+      background: rgb(var(--ul-brass-rgb) / 0.3);
+      pointer-events: none;
+    }
+
+    /* Stats and CTA go into the right column, stacked */
     .ul-mission-impact--compact .ul-mission-impact__stats {
+      grid-column: 2;
+      grid-row: 1 / 3;
       margin: 0;
-      flex: 2 1 auto;
-      justify-content: center;
+      align-self: start;
+      /* 3 stats evenly distributed across the right column */
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: clamp(24px, 4vw, 48px);
+      padding-top: 4px; /* optical alignment with eyebrow baseline */
     }
+
     .ul-mission-impact--compact .ul-mission-impact__actions {
-      margin: 0;
-      flex: 0 0 auto;
+      grid-column: 2;
+      grid-row: 3;
+      margin: clamp(20px, 2.4vw, 32px) 0 0;
+      align-self: start;
     }
   }
 

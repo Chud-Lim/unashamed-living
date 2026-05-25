@@ -243,6 +243,8 @@
     position: relative;
     overflow: hidden;
     border-radius: var(--ul-radius);
+    /* Always enforce portrait 3:4; the CSS custom property is an override path
+       for the square option but portrait is the locked default. */
     aspect-ratio: var(--ul-pc-ratio, 3 / 4);
     background-color: rgb(var(--ul-espresso-rgb) / 0.06);
   }
@@ -251,12 +253,25 @@
     background-color: rgb(var(--ul-bone-rgb) / 0.08);
   }
 
+  /* image_tag outputs <picture><source><img></picture>. <picture> is inline by
+     default, which collapses its height to the image's natural height and
+     breaks the absolute-fill scheme. Force it to block so it participates in
+     the positioned container correctly. */
+  .ul-product-complementary__media picture {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
   .ul-product-complementary__img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
     transition: opacity 0.42s var(--ul-ease), transform 0.52s var(--ul-ease);
   }
 

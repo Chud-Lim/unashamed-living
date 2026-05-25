@@ -297,190 +297,6 @@
                 "link": ""
               },
               "blocks": {}
-            },
-            "accordion_iWQwkW": {
-              "type": "accordion",
-              "name": "t:names.accordion",
-              "settings": {
-                "icon": "plus",
-                "dividers": true,
-                "type_preset": "h6",
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "accordion_row_TbgNUF": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Product Details",
-                    "open_by_default": true,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_n6TMzy": {
-                      "type": "text",
-                      "settings": {
-                        "text": "{{ closest.product.description }}",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "center",
-                        "type_preset": "rte",
-                        "font": "var(--font-primary--family)",
-                        "font_size": "",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_n6TMzy"
-                  ]
-                },
-                "accordion_row_76yCLJ": {
-                  "type": "_accordion-row",
-                  "name": "t:names.accordion_row",
-                  "settings": {
-                    "heading": "Product maintenance and care",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_AqeQbB": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<h2>🧺 Care Instructions </h2><p>To ensure the longevity and fit of your apparel, please follow these gentle care steps:</p><ol><li><strong>Wash Cold:</strong> Always turn the garment inside out and wash using a <strong>cold water setting</strong> (gentle cycle) with a mild detergent. This prevents shrinking and preserves color vibrancy.</li><li><strong>Air Dry is Best:</strong> For zero shrinkage, lay flat or hang to air dry. If you must machine dry, use the <strong>lowest heat setting</strong> possible and remove while still slightly damp.</li><li><strong>Avoid High Heat:</strong> High temperatures in washing or drying are the main cause of shrinkage in cotton fibers.</li></ol>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "center",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_AqeQbB"
-                  ]
-                },
-                "accordion_row_kmdwc8": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Size & Fit",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_hYWKPd": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>Our products are crafted to fit true to size, ensuring that you can confidently select your usual size with ease. Whether you’re looking for a relaxed or tailored fit, our designs are made to complement your unique shape and style.</p>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "center",
-                        "type_preset": "rte",
-                        "font": "var(--font-primary--family)",
-                        "font_size": "",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_hYWKPd"
-                  ]
-                },
-                "accordion_row_ship": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Shipping & Returns",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_ship": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>Orders ship within 1–3 business days. Easy 30-day returns on unworn items. Every order also gives back — 10% funds churches, conversations, and communities worldwide.</p>",
-                        "width": "fit-content",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_ship"
-                  ]
-                }
-              },
-              "block_order": [
-                "accordion_row_TbgNUF",
-                "accordion_row_76yCLJ",
-                "accordion_row_kmdwc8",
-                "accordion_row_ship"
-              ]
             }
           },
           "block_order": [
@@ -488,8 +304,7 @@
             "variant_picker_3Nha6V",
             "kiwi_size_chart_recommender_kiwi_sizing_FBCAG7",
             "buy_buttons_NmYpFG",
-            "ul_giving_1",
-            "accordion_iWQwkW"
+            "ul_giving_1"
           ]
         }
       },
@@ -833,11 +648,60 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "ul_product_tabs": {
+      "type": "ul-product-tabs",
+      "blocks": {
+        "tab_description": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Description",
+            "use_product_description": true,
+            "content": ""
+          }
+        },
+        "tab_care": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Product maintenance and care",
+            "use_product_description": false,
+            "content": "<h2>🧺 Care Instructions </h2><p>To ensure the longevity and fit of your apparel, please follow these gentle care steps:</p><ol><li><strong>Wash Cold:</strong> Always turn the garment inside out and wash using a <strong>cold water setting</strong> (gentle cycle) with a mild detergent. This prevents shrinking and preserves color vibrancy.</li><li><strong>Air Dry is Best:</strong> For zero shrinkage, lay flat or hang to air dry. If you must machine dry, use the <strong>lowest heat setting</strong> possible and remove while still slightly damp.</li><li><strong>Avoid High Heat:</strong> High temperatures in washing or drying are the main cause of shrinkage in cotton fibers.</li></ol>"
+          }
+        },
+        "tab_sizefit": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Size & Fit",
+            "use_product_description": false,
+            "content": "<p>Our products are crafted to fit true to size, ensuring that you can confidently select your usual size with ease. Whether you’re looking for a relaxed or tailored fit, our designs are made to complement your unique shape and style.</p>"
+          }
+        },
+        "tab_ship": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Shipping & Returns",
+            "use_product_description": false,
+            "content": "<p>Orders ship within 1–3 business days. Easy 30-day returns on unworn items. Every order also gives back — 10% funds churches, conversations, and communities worldwide.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tab_description",
+        "tab_care",
+        "tab_sizefit",
+        "tab_ship"
+      ],
+      "settings": {
+        "color_mode": "white",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
     }
   },
   "order": [
     "ul_pdp_style",
     "product-information",
+    "ul_product_tabs",
     "ul_complement",
     "media_with_content_EMXw43",
     "ul_mission_pdp",

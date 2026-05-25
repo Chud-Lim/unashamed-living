@@ -1,0 +1,459 @@
+{% render 'ul-tokens' %}
+{%- comment -%}
+  ul-product-tabs — standalone product-info tabs, displayed below the buy box.
+  Desktop (>=750px): a horizontal tab bar; clicking a title reveals that tab's
+  panel, with a brass underline marking the active tab. Mobile (<=749px): the
+  same tabs collapse into a vertical accordion (title + caret, tap to toggle).
+  ALL tab content is left-aligned on both breakpoints. Each tab is a block with
+  a title + richtext content, or a "use_product_description" toggle that swaps in
+  {{ product.description }}. Vanilla JS only, scoped per-instance via section.id
+  so multiple instances never collide. All CSS scoped under .ul-product-tabs.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign uid = section.id
+  assign active_index = 0
+-%}
+
+<div
+  class="ul-product-tabs ul-product-tabs-{{ uid }} ul-product-tabs--{{ s.color_mode }}"
+  data-ul-tabs="{{ uid }}"
+  style="
+    --ul-pt-pad-top: {{ s.padding_top }}px;
+    --ul-pt-pad-bottom: {{ s.padding_bottom }}px;
+  "
+>
+  <div class="ul-product-tabs__inner ul-container">
+    {%- if section.blocks.size > 0 -%}
+      {%- comment -%} Desktop tab bar (role=tablist); hidden on mobile via CSS. {%- endcomment -%}
+      <div class="ul-product-tabs__bar" role="tablist" aria-label="{{ 'Product information' | escape }}">
+        {%- for block in section.blocks -%}
+          {%- assign title = block.settings.tab_title | default: 'Tab' -%}
+          <button
+            type="button"
+            class="ul-product-tabs__tab{% if forloop.index0 == active_index %} is-active{% endif %}"
+            id="ul-pt-tab-{{ uid }}-{{ forloop.index0 }}"
+            role="tab"
+            aria-selected="{% if forloop.index0 == active_index %}true{% else %}false{% endif %}"
+            aria-controls="ul-pt-panel-{{ uid }}-{{ forloop.index0 }}"
+            tabindex="{% if forloop.index0 == active_index %}0{% else %}-1{% endif %}"
+            data-ul-tab-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <span class="ul-product-tabs__tab-label">{{ title }}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%} Panels. On mobile each is preceded by its own accordion trigger. {%- endcomment -%}
+      <div class="ul-product-tabs__panels">
+        {%- for block in section.blocks -%}
+          {%- assign title = block.settings.tab_title | default: 'Tab' -%}
+          {%- if block.settings.use_product_description -%}
+            {%- assign body = product.description -%}
+          {%- else -%}
+            {%- assign body = block.settings.content -%}
+          {%- endif -%}
+          <div class="ul-product-tabs__item">
+            {%- comment -%} Mobile accordion trigger (hidden on desktop via CSS). {%- endcomment -%}
+            <button
+              type="button"
+              class="ul-product-tabs__acc-trigger{% if forloop.index0 == active_index %} is-open{% endif %}"
+              id="ul-pt-acc-{{ uid }}-{{ forloop.index0 }}"
+              aria-expanded="{% if forloop.index0 == active_index %}true{% else %}false{% endif %}"
+              aria-controls="ul-pt-panel-{{ uid }}-{{ forloop.index0 }}"
+              data-ul-acc-index="{{ forloop.index0 }}"
+            >
+              <span class="ul-product-tabs__acc-label">{{ title }}</span>
+              <span class="ul-product-tabs__caret" aria-hidden="true"></span>
+            </button>
+
+            <div
+              class="ul-product-tabs__panel{% if forloop.index0 == active_index %} is-active{% endif %}"
+              id="ul-pt-panel-{{ uid }}-{{ forloop.index0 }}"
+              role="tabpanel"
+              aria-labelledby="ul-pt-tab-{{ uid }}-{{ forloop.index0 }}"
+              data-ul-panel-index="{{ forloop.index0 }}"
+              {% unless forloop.index0 == active_index %}hidden{% endunless %}
+            >
+              <div class="ul-product-tabs__content rte">
+                {%- if body != blank -%}
+                  {{ body }}
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .ul-product-tabs {
+    --ul-pt-bg: #fff;
+    --ul-pt-fg: var(--ul-espresso);
+    --ul-pt-accent: var(--ul-brass);
+    --ul-pt-rule: rgb(var(--ul-espresso-rgb) / 0.14);
+    --ul-pt-muted: rgb(var(--ul-espresso-rgb) / 0.6);
+    background: var(--ul-pt-bg);
+    color: var(--ul-pt-fg);
+  }
+
+  .ul-product-tabs--bone {
+    --ul-pt-bg: var(--ul-bone);
+    --ul-pt-fg: var(--ul-espresso);
+    --ul-pt-accent: var(--ul-brass);
+    --ul-pt-rule: rgb(var(--ul-espresso-rgb) / 0.16);
+    --ul-pt-muted: rgb(var(--ul-espresso-rgb) / 0.62);
+  }
+
+  .ul-product-tabs--dark {
+    --ul-pt-bg: var(--ul-dark);
+    --ul-pt-fg: var(--ul-bone);
+    --ul-pt-accent: var(--ul-brass);
+    --ul-pt-rule: rgb(var(--ul-bone-rgb) / 0.18);
+    --ul-pt-muted: rgb(var(--ul-bone-rgb) / 0.72);
+  }
+
+  .ul-product-tabs__inner {
+    padding-block: var(--ul-pt-pad-top, 56px) var(--ul-pt-pad-bottom, 56px);
+  }
+
+  /* ---- Tab content (shared, ALWAYS left-aligned) ---- */
+  .ul-product-tabs__content {
+    text-align: left;
+    font-family: var(--ul-font-body);
+    font-weight: var(--ul-weight-body);
+    font-size: var(--ul-fs-body);
+    line-height: 1.65;
+    color: var(--ul-pt-fg);
+  }
+  .ul-product-tabs__content > :first-child { margin-top: 0; }
+  .ul-product-tabs__content > :last-child { margin-bottom: 0; }
+  .ul-product-tabs__content p,
+  .ul-product-tabs__content ul,
+  .ul-product-tabs__content ol {
+    text-align: left;
+    margin: 0 0 0.85em;
+  }
+  .ul-product-tabs__content ul,
+  .ul-product-tabs__content ol {
+    padding-left: 1.25em;
+  }
+  .ul-product-tabs__content li { margin: 0 0 0.4em; }
+  .ul-product-tabs__content li::marker { color: var(--ul-pt-accent); }
+  .ul-product-tabs__content a {
+    color: var(--ul-pt-accent);
+    text-underline-offset: 0.18em;
+  }
+  .ul-product-tabs__content strong { font-weight: 600; }
+  .ul-product-tabs__content h2,
+  .ul-product-tabs__content h3,
+  .ul-product-tabs__content h4 {
+    font-family: var(--ul-font-display);
+    font-weight: var(--ul-weight-display);
+    line-height: 1.18;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.5em;
+    text-align: left;
+  }
+  .ul-product-tabs__content h2 { font-size: var(--ul-fs-h4); }
+  .ul-product-tabs__content h3 { font-size: 1.18rem; }
+  .ul-product-tabs__content h4 { font-size: 1.05rem; }
+
+  /* ---- Desktop tab bar ---- */
+  .ul-product-tabs__bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(18px, 3vw, 40px);
+    border-bottom: 1px solid var(--ul-pt-rule);
+    margin-bottom: clamp(22px, 3vw, 36px);
+  }
+
+  .ul-product-tabs__tab {
+    appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    padding: 0 0 14px;
+    cursor: pointer;
+    font-family: var(--ul-font-display);
+    font-weight: var(--ul-weight-display);
+    font-size: var(--ul-fs-h4);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    color: var(--ul-pt-muted);
+    transition: color 0.35s var(--ul-ease), border-color 0.35s var(--ul-ease);
+  }
+  .ul-product-tabs__tab:hover { color: var(--ul-pt-fg); }
+  .ul-product-tabs__tab.is-active {
+    color: var(--ul-pt-fg);
+    border-bottom-color: var(--ul-pt-accent);
+  }
+  .ul-product-tabs__tab:focus-visible {
+    outline: 2px solid var(--ul-pt-accent);
+    outline-offset: 4px;
+    border-radius: var(--ul-radius);
+  }
+
+  /* ---- Panels ---- */
+  .ul-product-tabs__panel {
+    max-width: 70ch;
+  }
+  .ul-product-tabs__panel[hidden] { display: none; }
+
+  /* ---- Mobile accordion trigger: hidden on desktop ---- */
+  .ul-product-tabs__acc-trigger {
+    display: none;
+  }
+  .ul-product-tabs__caret {
+    position: relative;
+    flex: 0 0 auto;
+    width: 11px;
+    height: 11px;
+    margin-left: 16px;
+  }
+  .ul-product-tabs__caret::before,
+  .ul-product-tabs__caret::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 11px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.35s var(--ul-ease);
+  }
+  .ul-product-tabs__caret::before { transform: translate(-50%, -50%); }
+  .ul-product-tabs__caret::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .ul-product-tabs__acc-trigger.is-open .ul-product-tabs__caret::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  /* ---- Mobile: collapse tab bar into a vertical accordion ---- */
+  @media (max-width: 749px) {
+    .ul-product-tabs__bar {
+      display: none;
+    }
+    .ul-product-tabs__panels {
+      border-top: 1px solid var(--ul-pt-rule);
+    }
+    .ul-product-tabs__item {
+      border-bottom: 1px solid var(--ul-pt-rule);
+    }
+    .ul-product-tabs__acc-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      background: none;
+      border: 0;
+      padding: 18px 0;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--ul-font-display);
+      font-weight: var(--ul-weight-display);
+      font-size: var(--ul-fs-h4);
+      line-height: 1.15;
+      letter-spacing: -0.005em;
+      color: var(--ul-pt-fg);
+    }
+    .ul-product-tabs__acc-trigger:focus-visible {
+      outline: 2px solid var(--ul-pt-accent);
+      outline-offset: 3px;
+      border-radius: var(--ul-radius);
+    }
+    .ul-product-tabs__acc-label { padding-right: 12px; }
+    .ul-product-tabs__panel {
+      max-width: none;
+      padding-bottom: 20px;
+    }
+  }
+
+  /* ---- Reduced-motion: drop transitions ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .ul-product-tabs__tab,
+    .ul-product-tabs__caret::before,
+    .ul-product-tabs__caret::after {
+      transition: none;
+    }
+  }
+
+  /* ul-mobile-pad: scale section padding down on mobile */
+  @media (max-width: 749px) {
+    .ul-product-tabs__inner {
+      padding-block: max(32px, calc(var(--ul-pt-pad-top, 56px) * 0.7)) max(32px, calc(var(--ul-pt-pad-bottom, 56px) * 0.7));
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  (function () {
+    var root = document.querySelector('.ul-product-tabs-{{ section.id }}');
+    if (!root) return;
+
+    var tablist = root.querySelector('[role="tablist"]');
+    var tabs = tablist ? Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]')) : [];
+    var panels = Array.prototype.slice.call(root.querySelectorAll('[role="tabpanel"]'));
+    var accTriggers = Array.prototype.slice.call(root.querySelectorAll('.ul-product-tabs__acc-trigger'));
+    var mq = window.matchMedia('(max-width: 749px)');
+
+    function panelByIndex(i) {
+      return root.querySelector('[data-ul-panel-index="' + i + '"]');
+    }
+
+    // Desktop: show exactly one panel, mark its tab active.
+    function activateTab(index) {
+      tabs.forEach(function (tab) {
+        var i = tab.getAttribute('data-ul-tab-index');
+        var selected = i === String(index);
+        tab.classList.toggle('is-active', selected);
+        tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+        tab.setAttribute('tabindex', selected ? '0' : '-1');
+      });
+      panels.forEach(function (panel) {
+        var i = panel.getAttribute('data-ul-panel-index');
+        if (i === String(index)) {
+          panel.removeAttribute('hidden');
+          panel.classList.add('is-active');
+        } else {
+          panel.setAttribute('hidden', '');
+          panel.classList.remove('is-active');
+        }
+      });
+    }
+
+    // Mobile: each accordion row toggles independently.
+    function toggleAccordion(index, forceOpen) {
+      var trigger = root.querySelector('[data-ul-acc-index="' + index + '"]');
+      var panel = panelByIndex(index);
+      if (!trigger || !panel) return;
+      var isOpen = typeof forceOpen === 'boolean' ? forceOpen : panel.hasAttribute('hidden');
+      if (isOpen) {
+        panel.removeAttribute('hidden');
+        panel.classList.add('is-active');
+        trigger.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      } else {
+        panel.setAttribute('hidden', '');
+        panel.classList.remove('is-active');
+        trigger.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    // When switching between layouts, reset panel visibility so the mode's
+    // own logic governs (desktop = single active panel; mobile = whatever the
+    // user expanded, defaulting to the first row open).
+    function syncForLayout() {
+      if (mq.matches) {
+        // Mobile accordion: open the first row, collapse the rest.
+        accTriggers.forEach(function (trigger) {
+          var i = parseInt(trigger.getAttribute('data-ul-acc-index'), 10);
+          toggleAccordion(i, i === 0);
+        });
+      } else {
+        // Desktop tabs: first tab active.
+        activateTab(0);
+      }
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        activateTab(parseInt(tab.getAttribute('data-ul-tab-index'), 10));
+      });
+      tab.addEventListener('keydown', function (e) {
+        var current = parseInt(tab.getAttribute('data-ul-tab-index'), 10);
+        var last = tabs.length - 1;
+        var next = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          next = current >= last ? 0 : current + 1;
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          next = current <= 0 ? last : current - 1;
+        } else if (e.key === 'Home') {
+          next = 0;
+        } else if (e.key === 'End') {
+          next = last;
+        }
+        if (next !== null) {
+          e.preventDefault();
+          activateTab(next);
+          var target = tablist.querySelector('[data-ul-tab-index="' + next + '"]');
+          if (target) target.focus();
+        }
+      });
+    });
+
+    accTriggers.forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        toggleAccordion(parseInt(trigger.getAttribute('data-ul-acc-index'), 10));
+      });
+    });
+
+    if (mq.addEventListener) {
+      mq.addEventListener('change', syncForLayout);
+    } else if (mq.addListener) {
+      mq.addListener(syncForLayout);
+    }
+
+    syncForLayout();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "UL Product Tabs",
+  "tag": "section",
+  "class": "ul-product-tabs-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "header", "content": "Appearance" },
+    {
+      "type": "select",
+      "id": "color_mode",
+      "label": "Color mode",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "bone", "label": "Bone" },
+        { "value": "dark", "label": "Dark" }
+      ],
+      "default": "white"
+    },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        { "type": "text", "id": "tab_title", "label": "Tab title", "default": "Tab" },
+        { "type": "checkbox", "id": "use_product_description", "label": "Use product description", "info": "When on, this tab shows the product's description and ignores the content below.", "default": false },
+        { "type": "richtext", "id": "content", "label": "Content" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UL Product Tabs",
+      "blocks": [
+        { "type": "tab", "settings": { "tab_title": "Description", "use_product_description": true } },
+        { "type": "tab", "settings": { "tab_title": "Size & Fit", "content": "<p>Our products are crafted to fit true to size. Select your usual size with confidence.</p>" } },
+        { "type": "tab", "settings": { "tab_title": "Shipping & Returns", "content": "<p>Orders ship within 1–3 business days. Easy 30-day returns on unworn items.</p>" } }
+      ],
+      "settings": {
+        "color_mode": "white",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    }
+  ]
+}
+{% endschema %}
