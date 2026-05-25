@@ -97,7 +97,7 @@
         "tile_2": {
           "type": "tile",
           "settings": {
-            "label": "Jewelry",
+            "label": "Accessories",
             "link": "shopify://collections/accessories",
             "collection": "accessories"
           }
