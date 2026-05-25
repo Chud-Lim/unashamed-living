@@ -289,7 +289,7 @@
             "ul_giving_1": {
               "type": "ul-giving",
               "settings": {
-                "line": "of every sale funds churches, conversations, and communities worldwide.",
+                "line": "of every sale funds churches, sparks Gospel conversations, and lifts communities worldwide.",
                 "item_1": "Equips churches",
                 "item_2": "Global impact",
                 "item_3": "Fast shipping",
@@ -297,6 +297,15 @@
                 "link": ""
               },
               "blocks": {}
+            },
+            "payment_icons_ul": {
+              "type": "payment-icons",
+              "settings": {
+                "horizontal_alignment": "center",
+                "gap": 8,
+                "padding-block-start": 14,
+                "padding-block-end": 2
+              }
             }
           },
           "block_order": [
@@ -304,6 +313,7 @@
             "variant_picker_3Nha6V",
             "kiwi_size_chart_recommender_kiwi_sizing_FBCAG7",
             "buy_buttons_NmYpFG",
+            "payment_icons_ul",
             "ul_giving_1"
           ]
         }

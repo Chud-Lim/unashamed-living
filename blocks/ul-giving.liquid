@@ -1,49 +1,60 @@
 {%- comment -%}
-  ul-giving — compact giving + trust strip for the product page, placed right
-  after the buy buttons inside the existing product-information section's
-  _product-details block. Public theme block (accepted by @theme). Brand-styled,
-  scoped under .ul-giving. Renders ul-tokens so the brand palette is available
-  even if used standalone.
+  ul-giving — giving + trust strip for the product page, placed right after the
+  buy buttons inside the existing product-information section's _product-details
+  block. Public theme block (accepted by @theme). Brand-styled, scoped under
+  .ul-giving. Renders ul-tokens so the brand palette is available standalone.
+  Layout: one centered giving sentence (10% highlighted) + an edge-faded
+  infinite marquee of the icon trust items.
 {%- endcomment -%}
 {% render 'ul-tokens' %}
 
 {%- liquid
   assign s = block.settings
+  assign has_items = false
+  if s.item_1 != blank or s.item_2 != blank or s.item_3 != blank
+    assign has_items = true
+  endif
 -%}
 <div class="ul-giving ul-giving-{{ block.id }}" {{ block.shopify_attributes }}>
   {%- if s.line != blank -%}
     <p class="ul-giving__line">
-      <span class="ul-giving__mark" aria-hidden="true">10%</span>
-      <span>{{ s.line }}</span>
+      <span class="ul-giving__mark">10%</span> {{ s.line }}
     </p>
   {%- endif -%}
 
-  <ul class="ul-giving__items" role="list">
-    {%- if s.item_1 != blank -%}
-      <li class="ul-giving__item">
-        <span class="ul-giving__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 8h10"/></svg>
-        </span>
-        <span>{{ s.item_1 }}</span>
-      </li>
-    {%- endif -%}
-    {%- if s.item_2 != blank -%}
-      <li class="ul-giving__item">
-        <span class="ul-giving__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
-        </span>
-        <span>{{ s.item_2 }}</span>
-      </li>
-    {%- endif -%}
-    {%- if s.item_3 != blank -%}
-      <li class="ul-giving__item">
-        <span class="ul-giving__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="1.6"/><circle cx="17.5" cy="17" r="1.6"/></svg>
-        </span>
-        <span>{{ s.item_3 }}</span>
-      </li>
-    {%- endif -%}
-  </ul>
+  {%- if has_items -%}
+    <div class="ul-giving__marquee" role="list" aria-label="Why it matters">
+      <div class="ul-giving__track">
+        {%- comment -%} Items repeated so the two halves loop seamlessly (animate -50%). {%- endcomment -%}
+        {%- for n in (1..4) -%}
+          {%- if s.item_1 != blank -%}
+            <span class="ul-giving__item" {% if n > 1 %}aria-hidden="true"{% else %}role="listitem"{% endif %}>
+              <span class="ul-giving__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 8h10"/></svg>
+              </span>
+              {{ s.item_1 }}
+            </span>
+          {%- endif -%}
+          {%- if s.item_2 != blank -%}
+            <span class="ul-giving__item" {% if n > 1 %}aria-hidden="true"{% else %}role="listitem"{% endif %}>
+              <span class="ul-giving__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
+              </span>
+              {{ s.item_2 }}
+            </span>
+          {%- endif -%}
+          {%- if s.item_3 != blank -%}
+            <span class="ul-giving__item" {% if n > 1 %}aria-hidden="true"{% else %}role="listitem"{% endif %}>
+              <span class="ul-giving__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="1.6"/><circle cx="17.5" cy="17" r="1.6"/></svg>
+              </span>
+              {{ s.item_3 }}
+            </span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
 
   {%- if s.link_label != blank and s.link != blank -%}
     <a class="ul-giving__link" href="{{ s.link }}">{{ s.link_label }}</a>
@@ -53,49 +64,58 @@
 {% stylesheet %}
   .ul-giving {
     margin-block: 18px 4px;
-    padding: 18px 20px;
+    padding: 20px 20px 18px;
     border: 1px solid rgb(var(--ul-brass-rgb) / 0.35);
     border-radius: var(--ul-radius);
     background: rgb(var(--ul-brass-rgb) / 0.06);
     font-family: var(--ul-font-body);
     color: var(--ul-espresso);
+    text-align: center;
   }
 
+  /* Giving sentence: one centered paragraph, 10% highlighted inline */
   .ul-giving__line {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 0 0 12px;
-    font-size: 0.95rem;
-    line-height: 1.4;
+    margin: 0 auto;
+    max-width: 46ch;
+    font-size: 0.98rem;
+    line-height: 1.5;
   }
 
   .ul-giving__mark {
-    flex-shrink: 0;
     font-family: var(--ul-font-display);
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1.15em;
     color: var(--ul-brass);
-    line-height: 1;
   }
 
-  .ul-giving__items {
+  /* Marquee: infinite scroll with smooth edge fade */
+  .ul-giving__marquee {
+    margin-top: 16px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+  }
+
+  .ul-giving__track {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px 22px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+    width: max-content;
+    align-items: center;
+    animation: ul-giving-marquee 24s linear infinite;
+  }
+  .ul-giving__marquee:hover .ul-giving__track {
+    animation-play-state: paused;
   }
 
   .ul-giving__item {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    padding-inline-end: 36px; /* spacing baked in so the -50% loop stays seamless */
     font-size: 0.8rem;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     font-weight: 600;
+    white-space: nowrap;
   }
 
   .ul-giving__icon {
@@ -105,6 +125,25 @@
   .ul-giving__icon svg {
     width: 18px;
     height: 18px;
+  }
+
+  @keyframes ul-giving-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ul-giving__track {
+      animation: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      gap: 8px 0;
+    }
+    .ul-giving__marquee {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
   }
 
   .ul-giving__link {
@@ -122,8 +161,8 @@
 {
   "name": "UL Giving strip",
   "settings": [
-    { "type": "text", "id": "line", "label": "Giving line" },
-    { "type": "header", "content": "Trust items" },
+    { "type": "text", "id": "line", "label": "Giving line", "info": "Shown after the highlighted 10%." },
+    { "type": "header", "content": "Trust items (scrolling marquee)" },
     { "type": "text", "id": "item_1", "label": "Item 1 (faith)" },
     { "type": "text", "id": "item_2", "label": "Item 2 (global)" },
     { "type": "text", "id": "item_3", "label": "Item 3 (shipping)" },
@@ -135,7 +174,7 @@
     {
       "name": "UL Giving strip",
       "settings": {
-        "line": "of every sale funds churches, conversations, and communities worldwide.",
+        "line": "of every sale funds churches, sparks Gospel conversations, and lifts communities worldwide.",
         "item_1": "Equips churches",
         "item_2": "Global impact",
         "item_3": "Fast shipping"
