@@ -173,7 +173,7 @@
         "reset_weekday": "1",
         "reset_hour": "00",
         "reset_minute": "00",
-        "title": "❤️ <strong>BLACK FRIDAY</strong> ❤️",
+        "title": "NEW DROPS SALE",
         "show_days": false,
         "label_days": "Days",
         "label_hours": "Hours",
@@ -183,8 +183,8 @@
         "gap_desktop": 28,
         "gap_mobile": 10,
         "show_code": true,
-        "code": "STERNIFY50",
-        "code_action": "copy",
+        "code": "CHECK THEM OUT",
+        "code_action": "link",
         "code_url": "",
         "code_success": "Copied!",
         "code_hover": true,
@@ -211,7 +211,7 @@
         "background_style": "gradient",
         "bg_color": "#0a0a0a",
         "bg_gradient": "radial-gradient(rgba(26, 6, 6, 1), rgba(5, 5, 5, 1) 65%)",
-        "glow_color": "#ff3c3c"
+        "glow_color": "#A87C4F"
       }
     }
   },
