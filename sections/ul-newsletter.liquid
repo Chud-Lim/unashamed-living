@@ -393,6 +393,13 @@
       padding-block: max(40px, calc(var(--ul-nl-pad-top, 112px) * 0.55)) max(40px, calc(var(--ul-nl-pad-bot, 112px) * 0.55));
     }
   }
+
+  /* Ensure <picture> fills its frame so object-fit:cover applies (no dead space) */
+  .ul-newsletter picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 {% endstylesheet %}
 
 {% schema %}
