@@ -2,6 +2,16 @@
 
 ## Status: SHIPPED to the unpublished theme ✅
 
+### Round 2 — mobile polish (after on-device review)
+Fixed real mobile issues found on a physical phone:
+- **CRITICAL — invalid color tokens:** `--ul-*-rgb` triplets were comma-separated, so every `rgb(var(--ul-*-rgb) / alpha)` scrim/overlay/border/tint across **all** sections was invalid CSS and silently dropped (the "cheap/generic, no premium feel"). Now space-separated → valid modern syntax; all surfaces render.
+- **CRITICAL — image_tag arg bug:** a piped `alt: x | default: y` swallowed the trailing `class`/`loading`/`fetchpriority` args, so the hero + editorial + mission + jewelry + newsletter + complementary images lost their CSS classes (no `object-fit`/sizing). On the hero this caused the image to collapse to natural height, leaving a flat dark block behind the buttons with unreadable text over the busy photo. Reordered so `alt` is last.
+- **Hero rebuilt for mobile:** flex column that guarantees the image covers the full hero (no dark seam), a strong *smooth* bottom gradient + a soft text-shadow halo so the headline/eyebrow/CTAs are readable over any photo, compact mobile type, full-width stacked CTAs.
+- **Mobile spacing:** section vertical padding was fixed desktop px (96–112px) applied on mobile too → oversized unbalanced gaps. Now scaled to ~55% on mobile (floored 40px).
+- **Verified** every section at 390px (+ desktop regression check): 0 horizontal overflow, surfaces/scrims/borders rendering, balanced spacing, hero readable, variant switching + ATC intact. Footer is Horizon's stock footer (unchanged; note it has its own newsletter signup in addition to the `ul-newsletter` section — merchant can hide one).
+
+---
+
 - **Store:** `unashamed-living.myshopify.com`
 - **Deployed theme (unpublished):** `unashamed-living/master` `#158941053151`
 - **Live theme (untouched):** `Fabric` `#154435223775`
