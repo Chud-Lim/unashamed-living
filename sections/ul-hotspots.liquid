@@ -1,0 +1,573 @@
+{%- comment -%}
+  ul-hotspots — premium "shop the look" hotspot grid.
+  Two-column grid on desktop (1fr 1fr), single column stacked on mobile. The
+  SECTION is always full-bleed; the CONTENT width is selectable (full / page /
+  custom). Each block is an image tile with one product hotspot: a premium pulsing
+  dot that reveals a minimal popup (product title + buy button linking to the PDP).
+  Desktop opens on hover/focus; touch opens on tap (progressive-enhancement JS,
+  with a CSS :focus-within fallback). Aspect ratio is a section setting.
+  All CSS scoped under .ul-hotspots.
+{%- endcomment -%}
+{% render 'ul-tokens' %}
+
+{%- liquid
+  assign s = section.settings
+  assign color_mode = s.color_mode | default: 'white'
+  assign ratio = s.aspect_ratio | default: 'portrait'
+  assign buy_label = s.buy_label | default: 'Buy now'
+
+  case s.content_width
+    when 'full'
+      assign width_class = 'ul-hotspots__grid--full'
+    when 'custom'
+      assign width_class = 'ul-hotspots__grid--custom'
+    else
+      assign width_class = 'ul-hotspots__grid--page'
+  endcase
+-%}
+
+<div
+  class="ul-hotspots ul-hotspots-{{ section.id }} ul-hotspots--{{ color_mode }} ul-hotspots--ratio-{{ ratio }}"
+  style="--ul-hs-pt: {{ s.padding_top }}px; --ul-hs-pb: {{ s.padding_bottom }}px; --ul-hs-maxw: {{ s.content_max_width }}px;"
+>
+  {%- if s.eyebrow != blank or s.heading != blank -%}
+    <header class="ul-hotspots__header ul-container ul-reveal">
+      {%- if s.eyebrow != blank -%}
+        <p class="ul-eyebrow ul-hotspots__eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.heading != blank -%}
+        <h2 class="ul-hotspots__heading">{{ s.heading }}</h2>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
+  <div class="ul-hotspots__grid {{ width_class }}">
+    {%- for block in section.blocks -%}
+      {%- assign b = block.settings -%}
+      {%- assign prod = b.product -%}
+      {%- assign hs_alt = b.image_alt | default: prod.title | default: '' -%}
+      <div class="ul-hotspots__tile ul-reveal ul-reveal--soft" {{ block.shopify_attributes }}>
+        <div class="ul-hotspots__media">
+          <div class="ul-hotspots__frame">
+            {%- if b.image != blank -%}
+              {{
+                b.image
+                | image_url: width: 1400
+                | image_tag:
+                  widths: '440, 600, 760, 900, 1100, 1400',
+                  sizes: '(min-width: 750px) 46vw, 92vw',
+                  loading: 'lazy',
+                  class: 'ul-hotspots__img',
+                  alt: hs_alt
+              }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'ul-hotspots__img ul-hotspots__img--placeholder' }}
+            {%- endif -%}
+          </div>
+
+          {%- if prod != blank -%}
+            <div
+              class="ul-hotspots__hotspot ul-hotspots__hotspot--{{ b.popup_position | default: 'top' }}"
+              style="left: {{ b.pos_x | default: 50 }}%; top: {{ b.pos_y | default: 50 }}%;"
+            >
+              <button
+                type="button"
+                class="ul-hotspots__dot"
+                aria-label="View {{ prod.title | escape }}"
+              >
+                <span class="ul-hotspots__dot-pulse" aria-hidden="true"></span>
+              </button>
+              <div class="ul-hotspots__popup" role="group" aria-label="{{ prod.title | escape }}">
+                <span class="ul-hotspots__popup-title">{{ prod.title }}</span>
+                <a class="ul-hotspots__buy" href="{{ prod.url }}">{{ buy_label }}</a>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .ul-hotspots {
+    padding-block: var(--ul-hs-pt, 80px) var(--ul-hs-pb, 80px);
+    background: var(--ul-bone);
+    color: var(--ul-espresso);
+    /* clip horizontal popup overflow so edge hotspots never cause page scroll,
+       while keeping popups above/below the dot fully visible */
+    overflow-x: clip;
+  }
+  .ul-hotspots--white { background: #ffffff; }
+  .ul-hotspots--dark {
+    background: var(--ul-dark);
+    color: var(--ul-bone);
+  }
+
+  /* Header */
+  .ul-hotspots__header {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1vw, 14px);
+    margin-block-end: clamp(28px, 4vw, 52px);
+  }
+  .ul-hotspots__eyebrow {
+    color: var(--ul-brass);
+  }
+  .ul-hotspots--dark .ul-hotspots__eyebrow {
+    color: color-mix(in srgb, var(--ul-brass) 85%, white);
+  }
+  .ul-hotspots__heading {
+    font-family: var(--ul-font-display);
+    font-size: var(--ul-fs-h2);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin: 0;
+    text-wrap: balance;
+    max-width: 22ch;
+  }
+
+  /* Grid: 1 col mobile, 2 col desktop (1fr 1fr) */
+  .ul-hotspots__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(14px, 2.2vw, 28px);
+    margin-inline: auto;
+  }
+  @media (min-width: 750px) {
+    .ul-hotspots__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Content width modes (section stays full-bleed) */
+  .ul-hotspots__grid--full {
+    max-width: 100%;
+    padding-inline: clamp(10px, 1.4vw, 22px);
+  }
+  .ul-hotspots__grid--page {
+    max-width: var(--ul-maxw, 1320px);
+    padding-inline: var(--ul-pad-inline);
+  }
+  .ul-hotspots__grid--custom {
+    max-width: var(--ul-hs-maxw, 1100px);
+    padding-inline: var(--ul-pad-inline);
+  }
+
+  /* Tile */
+  .ul-hotspots__tile {
+    position: relative;
+    z-index: 1;
+  }
+  .ul-hotspots__tile:hover,
+  .ul-hotspots__tile:focus-within {
+    z-index: 5;
+  }
+  .ul-hotspots__tile:has(.ul-hotspots__hotspot.is-open) {
+    z-index: 5;
+  }
+
+  /* Media + frame (frame clips the image + zoom; hotspots overflow freely) */
+  .ul-hotspots__media {
+    position: relative;
+  }
+  .ul-hotspots--ratio-portrait .ul-hotspots__media {
+    aspect-ratio: 3 / 4;
+  }
+  .ul-hotspots--ratio-square .ul-hotspots__media {
+    aspect-ratio: 1 / 1;
+  }
+  .ul-hotspots--ratio-landscape .ul-hotspots__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .ul-hotspots__frame {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: var(--ul-radius);
+    background: rgb(var(--ul-espresso-rgb) / 0.05);
+  }
+  .ul-hotspots--ratio-original .ul-hotspots__media {
+    aspect-ratio: auto;
+  }
+  .ul-hotspots--ratio-original .ul-hotspots__frame {
+    position: relative;
+    inset: auto;
+  }
+
+  .ul-hotspots__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s var(--ul-ease);
+  }
+  .ul-hotspots--ratio-original .ul-hotspots__img {
+    height: auto;
+  }
+  @media (hover: hover) {
+    .ul-hotspots__tile:hover .ul-hotspots__img {
+      transform: scale(1.04);
+    }
+  }
+
+  /* Hotspot anchor */
+  .ul-hotspots__hotspot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+  }
+
+  /* Premium dot: glassy white disc, brass plus that morphs to × when open */
+  .ul-hotspots__dot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid rgb(var(--ul-brass-rgb) / 0.55);
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.92);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.22);
+    cursor: pointer;
+    transition: transform 0.4s var(--ul-ease), background-color 0.3s var(--ul-ease),
+      border-color 0.3s var(--ul-ease);
+  }
+  .ul-hotspots__dot::before,
+  .ul-hotspots__dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: var(--ul-brass);
+    border-radius: 2px;
+    transition: transform 0.4s var(--ul-ease), background-color 0.3s var(--ul-ease);
+  }
+  .ul-hotspots__dot::before {
+    width: 12px;
+    height: 1.6px;
+    transform: translate(-50%, -50%);
+  }
+  .ul-hotspots__dot::after {
+    width: 1.6px;
+    height: 12px;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Pulse halo */
+  .ul-hotspots__dot-pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .ul-hotspots__dot-pulse {
+      box-shadow: 0 0 0 0 rgb(var(--ul-brass-rgb) / 0.5);
+      animation: ul-hs-pulse 2.6s var(--ul-ease) infinite;
+    }
+  }
+  @keyframes ul-hs-pulse {
+    0% { box-shadow: 0 0 0 0 rgb(var(--ul-brass-rgb) / 0.45); }
+    70% { box-shadow: 0 0 0 16px rgb(var(--ul-brass-rgb) / 0); }
+    100% { box-shadow: 0 0 0 0 rgb(var(--ul-brass-rgb) / 0); }
+  }
+
+  /* Open / hover state: scale up, fill brass, plus -> × , stop pulsing */
+  .ul-hotspots__hotspot:focus-within .ul-hotspots__dot,
+  .ul-hotspots__hotspot.is-open .ul-hotspots__dot {
+    transform: scale(1.12);
+    background: var(--ul-brass);
+    border-color: var(--ul-brass);
+  }
+  .ul-hotspots__hotspot:focus-within .ul-hotspots__dot::before,
+  .ul-hotspots__hotspot:focus-within .ul-hotspots__dot::after,
+  .ul-hotspots__hotspot.is-open .ul-hotspots__dot::before,
+  .ul-hotspots__hotspot.is-open .ul-hotspots__dot::after {
+    background: #fff;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  .ul-hotspots__hotspot:focus-within .ul-hotspots__dot-pulse,
+  .ul-hotspots__hotspot.is-open .ul-hotspots__dot-pulse {
+    animation: none;
+  }
+  @media (hover: hover) {
+    .ul-hotspots__hotspot:hover .ul-hotspots__dot {
+      transform: scale(1.12);
+      background: var(--ul-brass);
+      border-color: var(--ul-brass);
+    }
+    .ul-hotspots__hotspot:hover .ul-hotspots__dot::before,
+    .ul-hotspots__hotspot:hover .ul-hotspots__dot::after {
+      background: #fff;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    .ul-hotspots__hotspot:hover .ul-hotspots__dot-pulse {
+      animation: none;
+    }
+  }
+
+  /* Popup: minimal card, product title + buy button */
+  .ul-hotspots__popup {
+    position: absolute;
+    left: 50%;
+    min-width: 178px;
+    max-width: 240px;
+    padding: 15px 16px;
+    background: #ffffff;
+    color: var(--ul-espresso);
+    border-radius: var(--ul-radius);
+    box-shadow: 0 14px 44px rgb(0 0 0 / 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 11px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.35s var(--ul-ease), transform 0.35s var(--ul-ease),
+      visibility 0s linear 0.35s;
+    z-index: 4;
+  }
+  /* caret */
+  .ul-hotspots__popup::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    border: 7px solid transparent;
+  }
+
+  /* position: above the dot (default) */
+  .ul-hotspots__hotspot--top .ul-hotspots__popup {
+    bottom: calc(100% + 14px);
+    transform: translate(-50%, 8px);
+  }
+  .ul-hotspots__hotspot--top .ul-hotspots__popup::after {
+    top: 100%;
+    transform: translateX(-50%);
+    border-top-color: #ffffff;
+  }
+  /* position: below the dot */
+  .ul-hotspots__hotspot--bottom .ul-hotspots__popup {
+    top: calc(100% + 14px);
+    transform: translate(-50%, -8px);
+  }
+  .ul-hotspots__hotspot--bottom .ul-hotspots__popup::after {
+    bottom: 100%;
+    transform: translateX(-50%);
+    border-bottom-color: #ffffff;
+  }
+
+  /* show popup */
+  .ul-hotspots__hotspot:focus-within .ul-hotspots__popup,
+  .ul-hotspots__hotspot.is-open .ul-hotspots__popup {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+    transition: opacity 0.35s var(--ul-ease), transform 0.35s var(--ul-ease);
+  }
+  @media (hover: hover) {
+    .ul-hotspots__hotspot:hover .ul-hotspots__popup {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translate(-50%, 0);
+      transition: opacity 0.35s var(--ul-ease), transform 0.35s var(--ul-ease);
+    }
+  }
+
+  .ul-hotspots__popup-title {
+    font-family: var(--ul-font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.32;
+    letter-spacing: 0.005em;
+  }
+  .ul-hotspots__buy {
+    display: inline-block;
+    background: var(--ul-brass);
+    color: #fff;
+    text-decoration: none;
+    padding: 9px 20px;
+    border-radius: var(--ul-radius);
+    font-family: var(--ul-font-body);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: background-color 0.3s var(--ul-ease), transform 0.3s var(--ul-ease);
+  }
+  .ul-hotspots__buy:hover {
+    background: color-mix(in srgb, var(--ul-brass) 84%, black);
+    transform: translateY(-1px);
+  }
+
+  .ul-hotspots__dot:focus-visible {
+    outline: 2px solid var(--ul-brass);
+    outline-offset: 3px;
+  }
+  .ul-hotspots__buy:focus-visible {
+    outline: 2px solid var(--ul-espresso);
+    outline-offset: 2px;
+  }
+
+  /* mobile padding scale */
+  @media (max-width: 749px) {
+    .ul-hotspots {
+      padding-block: max(40px, calc(var(--ul-hs-pt, 80px) * 0.6))
+        max(40px, calc(var(--ul-hs-pb, 80px) * 0.6));
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  (function () {
+    var root = document.querySelector('.ul-hotspots-{{ section.id }}');
+    if (!root) return;
+    var hotspots = root.querySelectorAll('.ul-hotspots__hotspot');
+    if (!hotspots.length) return;
+
+    function closeAll() {
+      hotspots.forEach(function (h) { h.classList.remove('is-open'); });
+      var a = document.activeElement;
+      if (a && a.classList && a.classList.contains('ul-hotspots__dot') && root.contains(a)) {
+        a.blur();
+      }
+    }
+
+    root.addEventListener('click', function (e) {
+      var dot = e.target.closest('.ul-hotspots__dot');
+      if (dot) {
+        e.preventDefault();
+        var hs = dot.closest('.ul-hotspots__hotspot');
+        var willOpen = !hs.classList.contains('is-open');
+        hotspots.forEach(function (h) { h.classList.remove('is-open'); });
+        if (willOpen) {
+          hs.classList.add('is-open');
+        } else {
+          dot.blur();
+        }
+        return;
+      }
+      if (!e.target.closest('.ul-hotspots__popup')) closeAll();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeAll();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "UL Hotspots",
+  "tag": "section",
+  "class": "ul-hotspots-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "header", "content": "Header (optional)" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "info": "The section is always full width. This controls the inner content.",
+      "options": [
+        { "value": "full", "label": "Full width" },
+        { "value": "page", "label": "Page width" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "page"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Custom content width",
+      "info": "Used only when Content width is set to Custom.",
+      "min": 600,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1100
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        { "value": "portrait", "label": "Portrait (3:4)" },
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "landscape", "label": "Landscape (4:3)" },
+        { "value": "original", "label": "Original" }
+      ],
+      "default": "portrait"
+    },
+
+    { "type": "header", "content": "Appearance" },
+    {
+      "type": "select",
+      "id": "color_mode",
+      "label": "Section background",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "bone", "label": "Bone (light)" },
+        { "value": "dark", "label": "Dark (espresso)" }
+      ],
+      "default": "white"
+    },
+    { "type": "text", "id": "buy_label", "label": "Button label", "default": "Buy now" },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Hotspot",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "image_alt", "label": "Image alt text (accessibility)" },
+        { "type": "product", "id": "product", "label": "Product", "info": "The dot links to this product's page and shows its title." },
+        { "type": "header", "content": "Dot position" },
+        { "type": "range", "id": "pos_x", "label": "Horizontal", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        { "type": "range", "id": "pos_y", "label": "Vertical", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        {
+          "type": "select",
+          "id": "popup_position",
+          "label": "Popup opens",
+          "options": [
+            { "value": "top", "label": "Above the dot" },
+            { "value": "bottom", "label": "Below the dot" }
+          ],
+          "default": "top"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UL Hotspots",
+      "settings": {
+        "content_width": "page",
+        "aspect_ratio": "portrait",
+        "color_mode": "white"
+      },
+      "blocks": [
+        { "type": "hotspot", "settings": { "pos_x": 38, "pos_y": 58, "popup_position": "top" } },
+        { "type": "hotspot", "settings": { "pos_x": 62, "pos_y": 46, "popup_position": "top" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
