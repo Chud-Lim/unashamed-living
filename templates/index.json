@@ -223,7 +223,7 @@
         "heading_1": {
           "type": "heading",
           "settings": {
-            "text": "Top picks"
+            "text": "Trending now"
           }
         },
         "button_1": {
@@ -241,8 +241,8 @@
         "button_1"
       ],
       "settings": {
-        "collection": "frontpage",
-        "product_limit": 8,
+        "collection": "women-apperal-copy",
+        "product_limit": 4,
         "columns_desktop": 4,
         "image_ratio": "portrait",
         "mobile_carousel": true,
