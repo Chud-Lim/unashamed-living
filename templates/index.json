@@ -432,12 +432,78 @@
         "padding_top": 96,
         "padding_bottom": 96
       }
+    },
+    "hotspots": {
+      "type": "ul-hotspots",
+      "blocks": {
+        "hs_1": {
+          "type": "hotspot",
+          "settings": {
+            "image": "shopify://shop_images/freepik__create-a-group-of-models-wearing-this-sweater-toge__64573.png",
+            "image_alt": "Models wearing Unashamed Living crewnecks",
+            "product": "the-gospel-simplicity-crew",
+            "pos_x": 44,
+            "pos_y": 56,
+            "popup_position": "top"
+          }
+        },
+        "hs_2": {
+          "type": "hotspot",
+          "settings": {
+            "image": "shopify://shop_images/freepik__img1-group-of-models-wearing-this-sweater-together__64584.jpg",
+            "image_alt": "Friends together in faith sweatshirts",
+            "product": "the-luminary-witness-top",
+            "pos_x": 57,
+            "pos_y": 49,
+            "popup_position": "top"
+          }
+        },
+        "hs_3": {
+          "type": "hotspot",
+          "settings": {
+            "image": "shopify://shop_images/freepik__img1-img2-img3-img4-create-smiling-models-wearing-__83748.png",
+            "image_alt": "Models smiling in faith apparel",
+            "product": "victorious-goodness-hoodie",
+            "pos_x": 50,
+            "pos_y": 58,
+            "popup_position": "top"
+          }
+        },
+        "hs_4": {
+          "type": "hotspot",
+          "settings": {
+            "image": "shopify://shop_images/freepik__img1-make-the-design-on-the-front-of-the-shirts-be__82995.png",
+            "image_alt": "Gospel tee worn boldly",
+            "product": "romans-1-16-unashamed-gospel-tee",
+            "pos_x": 49,
+            "pos_y": 40,
+            "popup_position": "bottom"
+          }
+        }
+      },
+      "block_order": [
+        "hs_1",
+        "hs_2",
+        "hs_3",
+        "hs_4"
+      ],
+      "settings": {
+        "eyebrow": "Shop the look",
+        "heading": "Wear the witness",
+        "content_width": "page",
+        "aspect_ratio": "portrait",
+        "color_mode": "white",
+        "buy_label": "Buy now",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
     "hero",
     "tiles",
     "featured",
+    "hotspots",
     "mission",
     "story",
     "jewelry",
