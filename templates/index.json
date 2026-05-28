@@ -113,6 +113,7 @@
             "label": "Accessories",
             "sublabel": "",
             "link": "shopify://collections/accessories",
+            "image": "shopify://shop_images/caps.webp",
             "image_alt": "",
             "collection": "accessories"
           }
