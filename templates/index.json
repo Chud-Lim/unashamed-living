@@ -91,6 +91,7 @@
             "label": "Women",
             "sublabel": "",
             "link": "shopify://collections/women",
+            "image": "shopify://shop_images/woman.webp",
             "image_alt": "",
             "collection": "women"
           }
