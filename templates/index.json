@@ -102,6 +102,7 @@
             "label": "Men",
             "sublabel": "",
             "link": "shopify://collections/women-apperal-copy",
+            "image": "shopify://shop_images/manintank.webp",
             "image_alt": "",
             "collection": "women-apperal-copy"
           }
@@ -118,6 +119,7 @@
         },
         "tile_3": {
           "type": "tile",
+          "disabled": true,
           "settings": {
             "label": "Home Decor",
             "sublabel": "",
@@ -136,7 +138,7 @@
         "tile_3"
       ],
       "settings": {
-        "columns_desktop": 4,
+        "columns_desktop": 3,
         "mobile_carousel": true,
         "content_width": "full",
         "content_max_width": 1200,
