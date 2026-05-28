@@ -85,17 +85,6 @@
             "text": "Find your everyday witness"
           }
         },
-        "tile_1": {
-          "type": "tile",
-          "settings": {
-            "label": "Women",
-            "sublabel": "",
-            "link": "shopify://collections/women",
-            "image": "shopify://shop_images/woman.webp",
-            "image_alt": "",
-            "collection": "women"
-          }
-        },
         "tile_BiPK84": {
           "type": "tile",
           "settings": {
@@ -105,6 +94,17 @@
             "image": "shopify://shop_images/manintank.webp",
             "image_alt": "",
             "collection": "women-apperal-copy"
+          }
+        },
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "label": "Women",
+            "sublabel": "",
+            "link": "shopify://collections/women",
+            "image": "shopify://shop_images/woman.webp",
+            "image_alt": "",
+            "collection": "women"
           }
         },
         "tile_2": {
@@ -133,8 +133,8 @@
       "block_order": [
         "eyebrow_1",
         "heading_1",
-        "tile_1",
         "tile_BiPK84",
+        "tile_1",
         "tile_2",
         "tile_3"
       ],
