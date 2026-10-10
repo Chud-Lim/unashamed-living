@@ -113,35 +113,10 @@
         "disabled": false,
         "settings": {}
       },
-      "14447995696390441228": {
-        "type": "shopify://apps/pineraffle/blocks/app-embed/a7355a0d-da3a-4b47-bff6-8f75b9cc8805",
+      "3138269044488530766": {
+        "type": "shopify://apps/uppromote-affiliate/blocks/core-script/64c32457-930d-4cb9-9641-e24c0d9cf1f4",
         "disabled": false,
-        "settings": {
-          "buttonTitle": "We're Having A Raffle! 🏆",
-          "showPrizeName": true,
-          "coverImageHeight": 100,
-          "prizeNameMessage": "Join to win: [prizeName]",
-          "Body": "Optional explanations for the prize",
-          "mainColor": "#11730A",
-          "secColor": "#FFCC4D",
-          "howToJoinOrderValueMessage": "Place an order of [orderAmount] or more to join",
-          "orderNoTicket": "left to join the raffle.",
-          "orderGotTicket": "This purchase will grant you a ticket to the raffle 😎",
-          "howToJoinProductMessage": "To enter the raffle, purchase any of the [participatingProductsLink]",
-          "participatingProductsWording": "eligible products",
-          "productNoTicket": "Based on your cart items, you won't get a raffle ticket.",
-          "productGotTicket": "This purchase will grant you a ticket to the raffle 😎",
-          "howToJoinEmailTypeRaffle": "Click 'ENTER NOW' below and enter your name and email for your chance to win.",
-          "showRaffleEndInfo": true,
-          "raffleEndDateMessage": "Raffle ends on [endDate]",
-          "raffleEndDateFormat": "%B %e, %Y",
-          "raffleEndTicketsMessage": "Raffle ends after the first [ticketsLimit] participants",
-          "raffleEndTextColor": "#000000",
-          "prizeInfoPopTitle": "Join for a chance to win [prizeDetail]",
-          "showPrizeInfoAdditionalPage": false,
-          "prizeInfoAdditionalPageInfoLink": "http://www.shopify.com",
-          "prizeInfoAdditionalPageInfoTitle": "Learn more"
-        }
+        "settings": {}
       }
     },
     "color_schemes": {
